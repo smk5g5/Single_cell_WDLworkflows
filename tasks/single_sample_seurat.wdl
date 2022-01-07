@@ -5,7 +5,6 @@ task run_seurat_singlesample{
   input {
     String docker_image
     String queue_name
-    String sel_mem
     Int mem_gb
     File seurat_singlesample_rscript
     String cellranger_outs_directory
@@ -20,7 +19,6 @@ task run_seurat_singlesample{
     docker : docker_image
     memory: mem_gb + " GB"
     queue: queue_name
-    resource: sel_mem
   }
 
   output {
