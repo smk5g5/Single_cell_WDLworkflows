@@ -1,3 +1,5 @@
+#!/usr/local/bin/Rscript
+
 plot_qc_metrics <- function(seurat_obj,filename,mt_pat="^MT-") {
 seurat_obj$log10GenesPerUMI <- log10(seurat_obj$nFeature_RNA) / log10(seurat_obj$nCount_RNA)
 seurat_obj$mitoRatio <- PercentageFeatureSet(object = seurat_obj, pattern = mt_pat)

@@ -12,7 +12,7 @@ task run_seurat_singlesample{
   }
 
    command <<<
-    R ~{seurat_singlesample_rscript} --no-save --args ~{cellranger_outs_directory} ~{Sample_name}
+    Rscript ~{seurat_singlesample_rscript} ~{cellranger_outs_directory} ~{Sample_name}
     >>>
 
   runtime {
