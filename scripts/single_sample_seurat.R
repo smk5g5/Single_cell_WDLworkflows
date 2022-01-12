@@ -159,12 +159,12 @@ scrna_GEX <- subset(x = scrna_GEX, subset = nFeature_RNA > 700 & nCount_RNA < Co
 
 plot_qc_metrics(seurat_obj=scrna_GEX,filename=sprintf("%s.Post_filtering_QC.%s.pdf",sample_name , date))
 
-png(sprintf("%s.VlnPlot.Filtered.nCount.25Kmax.control.png", sample_name, date), width = 10, height = 10, units="in", res=300)
+png(sprintf("%s.VlnPlot.Filtered.nCount.25Kmax.control.%s.png", sample_name, date), width = 10, height = 10, units="in", res=300)
 vln <- VlnPlot(object = scrna_GEX, features = "nCount_RNA", pt.size=0, group.by="Sample", y.max=25000)
 print(vln)
 dev.off();
 #
-png(sprintf("%s.VlnPlot.Filtered.nFeature.%s.control.png", sample_name, , date), width = 10, height = 10, units="in", res=300)
+png(sprintf("%s.VlnPlot.Filtered.nFeature.control.%s.png", sample_name,date), width = 10, height = 10, units="in", res=300)
 vln <- VlnPlot(object = scrna_GEX, features = "nFeature_RNA", pt.size=0, group.by="Sample")
 print(vln)
 dev.off()
