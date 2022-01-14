@@ -1,3 +1,5 @@
+#!/usr/local/bin/Rscript
+
 .libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(Seurat)
 library(ggplot2)
@@ -12,8 +14,8 @@ if(length(args) < 5) {
 
 Seurat_rds <- as.character(args[1])
 sample_name <- as.character(args[2])
-cluster.res =  as.character(args[3])
-nPC= as.character(args[4])
+cluster.res =  as.numeric(args[3])
+nPC= as.integer(args[4])
 CellCycleTirosh =  as.character(args[5])
 
 scrna_GEX <- readRDS(Seurat_rds)
@@ -227,8 +229,3 @@ dev.off();
 print("Saving...");
 # save everything up to here
 saveRDS(scrna_GEX, file = sprintf("%s.%s.SCT.PCA.UMAP.TSNE.CLUST.%s.rds", sample_name, control, date))
-
-
-
-
-
