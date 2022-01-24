@@ -28,9 +28,9 @@ task run_clustering_n_pca_simple{
   Array[File] output_pdfs = glob("*.pdf")
   Array[File] output_pngs = glob("*.png")
   Array[File] output_rds = glob("*.rds")
-  Array[File] output_jpgs = glob("*.jpg")  
+  Array[File] output_jpgs = glob("*.jpg")
+  Array[File] intermed_rds = glob("*.Cycling.SCT.PCA.UMAP.TSNE.CLUST.*.rds") 
   }
-
 }
 
 workflow Seurat_clustering_simple {
