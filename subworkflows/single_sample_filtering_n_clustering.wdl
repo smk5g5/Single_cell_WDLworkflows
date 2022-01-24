@@ -18,7 +18,7 @@ workflow filter_n_cluster{
 	call clus.run_clustering_n_pca_simple as clus_n_pca {
 		input:
 		Sample_name=Sample_name,
-		File rds_file_path=seurat_singlesample.intermed_rds
+		String rds_file_path=seurat_singlesample.intermed_rds
 	}
 
 	output {
