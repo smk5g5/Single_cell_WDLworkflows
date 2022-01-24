@@ -1,3 +1,5 @@
+version 1.0
+
 import "../tasks/clustering_n_pca_simple.wdl" as clus
 import "../tasks/single_sample_seurat.wdl" as single_filter
 
