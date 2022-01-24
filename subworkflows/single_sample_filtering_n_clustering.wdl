@@ -14,8 +14,8 @@ workflow filter_n_cluster{
 
     call single_filter.run_seurat_singlesample as seurat_singlesample { 
     	input:
-    	cellranger_outs_directory=cellranger_outs_directory
-    	Sample_name=Sample_name
+    	cellranger_outs_directory=cellranger_outs_directory,
+    	Sample_name=Sample_name,
     	seurat_singlesample_rscript=seurat_singlesample_rscript
     }
 
