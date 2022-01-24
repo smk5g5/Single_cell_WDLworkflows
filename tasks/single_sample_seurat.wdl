@@ -26,9 +26,8 @@ task run_seurat_singlesample{
   Array[File] output_pngs = glob("*.png")
   Array[File] output_rds = glob("*.rds")
   Array[File] output_jpgs = glob("*.jpg")
-  Array[File] intermed_rds = glob("*.MergedFilteredSeuratObject.*.rds") 
+  File intermed_rds = glob("*.MergedFilteredSeuratObject.*.rds") 
   }
-
 }
 
 workflow Seurat_single_sample {
