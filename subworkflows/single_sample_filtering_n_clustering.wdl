@@ -6,6 +6,7 @@ import "../tasks/single_sample_seurat.wdl" as single_filter
 
 workflow filter_n_cluster{
 
+	input {
 	String cellranger_outs_directory
 	String Sample_name
 	File seurat_singlesample_rscript
@@ -13,6 +14,7 @@ workflow filter_n_cluster{
 	String tirosh_file_path
 	Float clustering_res
 	Int nPC
+	}
 
 	call single_filter.run_seurat_singlesample as seurat_singlesample { 
 		input:
