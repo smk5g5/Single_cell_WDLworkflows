@@ -22,6 +22,6 @@ workflow filter_n_cluster{
 	}
 
 	output {
-	    File clust_rds = clus_n_pca.intermed_rds
+	    File clust_rds = select_first(clus_n_pca.intermed_rds)
 	}
 }
