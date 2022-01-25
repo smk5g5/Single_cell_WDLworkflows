@@ -18,10 +18,10 @@ workflow filter_n_cluster{
 	call clus.run_clustering_n_pca_simple as clus_n_pca {
 		input:
 		Sample_name=Sample_name,
-		rds_file_path=select_first(seurat_singlesample.intermed_rds)
+		rds_file_path=seurat_singlesample.intermed_rds
 	}
 
 	output {
-	    File clust_rds = select_first(clus_n_pca.intermed_rds)
+	    File clust_rds = clus_n_pca.intermed_rds
 	}
 }
