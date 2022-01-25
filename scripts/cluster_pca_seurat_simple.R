@@ -177,6 +177,8 @@ percent.ribo <- Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'cou
 
 scrna_GEX[['percent.ribo']] <- percent.ribo;
 
+feature.pal = rev(colorRampPalette(brewer.pal(11,"Spectral"))(50));
+
 print("Making additional UMAP plots");
 # color UMAP plots by parameters of interest:
 print ("color by UMI");
