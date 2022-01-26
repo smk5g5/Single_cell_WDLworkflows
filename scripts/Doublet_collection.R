@@ -11,7 +11,7 @@ library(Matrix)
 library(data.table)
 # koetjen/rstudio:seurat
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 3) {
+if(length(args) < 2) {
   args <- c("--help")
 }
 
