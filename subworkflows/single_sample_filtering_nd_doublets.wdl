@@ -23,7 +23,6 @@ workflow filter_n_doublets{
 
 	call add_doubinfo.add_doublets_metadata as add_in {
 		input:
-		Sample_name=Sample_name,
 		doublet_file=dc.doublet_results,
 		input_rds_file=seurat_singlesample.intermed_rds,
 		output_rds_file=sub(seurat_singlesample.intermed_rds, "\\.rds", ".doublets.rds")
