@@ -24,12 +24,12 @@ workflow filter_n_doublets{
 	call add_doubinfo.run_doublet_collection as add_in {
 		input:
 		Sample_name=Sample_name
-		doublet_file= dc.doublet_results
-		input_rds_file= seurat_singlesample.intermed_rds
-		output_rds_file= sub(seurat_singlesample.intermed_rds, "\\.rds", ".doublets.rds")
+		doublet_file=dc.doublet_results
+		input_rds_file=seurat_singlesample.intermed_rds
+		output_rds_file=sub(seurat_singlesample.intermed_rds, "\\.rds", ".doublets.rds")
 	}
 
 	output {
-	    File clust_rds = add_in.seurat_doublet_rds
+	    File clust_rds=add_in.seurat_doublet_rds
 	}
 }
