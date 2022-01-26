@@ -21,7 +21,8 @@ sample_name <- as.character(args[2])
 # /storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B183_1/outs/raw_feature_bc_matrix/barcodes.tsv.gz
 # Seurat_10x_directory='/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B183_1/outs/filtered_feature_bc_matrix'
 # dt = fread("/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B183_1/outs/raw_feature_bc_matrix/barcodes.tsv.gz")
-
+print('input Seurat_10x_directory')
+print(Seurat_10x_directory)
 # dt = fread(raw_barcodes,header=F)
 # raw_cell_count <- length(dt$V1)
 
