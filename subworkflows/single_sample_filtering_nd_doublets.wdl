@@ -21,7 +21,7 @@ workflow filter_n_doublets{
 		Sample_name=Sample_name
 	}
 
-	call add_doubinfo.run_doublet_collection as add_in {
+	call add_doubinfo.add_doublets_metadata as add_in {
 		input:
 		Sample_name=Sample_name,
 		doublet_file=dc.doublet_results,
