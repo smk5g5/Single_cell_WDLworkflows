@@ -18,7 +18,9 @@ workflow filter_n_doublets{
 	call single_filter.run_seurat_singlesample as seurat_singlesample { 
 		input:
 		Sample_name=Sample_name,
-		cellranger_outs_directory=cellranger_outs_directory
+		cellranger_outs_directory=cellranger_outs_directory,
+		docker_image=docker_image,
+		mem_gb=mem_gb,
 		queue_name=queue_name
 	}
 
@@ -28,7 +30,7 @@ workflow filter_n_doublets{
 		cellranger_outs_directory=cellranger_outs_directory,
 		docker_image=docker_image,
 		mem_gb=mem_gb,
-		queue_name=queue_name,
+		queue_name=queue_name
 	}
 
 	call add_doubinfo.add_doublets_metadata as add_in {
