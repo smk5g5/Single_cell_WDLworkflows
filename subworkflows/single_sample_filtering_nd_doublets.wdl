@@ -19,6 +19,7 @@ workflow filter_n_doublets{
 		input:
 		Sample_name=Sample_name,
 		cellranger_outs_directory=cellranger_outs_directory
+		queue_name=queue_name
 	}
 
 	call doublet_calling.run_doublet_collection as dc {
