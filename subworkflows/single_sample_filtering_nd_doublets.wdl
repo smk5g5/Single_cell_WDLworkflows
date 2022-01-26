@@ -18,12 +18,19 @@ workflow filter_n_doublets{
 
 	call doublet_calling.run_doublet_collection as dc {
 		input:
-		Sample_name=Sample_name
+		Sample_name=Sample_name,
+		cellranger_outs_directory=seurat_singlesample.cellranger_outs_directory,
+		docker_image=seurat_singlesample.docker_image,
+		mem_gb=seurat_singlesample.mem_gb,
+		queue_name=seurat_singlesample.queue_name,
 	}
 
 	call add_doubinfo.add_doublets_metadata as add_in {
 		input:
 		doublet_file=dc.doublet_results,
+		docker_image=seurat_singlesample.docker_image,
+		mem_gb=seurat_singlesample.mem_gb,
+		queue_name=seurat_singlesample.queue_name,
 		input_rds_file=seurat_singlesample.intermed_rds,
 		output_rds_file=sub(seurat_singlesample.intermed_rds, "\\.rds", ".doublets.rds")
 	}
