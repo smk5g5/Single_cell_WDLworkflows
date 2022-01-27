@@ -31,8 +31,7 @@ task run_singleR_scsorter {
   }
 }
 
-workflow Seurat_single_sample {
+workflow SingleR_scsorter {
 
-  call run_seurat_singlesample
+  call run_singleR_scsorter
 }
-
