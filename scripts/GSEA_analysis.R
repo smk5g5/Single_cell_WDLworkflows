@@ -44,6 +44,9 @@ gsea_merged_results <- simplify(merge_result(gse_list_byclus_simp))
 write.table(gsea_merged_results@compareClusterResult, file = 'Clusterwide_GSEA_GOBP.txt',
             row.names = F,sep = "\t",quote = F) 
 
+#enrichment of msigdb terms
+#function takes three arguments x is the gene list cat is the category of msigdb and 
+#sp is the species e.g. "Homo sapiens"
 
 msigdb_enrichment <- function(x,cat,sp){
   if(cat=="C5"){

@@ -1,0 +1,29 @@
+References:
+    - brain_im_atl:
+        file: /storage1/fs1/allegra.petti/Active/SingleCellRepository/Brain_immune_atlas/Human_GBM_fullaggregate/sce_obj_HumanNewlyDiagnGBM.jan2022.rds
+        prefix: br_imm_atl
+    - stab:
+        file: /storage1/fs1/allegra.petti/Active/SingleCellRepository/stab_aggr_ref.rds
+        prefix: stb
+    - neftel_ss2:
+        file: /storage1/fs1/allegra.petti/Active/SingleCellRepository/sce_neftelss2aggr.rds
+        prefix: nefss2
+    - neftel_10x:
+        file: /storage1/fs1/allegra.petti/Active/SingleCellRepository/sce_neftel10xaggr.rds
+        prefix: nef10x
+#quantile_value that should be given for selecting cells with PTPRC gene expression > nth percentile (here 75th) of PTPRC expression
+#max_median if true select will assign a particular cluster as immune cluster if maximum of cluster fraction of cells that are PTPRC+ve is greater than the maximum if median and mean of all cluster fractions.
+#kmeans_1d instead of selecting max(median,mean) of cluster fraction this will do univariate k-means clustering with k=2 and assign the clusters as immune or non-immune accordingly
+Subset_celltype: Immune
+Immune_Cell_Selection:
+    - Gene_Name: PTPRC
+    - kmeans_1d: TRUE
+#Reference names in Immune_reference_names and NonImmune_reference_names should be the same as prefix above
+Immune_reference_names:
+    - br_imm_atl
+    - stb
+NonImmune_reference_names:
+    - nefss2
+    - nef10x
+    - stb
+Merge_Neftel_refs: TRUE

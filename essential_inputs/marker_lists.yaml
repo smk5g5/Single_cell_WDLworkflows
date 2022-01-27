@@ -1,0 +1,9 @@
+scsorter_marker_list:
+    - file: /storage1/fs1/allegra.petti/Active/SingleCellRepository/Neftel/neftel_gbmsig.rds
+    - select_names:
+        - AC
+        - MES1
+        - MES2
+        - NPC1
+        - NPC2
+        - OPC
