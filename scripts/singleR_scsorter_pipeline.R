@@ -170,7 +170,7 @@ Idents(seurat_obj) <- Cluster_meta_name
 
 jpeg(filename=sprintf("%s_cd45pos_clusters.jpg", sample_name), units="cm", res=300, height=11, width=14);
 cd45pos_clus <- DimPlot(seurat_obj, cells.highlight= Cells(subset(seurat_obj,idents=sel_clus)), cols.highlight = 'red',cols="grey88",sizes.highlight=0.1,order=T,label=T,label.size=5,raster=F)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())+ggtitle('CD45+ve clusters') 
-print(cd45pos)
+print(cd45pos_clus)
 dev.off()
 
 jpeg(filename=sprintf("%s_cd45neg_clusters.jpg", sample_name), units="cm", res=300, height=11, width=14);
