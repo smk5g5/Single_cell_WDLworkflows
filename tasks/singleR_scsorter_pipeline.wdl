@@ -27,7 +27,6 @@ task run_singleR_scsorter {
   output {
   Array[File] output_rds = glob("*.rds")
   Array[File] output_jpgs = glob("*.jpg")
-  File intermed_rds = glob("*.MergedFilteredSeuratObject.*.rds")[0] 
   }
 }
 
