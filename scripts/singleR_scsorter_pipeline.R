@@ -39,7 +39,7 @@ Seurat_rds <- as.character(args[1])
 sample_name <- as.character(args[2])
 cluster.res =  as.numeric(args[3])
 nPC= as.integer(args[4])
-yaml_file =  as.character(args[5])
+yaml_input =  as.character(args[5])
 
 get_all_references <- function(yaml_obj){
   #test[['References']][[1]][['brain_im_atl']][['prefix']]
@@ -212,5 +212,3 @@ singleR_nonimmune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_nonim
                                 labels = make_singleR_labels(nonimmune_ref_list),BPPARAM=MulticoreParam())
 
 saveRDS(object=singleR_nonimmune_res,file=sprintf("%s_singleR_nonimmune_res.rds", sample_name))
-
-
