@@ -24,7 +24,7 @@ options(future.globals.maxSize = 16000 * 1024^3)
 args = commandArgs(trailingOnly=TRUE);
 print (length(args))
 
-if(length(args) != 3)
+if(length(args) != 4)
 {
   stop("\n adequate number of arguments not given \n")
 }
