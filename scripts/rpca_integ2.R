@@ -39,18 +39,18 @@ seurat_obj <- readRDS(rds_file)
 date = gsub("2021-","21",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
-#debugging mode
-print('#####rds_file####')
-print(rds_file)
+# #debugging mode
+# print('#####rds_file####')
+# print(rds_file)
 
-print('#####prefix####')
-print(prefix)
+# print('#####prefix####')
+# print(prefix)
 
-print('#####subset_col####')
-print(subset_col)
+# print('#####subset_col####')
+# print(subset_col)
 
-print('#####subset_sel####')
-print(subset_sel)
+# print('#####subset_sel####')
+# print(subset_sel)
 
 print('#####BEFORE SUBSETTING SEURAT OBJECT####')
 print(seurat_obj)
@@ -59,9 +59,6 @@ print(seurat_obj)
 DefaultAssay(seurat_obj) <- 'RNA'
 
 if(subset_col!='NA'){
-old_idents <- seurat_obj@active.ident
-#new ident 
-#idents = "B cells"
 Idents(seurat_obj) <- subset_col
 seurat_obj <- subset(seurat_obj,idents=subset_sel)
 }
@@ -120,16 +117,16 @@ combined <- RunUMAP(combined, reduction = "pca", dims = 1:30)
 combined <- FindNeighbors(combined, reduction = "pca", dims = 1:30)
 combined <- FindClusters(combined, resolution = c(0.5, 0.7, 0.9))
 
-merge.tech <- DimPlot(combined, label = T, group.by = "technique", raster = F)
-merge.samp <- DimPlot(combined, label = T, group.by = "orig.ident", raster = F)
+# merge.tech <- DimPlot(combined, label = T, group.by = "technique", raster = F)
+# merge.samp <- DimPlot(combined, label = T, group.by = "orig.ident", raster = F)
 
-jpeg(filename = paste0("umap_technique_merged_rpca-integ",prefix,"_cells.jpg"),height = 5,width = 5,res = 300,units = "in")
-print(merge.tech)
-dev.off()
+# jpeg(filename = paste0("umap_technique_merged_rpca-integ",prefix,"_cells.jpg"),height = 5,width = 5,res = 300,units = "in")
+# print(merge.tech)
+# dev.off()
 
-jpeg(filename = paste0("umap_samples_merged_rpca-integ",prefix,"_cells.jpg"),height = 5, width = 5,res = 300,units = "in")
-print(merge.samp)
-dev.off()
+# jpeg(filename = paste0("umap_samples_merged_rpca-integ",prefix,"_cells.jpg"),height = 5, width = 5,res = 300,units = "in")
+# print(merge.samp)
+# dev.off()
 
 return(combined)
 }
@@ -153,12 +150,12 @@ sel_sig_colors <- sample(col_vector,length(sort(unique(Idents(integ_obj)))))
 names(sel_sig_colors) <- sort(unique(Idents(integ_obj)))
 
 jpeg(sprintf("%s.integrated_snn_res.0.5.labeled.%s.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.05,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.1,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
 jpeg(sprintf("%s.integrated_snn_res.0.5.%s.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.05)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.1)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
@@ -169,14 +166,14 @@ sel_sig_colors <- sample(col_vector,length(sort(unique(Idents(integ_obj)))))
 names(sel_sig_colors) <- sort(unique(Idents(integ_obj)))
 
 jpeg(sprintf("%s.orig.ident.%s.labeled.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'orig.ident', cols = sel_sig_colors, pt.size=0.05,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'orig.ident', cols = sel_sig_colors, pt.size=0.1,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
 jpeg(sprintf("%s.orig.ident.%s.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'orig.ident', cols = sel_sig_colors, pt.size=0.05)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'orig.ident', cols = sel_sig_colors, pt.size=0.1)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
 
-saveRDS(integ_obj,file=sprintf("%s_rpca.date.rds", prefix, date))
+saveRDS(integ_obj,file=sprintf("%s_rpca.%s.rds", prefix, date))
