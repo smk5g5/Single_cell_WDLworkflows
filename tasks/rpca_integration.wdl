@@ -24,7 +24,7 @@ task run_rpca_integration{
   }
 
   output {
-  Array[File] output_jpgs = glob("*.pdf")
+  Array[File] output_jpgs = glob("*.jpg")
   Array[File] output_rds = glob("*.rds")
   Array[File] output_txts = glob("*.txt")
   }
