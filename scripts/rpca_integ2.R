@@ -36,6 +36,9 @@ subset_sel <- args[4]
 
 seurat_obj <- readRDS(rds_file)
 
+date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
+
 #debugging mode
 print('#####rds_file####')
 print(rds_file)
