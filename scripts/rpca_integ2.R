@@ -36,6 +36,23 @@ subset_sel <- args[4]
 
 seurat_obj <- readRDS(rds_file)
 
+#debugging mode
+print('#####rds_file####')
+print(rds_file)
+
+print('#####prefix####')
+print(prefix)
+
+print('#####subset_col####')
+print(subset_col)
+
+print('#####subset_sel####')
+print(subset_sel)
+
+print('#####BEFORE SUBSETTING SEURAT OBJECT####')
+print(seurat_obj)
+
+
 if(subset_col!='NA'){
 old_idents <- seurat_obj@active.ident
 #new ident 
@@ -43,6 +60,10 @@ old_idents <- seurat_obj@active.ident
 Idents(seurat_obj) <- subset_col
 seurat_obj <- subset(seurat_obj,idents=subset_sel)
 }
+
+
+print('#####AFTER SUBSETTING SEURAT OBJECT####')
+print(seurat_obj)
 
 
 rpca_integration <- function(seurat_obj,prefix) {
