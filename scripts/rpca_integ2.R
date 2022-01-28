@@ -137,7 +137,7 @@ DefaultAssay(integ_obj) <- "RNA"
 
 Idents(integ_obj) <- 'integrated_snn_res.0.5'
 
-DEGs <- FindAllMarkers(object=scrna_GEX,only.pos = T);
+DEGs <- FindAllMarkers(object=integ_obj,only.pos = T);
 
 write.table(DEGs, file=sprintf("DEGs.Wilcox.%s.integrated_snn_res.0.5.%s.txt", prefix, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
 
