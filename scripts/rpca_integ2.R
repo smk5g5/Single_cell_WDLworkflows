@@ -53,6 +53,8 @@ print('#####BEFORE SUBSETTING SEURAT OBJECT####')
 print(seurat_obj)
 
 
+DefaultAssay(seurat_obj) <- 'RNA'
+
 if(subset_col!='NA'){
 old_idents <- seurat_obj@active.ident
 #new ident 
@@ -64,6 +66,11 @@ seurat_obj <- subset(seurat_obj,idents=subset_sel)
 
 print('#####AFTER SUBSETTING SEURAT OBJECT####')
 print(seurat_obj)
+
+print('#####Default assay####')
+print(DefaultAssay(seurat_obj))
+
+
 
 
 rpca_integration <- function(seurat_obj,prefix) {
