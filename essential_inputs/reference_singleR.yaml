@@ -27,3 +27,5 @@ NonImmune_reference_names:
     - nef10x
     - stb
 Merge_Neftel_refs: TRUE
+Malignant_prefix: nef
+
