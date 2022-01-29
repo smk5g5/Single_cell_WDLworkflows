@@ -139,7 +139,7 @@ Idents(integ_obj) <- 'integrated_snn_res.0.5'
 
 DEGs <- FindAllMarkers(object=integ_obj,only.pos = T);
 
-write.table(DEGs, file=sprintf("DEGs.Wilcox.%s.integrated_snn_res.0.5.%s.txt", prefix, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
+write.table(DEGs, file=sprintf("DEGs.Wilcox.%s.integrated_snn_res.0.5_onlypos.%s.txt", prefix, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
 
 qual_cols = brewer.pal.info[brewer.pal.info$category == "qual", ]
 qual_cols <- qual_cols[qual_cols$colorblind==T,]
