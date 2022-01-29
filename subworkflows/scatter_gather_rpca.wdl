@@ -17,10 +17,10 @@ workflow filter_n_cluster{
 	scatter (sample in inputSamples) {
 		call rpca.run_rpca_integration as run_rpca {
 			input:
-			    docker_image=docker_image
-    			queue_name=queue_name
-    			mem_gb=mem_gb
-    			seurat_rpca_rscript=seurat_rpca_rscript
+			    docker_image=docker_image,
+    			queue_name=queue_name,
+    			mem_gb=mem_gb,
+    			seurat_rpca_rscript=seurat_rpca_rscript,
     			Seurat_rds=sample[1],
     			output_prefix=sample[0],
     			subset_column=sample[2],
