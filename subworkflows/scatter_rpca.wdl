@@ -3,7 +3,7 @@ version 1.0
 import "../tasks/rpca_integration.wdl" as rpca
 
 
-workflow filter_n_cluster{
+workflow scatter_rpca{
 
 	input {
 	String docker_image
