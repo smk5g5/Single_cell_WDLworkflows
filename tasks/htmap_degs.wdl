@@ -10,10 +10,11 @@ task make_heatmap_DEGs{
     String Seurat_rds
     String output_prefix
     String DEG_file
+    String clustering
   }
 
    command <<<
-    Rscript ~{htmap_rscript} ~{Seurat_rds} ~{DEG_file} ~{output_prefix}
+    Rscript ~{htmap_rscript} ~{Seurat_rds} ~{DEG_file} ~{output_prefix} ~{clustering}
     >>>
 
   runtime {

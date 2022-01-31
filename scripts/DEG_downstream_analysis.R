@@ -17,7 +17,7 @@ if(length(args) < 3) {
 Seurat_file <- as.character(args[1])
 DEG_file <- as.character(args[2])
 prefix <- as.character(args[3])
-
+clustering <- as.character(args[4])
 
 seurat_object <- readRDS(Seurat_file)
 
@@ -89,7 +89,7 @@ hm <- DoHeatmap(mini, features=doheatmap_roworder_genes, slot="data", disp.min=-
 print(hm);
 dev.off();
 
-saveRDS(list(phtmap=myhtmp_phtmp,roword=doheatmap_roworder_genes,col_ord=doheatmap_col_ordr),file=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.rds",prefix,clustering,date))
+saveRDS(list(phtmap=myhtmp_phtmp,roword=doheatmap_roworder_genes,col_ord=doheatmap_col_ordr,doheatmap=hm),file=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.rds",prefix,clustering,date))
 }
 
 
