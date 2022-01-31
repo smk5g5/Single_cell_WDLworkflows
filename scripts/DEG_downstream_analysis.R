@@ -14,6 +14,9 @@ library(ComplexHeatmap)
 library(circlize)
 library(tidyverse)
 library(dplyr)
+library(clusterProfiler)
+library(org.Hs.eg.db)
+
 
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 3) {
@@ -140,7 +143,7 @@ for(i in unique(top25_DEGs_sig$cluster)){
 
 compcluster_out <- compareCluster(geneCluster = DEG_marks_list,OrgDb = org.Hs.eg.db, keyType="SYMBOL", fun='enrichGO',ont="BP")
 
-jpeg(sprintf("%s.enrichment_summary_BP_top25DEGs_%s_showtopCategory.%s.jpg",prefix,cluster,date), width = 15, height = 30, units="cm", res=600);
+jpeg(sprintf("%s.enrichment_summary_BP_top25DEGs_%s_showtopCategory.%s.jpg",prefix,cluster,date), width = 15, height = 20, units="cm", res=600);
 dotplot(compcluster_out) + theme(axis.text.x = element_text(angle = 90))
 dev.off()
 
@@ -150,5 +153,23 @@ dotplot(compcluster_out,showCategory=50) + theme(axis.text.x = element_text(angl
 dev.off()
 
 
+cell_marker_data <- vroom::vroom('http://bio-bigdata.hrbmu.edu.cn/CellMarker/download/Human_cell_markers.txt')
+
+## instead of `cellName`, users can use other features (e.g. `cancerType`)
+cells <- cell_marker_data %>%
+    dplyr::select(cellName, geneSymbol) %>%
+    dplyr::mutate(geneSymbol = strsplit(geneSymbol, ', ')) %>%
+    tidyr::unnest(cols = c(geneSymbol))
+
+
+celltype_enrichment_list <-  lapply(DEG_marks_list,enricher,TERM2GENE = cells)
+
+celltype_enrichment_merged=merge_result(celltype_enrichment_list)
+
+jpeg(sprintf("%s.celltype_enrichment_top25DEGs_%s.%s.jpg",prefix,cluster,date), width = 15, height = 20, units="cm", res=600);
+dotplot(celltype_enrichment_merged) + theme(axis.text.x = element_text(angle = 90))
+dev.off()
+
+saveRDS(list(celltype_enrichment=celltype_enrichment,BP_enrichment=compcluster_out),file=sprintf("%s_RNAassay.%s.enrichment_compclus_celltype.%s.rds",prefix,clustering,date))
 
 
