@@ -1,0 +1,15 @@
+{
+  "filter_n_cluster.seurat_singlesample.queue_name": "general",
+  "filter_n_cluster.clus_n_pca.clustering_res": "0.5",
+  "filter_n_cluster.seurat_singlesample.mem_gb": "128",
+  "filter_n_cluster.clus_n_pca.docker_image": "koetjen/rstudio:seurat",
+  "filter_n_cluster.seurat_singlesample.seurat_singlesample_rscript": "./scripts/single_sample_seurat.R",
+  "filter_n_cluster.clus_n_pca.tirosh_file_path": "/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt",
+  "filter_n_cluster.seurat_singlesample.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/GBM/KimCollab2019/scrna/SAMPLES/GBM1_total_3p_GEX_CR3/outs/filtered_feature_bc_matrix",
+  "filter_n_cluster.clus_n_pca.mem_gb": "128",
+  "filter_n_cluster.seurat_singlesample.docker_image": "koetjen/rstudio:seurat",
+  "filter_n_cluster.clus_n_pca.clustering_script": "./scripts/cluster_pca_seurat_simple.R",
+  "filter_n_cluster.clus_n_pca.nPC": "30",
+  "filter_n_cluster.Sample_name": "B148",
+  "filter_n_cluster.clus_n_pca.queue_name": "general"
+}

@@ -1,7 +1,5 @@
-.libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(Seurat)
 library(ggplot2)
-library(DoubletCollection)
 library(stringr)
 library(ComplexHeatmap)
 library(circlize)
@@ -122,8 +120,8 @@ DEGs_sig <- DEGs[DEGs$p_val_adj <= 0.05,]
 
 top25_DEGs_sig <- DEGs_sig %>%
   group_by(cluster) %>%
-  arrange(desc(avg_log2FC)) %>%
-  slice(1:25)
+  arrange(desc(avg_log2FC))%>% 
+  dplyr::slice(1:25)
 
 
 make_heatmap_compdo(seurat_object = seurat_object,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),date=date,prefix=prefix)
@@ -154,15 +152,15 @@ cells <- cell_marker_data %>%
     dplyr::mutate(geneSymbol = strsplit(geneSymbol, ', ')) %>%
     tidyr::unnest(cols = c(geneSymbol))
 
-
-celltype_enrichment_list <-  lapply(DEG_marks_list,enricher,TERM2GENE = cells)
-
-celltype_enrichment_merged=merge_result(celltype_enrichment_list)
-
 jpeg(sprintf("%s.celltype_enrichment_top25DEGs_%s.%s.jpg",prefix,cluster,date), width = 15, height = 20, units="cm", res=600);
 dotplot(celltype_enrichment_merged) + theme(axis.text.x = element_text(angle = 90))
 dev.off()
 
+celltype_enrichment_list <-  lapply(DEG_marks_list,enricher,TERM2GENE = cells)
 saveRDS(list(celltype_enrichment=celltype_enrichment,BP_enrichment=compcluster_out),file=sprintf("%s_RNAassay.%s.enrichment_compclus_celltype.%s.rds",prefix,clustering,date))
 
+
+jpeg("celltype_enrichment_top25DEGs_schwann_scrnaonly.jpg", width = 25, height = 30, units="cm", res=600);
+dotplot(scrna_celltype_enrichment_merged) + theme(axis.text.x = element_text(angle = 90))
+dev.off()
 

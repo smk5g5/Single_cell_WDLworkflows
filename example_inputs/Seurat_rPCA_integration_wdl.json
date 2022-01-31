@@ -1,0 +1,11 @@
+{
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column_selection": "NA",
+  "Seurat_rPCA_integration.run_rpca_integration.seurat_rpca_rscript": "./scripts/rpca_integ2.R",
+  "Seurat_rPCA_integration.run_rpca_integration.mem_gb": "128",
+  "Seurat_rPCA_integration.run_rpca_integration.queue_name": "general",
+  "Seurat_rPCA_integration.run_rpca_integration.output_prefix": "T_NK_subcluster_scRNA_only",
+  "Seurat_rPCA_integration.run_rpca_integration.Seurat_rds": "/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/scrna_only/T_nk_scrna_mod.RDS", 
+  "Seurat_rPCA_integration.run_rpca_integration.docker_image": "koetjen/rstudio:seurat",
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column": "NA"
+}
+

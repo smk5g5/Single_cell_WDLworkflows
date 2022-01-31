@@ -1,0 +1,12 @@
+{
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.Sample_name": "B148",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.clustering_script": "./scripts/cluster_pca_seurat_simple.R",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.docker_image": "koetjen/rstudio:seurat",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.mem_gb": "128",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.clustering_res": "0.5",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.queue_name": "general",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.tirosh_file_path": "/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.rds_file_path": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_single_sample/04b5857b-e769-4b63-95c9-734067908c6c/call-run_seurat_singlesample/execution/B148.MergedFilteredSeuratObject.20220112.rds",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.nPC": "30"
+}
+

@@ -1,0 +1,8 @@
+{
+  "Seurat_single_sample.run_seurat_singlesample.docker_image": "koetjen/rstudio:seurat",
+  "Seurat_single_sample.run_seurat_singlesample.mem_gb": "128",
+  "Seurat_single_sample.run_seurat_singlesample.Sample_name": "B148",
+  "Seurat_single_sample.run_seurat_singlesample.seurat_singlesample_rscript": "./scripts/single_sample_seurat.R",
+  "Seurat_single_sample.run_seurat_singlesample.queue_name": "general",
+  "Seurat_single_sample.run_seurat_singlesample.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/GBM/KimCollab2019/scrna/SAMPLES/GBM1_total_3p_GEX_CR3/outs/filtered_feature_bc_matrix"
+}

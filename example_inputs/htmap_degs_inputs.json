@@ -1,0 +1,10 @@
+{
+  "DEGs_downstream.make_heatmap_DEGs.queue_name": "general",
+  "DEGs_downstream.make_heatmap_DEGs.Seurat_rds": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_rpca/d72c35a7-fd2c-4b4a-bc42-8c76dd76bca2/call-run_rpca/shard-4/execution/T_NK_subcluster_snRNA_only_rpca.20220129.rds",
+  "DEGs_downstream.make_heatmap_DEGs.output_prefix": "T_NK_subcluster_snRNA_only",
+  "DEGs_downstream.make_heatmap_DEGs.docker_image": "smk5g5/seurat_4.1.0:clusterprofiler_htmap",
+  "DEGs_downstream.make_heatmap_DEGs.htmap_rscript": "./scripts/DEG_downstream_analysis.R",
+  "DEGs_downstream.make_heatmap_DEGs.DEG_file": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_rpca/d72c35a7-fd2c-4b4a-bc42-8c76dd76bca2/call-run_rpca/shard-4/execution/DEGs.Wilcox.T_NK_subcluster_snRNA_only.integrated_snn_res.0.5_onlypos.20220129.txt",
+  "DEGs_downstream.make_heatmap_DEGs.mem_gb": "64"
+}
+

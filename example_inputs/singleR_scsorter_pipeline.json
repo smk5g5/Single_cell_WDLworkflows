@@ -1,0 +1,12 @@
+{
+  "SingleR_scsorter.run_singleR_scsorter.Sample_name": "B148",
+  "SingleR_scsorter.run_singleR_scsorter.mem_gb": "128",
+  "SingleR_scsorter.run_singleR_scsorter.queue_name": "general",
+  "SingleR_scsorter.run_singleR_scsorter.singleR_scsorter_rscript": "./scripts/singleR_scsorter_pipeline.R",
+  "SingleR_scsorter.run_singleR_scsorter.rds_file_path": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds",
+  "SingleR_scsorter.run_singleR_scsorter.docker_image": "koetjen/rstudio:seurat",
+  "SingleR_scsorter.run_singleR_scsorter.clustering_res": "0.5",
+  "SingleR_scsorter.run_singleR_scsorter.singleR_yaml": "/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/reference_singleR.yaml",
+  "SingleR_scsorter.run_singleR_scsorter.nPC": "30"
+}
+
