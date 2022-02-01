@@ -65,7 +65,7 @@ my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
 
 myhtmp_phtmp <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = T,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
                                           border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
-                                          width = ncol(clust.means.norm)*unit(10, "mm"), height = nrow(clust.means.norm)*unit(5, "mm"))
+                                          cellwidth = ncol(clust.means.norm)*unit(10, "mm"), cellheight = nrow(clust.means.norm)*unit(5, "mm"))
 
 fig_ht <- nrow(clust.means.norm)*unit(6, "mm")
 fig_wd <- 2 * ncol(clust.means.norm)*unit(13, "mm")
@@ -82,8 +82,7 @@ gene_annots = rowAnnotation(selgenes = anno_mark(at = gene_indices, labels = ann
 
 myhtmp_phtmp_anno <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = F,right_annotation = gene_annots,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
                                           border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
-                                          width = ncol(clust.means.norm)*unit(10, "mm"), height = nrow(clust.means.norm)*unit(5, "mm"))
-
+                                          cellwidth = ncol(clust.means.norm)*unit(10, "mm"), cellheight = nrow(clust.means.norm)*unit(5, "mm"))
 
 heatmap_plot = draw(myhtmp_phtmp_anno,legend_title_gp = gpar(fontsize = 10, fontface = "bold"),legend_grid_width = unit(1, "cm"), legend_grid_height = unit(1, "cm"))
 png(filename = sprintf("%s_RNAassay.%s.aggregatedhtmap_top5DEGpercluster_annot.%s.png",prefix,clustering,date),
