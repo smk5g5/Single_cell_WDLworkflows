@@ -95,7 +95,7 @@ dev.off()
 
 
 doheatmap_roworder_genes <- rownames(clust.means.norm)[unname(unlist(row_order(heatmap_plot)))]
-doheatmap_col_ordr <- colnames(myscaled_htmapdata)[column_order(heatmap_plot)]
+doheatmap_col_ordr <- colnames(clust.means.norm)[column_order(heatmap_plot)]
 
 
 levels(seurat_object) <- doheatmap_col_ordr
