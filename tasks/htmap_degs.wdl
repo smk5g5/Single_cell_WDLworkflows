@@ -1,5 +1,34 @@
 version 1.0
 
+task aggregate_expression_seurat4_0_3{
+
+  input {
+    String docker_image
+    String queue_name
+    Int mem_gb
+    File aggregate_script
+    String Seurat_rds
+    String output_prefix
+    String DEG_file
+    String clustering
+  }
+
+   command <<<
+    Rscript ~{aggregate_script} ~{Seurat_rds} ~{clustering} ~{DEG_file} 
+    >>>
+
+  runtime {
+    docker : docker_image
+    memory: mem_gb + " GB"
+    queue: queue_name
+  }
+
+  output {
+  Array[File] aggregate_rds = glob("aggregate_expression_obj.rds")[0]
+  }
+}
+
+
 task make_heatmap_DEGs{
 
   input {
@@ -31,34 +60,6 @@ task make_heatmap_DEGs{
   }
 }
 
-
-task aggregate_expression_seurat4_0_3{
-
-  input {
-    String docker_image
-    String queue_name
-    Int mem_gb
-    File aggregate_script
-    String Seurat_rds
-    String output_prefix
-    String DEG_file
-    String clustering
-  }
-
-   command <<<
-    Rscript ~{aggregate_script} ~{Seurat_rds} ~{clustering} ~{DEG_file} 
-    >>>
-
-  runtime {
-    docker : docker_image
-    memory: mem_gb + " GB"
-    queue: queue_name
-  }
-
-  output {
-  Array[File] aggregate_rds = glob("aggregate_expression_obj.rds")[0]
-  }
-}
 
 workflow DEGs_downstream {
   call aggregate_expression_seurat4_0_3 
