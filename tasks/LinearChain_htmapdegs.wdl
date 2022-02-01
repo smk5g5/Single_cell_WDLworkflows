@@ -1,4 +1,22 @@
-version 1.0
+workflow DEGs_downstream {
+  String Seurat_rds
+  String output_prefix
+  String DEG_file
+  String clustering
+  call aggregate_expression_seurat4_0_3 { 
+    input: 
+    Seurat_rds=Seurat_rds,
+    DEG_file=DEG_file,
+    clustering=clustering}
+  call make_heatmap_DEGs {
+   input: 
+   Seurat_rds=Seurat_rds,
+   output_prefix=output_prefix,
+   DEG_file=DEG_file,
+   clustering=clustering,
+   aggregate_exp_rds=aggregate_expression_seurat4_0_3.aggregate_rds
+    }
+}
 
 task aggregate_expression_seurat4_0_3{
 
@@ -28,7 +46,6 @@ task aggregate_expression_seurat4_0_3{
   }
 }
 
-
 task make_heatmap_DEGs{
 
   input {
@@ -57,20 +74,5 @@ task make_heatmap_DEGs{
   Array[File] output_jpgs = glob("*.jpg")
   Array[File] output_rds = glob("*.rds")
   Array[File] output_pngs = glob("*.png")
-  }
-}
-
-
-workflow DEGs_downstream {
-  call aggregate_expression_seurat4_0_3{
-    input:
-    Seurat_rds = Seurat_rds
-  } 
-  call make_heatmap_DEGs{
-    input: 
-    Seurat_rds = aggregate_expression_seurat4_0_3.Seurat_rds,
-    clustering = aggregate_expression_seurat4_0_3.clustering,
-    DEG_file = aggregate_expression_seurat4_0_3.DEG_file,
-    aggregate_exp_rds = aggregate_expression_seurat4_0_3.aggregate_exp_rds
   }
 }
