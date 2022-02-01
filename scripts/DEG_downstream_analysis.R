@@ -103,7 +103,7 @@ mini <- subset(seurat_object, features=doheatmap_roworder_genes);
 levels(mini) <- doheatmap_col_ordr
 
 
-png(filename=sprintf("%s_DoHeatmap.By%s.RNAassay.%s.png",prefix,clustering,date), width=15, height=20, units="in", res=300);
+png(filename=sprintf("%s_DoHeatmap.By%s.RNAassay.%s.png",prefix,clustering,date), width=35, height=50, units="in", res=300);
 hm <- DoHeatmap(mini, features=doheatmap_roworder_genes, slot="data", disp.min=-1.5, disp.max=7, group.by="ident", group.bar=TRUE) + scale_fill_gradientn(colors = c("blue", "white", "red"))
 print(hm);
 dev.off();
