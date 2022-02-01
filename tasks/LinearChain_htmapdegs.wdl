@@ -1,3 +1,5 @@
+version 1.0
+
 workflow DEGs_downstream {
   String Seurat_rds
   String output_prefix
@@ -19,7 +21,6 @@ workflow DEGs_downstream {
 }
 
 task aggregate_expression_seurat4_0_3{
-
   input {
     String docker_image
     String queue_name
@@ -30,7 +31,6 @@ task aggregate_expression_seurat4_0_3{
     String DEG_file
     String clustering
   }
-
    command <<<
     Rscript ~{aggregate_script} ~{Seurat_rds} ~{clustering} ~{DEG_file} 
     >>>
