@@ -147,8 +147,7 @@ top5_DEGs_sig <- DEGs_sig %>%
   arrange(desc(avg_log2FC))%>% 
   dplyr::slice(1:5)
 
-
-make_heatmap_compdo(seurat_object = seurat_object,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),date=date,prefix=prefix)
+make_heatmap_compdo(seurat_object = seurat_object,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),anno_genes=unique(top5_DEGs_sig$gene),date=date,prefix=prefix)
 
 DEG_marks_list <- list()
 for(i in unique(top25_DEGs_sig$cluster)){
