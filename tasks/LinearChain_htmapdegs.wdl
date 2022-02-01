@@ -30,7 +30,6 @@ task aggregate_expression_seurat4_0_3{
     Int mem_gb
     File aggregate_script
     String Seurat_rds
-    String output_prefix
     String DEG_file
     String clustering
   }
