@@ -1,10 +1,13 @@
 version 1.0
 
 workflow DEGs_downstream {
-  String Seurat_rds
-  String output_prefix
-  String DEG_file
-  String clustering
+
+  input {
+    String Seurat_rds
+    String output_prefix
+    String DEG_file
+    String clustering
+  }
   call aggregate_expression_seurat4_0_3 { 
     input: 
     Seurat_rds=Seurat_rds,
