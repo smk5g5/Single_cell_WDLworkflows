@@ -10,7 +10,7 @@ library(org.Hs.eg.db)
 library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 3) {
+if(length(args) < 5) {
   args <- c("--help")
 }
 
@@ -21,44 +21,18 @@ clustering <- as.character(args[4])
 
 seurat_object <- readRDS(Seurat_file)
 
+aggregate_exp_rds <- readRDS(args[5])
+
+clust.means.norm <- readRDS(aggregate_exp_rds)
+
 DEGs <- read.table(DEG_file,header=T)
 
 date = gsub("2021-","21",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
-
-get_avg_scaledexp <- function(seurat_object,clustering,sel_genes){
-  DefaultAssay(seurat_object) <- 'RNA'
-  top.genes <- unique(sel_genes)
-  # specify clustering result to plot
-  Idents(object=seurat_object) <- clustering; # make it the default identity - can be any Identity you choose
-  clust.list=sort(levels(seurat_object)); # sort the clusters
-  clust.id.field <- which(names(seurat_object@meta.data) == clustering);
-  # extract the field that contains the cluster membership for each cell
-  temp.means = list(); # initialize list of means for each cluster
-  for (i in 1:length(clust.list)) {
-    clust = clust.list[i];
-    print (clust);
-    cells.i <- as.factor(Cells(seurat_object)[which(seurat_object@meta.data[,clust.id.field] == clust)]); #
-    seurat_object.i = FetchData(object=seurat_object, cells=cells.i, vars=top.genes, slot="data"); # use data slot from seurat_object. rows are cells, columns are genes
-    temp.means[[i]] <- data.frame(colMeans(seurat_object.i))
-  }
-  clust.means = as.data.frame(dplyr::bind_cols(temp.means)); # rows are genes, columns are clusters
-  names(clust.means) <- clust.list;
-  rownames(clust.means) <- rownames(temp.means[[1]]);
-  clust.means <- as.matrix(clust.means);
-  rowmean = rowMeans(clust.means);
-  rowsd = apply(clust.means, 1, sd);
-  clust.means.norm = (clust.means-rowmean)/rowsd;
-  return(clust.means.norm)
-}
-
-
-make_heatmap_compdo <- function(seurat_object,clustering,sel_genes,anno_genes,date,prefix){
+make_heatmap_compdo <- function(seurat_object,clust.means.norm,clustering,sel_genes,anno_genes,date,prefix){
 
 set.seed(100)
-
-clust.means.norm <- get_avg_scaledexp(seurat_object = seurat_object,clustering=clustering,sel_genes=sel_genes)
 
 colors = unique(c(seq(-1,-0.1,length=27),seq(-0.1,0.1,length=24),seq(0.1,1,length=27)));
 my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
