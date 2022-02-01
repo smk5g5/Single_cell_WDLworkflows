@@ -34,6 +34,10 @@ make_heatmap_compdo <- function(seurat_object,clust.means.norm,clustering,sel_ge
 
 set.seed(100)
 
+ DefaultAssay(seurat_object) <- 'RNA'
+ Idents(object=seurat_object) <- clustering; # make it the default identity - can be any Identity you choose
+
+
 colors = unique(c(seq(-1,-0.1,length=27),seq(-0.1,0.1,length=24),seq(0.1,1,length=27)));
 my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
 
@@ -121,7 +125,7 @@ top5_DEGs_sig <- DEGs_sig %>%
   arrange(desc(avg_log2FC))%>% 
   dplyr::slice(1:5)
 
-make_heatmap_compdo(seurat_object = seurat_object,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),anno_genes=unique(top5_DEGs_sig$gene),date=date,prefix=prefix)
+make_heatmap_compdo(seurat_object = seurat_object,clust.means.norm=clust.means.norm,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),anno_genes=unique(top5_DEGs_sig$gene),date=date,prefix=prefix)
 
 DEG_marks_list <- list()
 for(i in unique(top25_DEGs_sig$cluster)){
