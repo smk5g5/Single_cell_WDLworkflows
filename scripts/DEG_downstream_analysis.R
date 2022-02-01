@@ -65,7 +65,7 @@ my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
 
 myhtmp_phtmp <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = T,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
                                           border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
-                                          width = ncol(mat)*unit(10, "mm"), height = nrow(mat)*unit(5, "mm"))
+                                          width = ncol(clust.means.norm)*unit(15, "mm"), height = nrow(clust.means.norm)*unit(10, "mm"))
 
 fig_ht <- nrow(clust.means.norm)*unit(10, "mm")
 fig_wd <- 2 * ncol(clust.means.norm)*unit(10, "mm")
