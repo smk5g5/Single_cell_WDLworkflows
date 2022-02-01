@@ -7,7 +7,7 @@ library(tidyverse)
 library(dplyr)
 library(clusterProfiler)
 library(org.Hs.eg.db)
-
+library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 3) {
