@@ -30,7 +30,7 @@ get_avg_scaledexp <- function(seurat_object,clustering,sel_genes){
 
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 1) {
+if(length(args) < 3) {
   args <- c("--help")
 }
 
@@ -40,6 +40,8 @@ DEG_file <- as.character(args[3])
 
 
 seurat_object <- readRDS(Seurat_file)
+
+
 
 DEGs <- read.table(DEG_file,header=T)
 
