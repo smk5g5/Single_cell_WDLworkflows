@@ -45,7 +45,7 @@ task aggregate_expression_seurat4_0_3{
   }
 
   output {
-  Array[File] aggregate_rds = glob("aggregate_expression_obj.rds")[0]
+  File aggregate_rds = glob("aggregate_expression_obj.rds")[0]
   }
 }
 
