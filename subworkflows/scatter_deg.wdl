@@ -25,7 +25,7 @@ workflow scatter_htmap{
     			aggregate_script=aggregate_script,
     			Seurat_rds=sample[2],
     			DEG_file=sample[1],
-    			clustering=sample[3],
+    			clustering=sample[3]
 		}
 		call htmap.make_heatmap_DEGs as mkhtmp {
 			input:
