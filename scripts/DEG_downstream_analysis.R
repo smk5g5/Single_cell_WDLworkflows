@@ -54,7 +54,7 @@ get_avg_scaledexp <- function(seurat_object,clustering,sel_genes){
 }
 
 
-make_heatmap_compdo <- function(seurat_object,clustering,sel_genes,date,prefix){
+make_heatmap_compdo <- function(seurat_object,clustering,sel_genes,anno_genes,date,prefix){
 
 set.seed(100)
 
@@ -65,18 +65,37 @@ my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
 
 myhtmp_phtmp <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = T,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
                                           border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
-                                          width = ncol(clust.means.norm)*unit(15, "mm"), height = nrow(clust.means.norm)*unit(10, "mm"))
+                                          width = ncol(clust.means.norm)*unit(10, "mm"), height = nrow(clust.means.norm)*unit(5, "mm"))
 
-fig_ht <- nrow(clust.means.norm)*unit(10, "mm")
-fig_wd <- 2 * ncol(clust.means.norm)*unit(10, "mm")
-
+fig_ht <- nrow(clust.means.norm)*unit(6, "mm")
+fig_wd <- 2 * ncol(clust.means.norm)*unit(13, "mm")
 
 png(filename=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.png",prefix,clustering,date), units="cm", res=300, height=fig_ht, width=fig_wd);
 print(myhtmp_phtmp)
 dev.off()
 
-doheatmap_roworder_genes <- rownames(clust.means.norm)[unname(unlist(row_order(myhtmp_phtmp)))]
-doheatmap_col_ordr <- colnames(myscaled_htmapdata)[column_order(myhtmp_phtmp)]
+gene_indices <- match(anno_genes,rownames(clust.means.norm))
+
+# row_ha = rowAnnotation(diffexp=selvals,col = list(diffexp = c("Downregulation" = "red", "Upregulation" = "green", "No_change" = "grey")),width = unit(2, "cm"))
+gene_annots = rowAnnotation(selgenes = anno_mark(at = gene_indices, labels = anno_genes))
+
+
+myhtmp_phtmp_anno <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = F,right_annotation = gene_annots,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
+                                          border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
+                                          width = ncol(clust.means.norm)*unit(10, "mm"), height = nrow(clust.means.norm)*unit(5, "mm"))
+
+
+heatmap_plot = draw(myhtmp_phtmp_anno,legend_title_gp = gpar(fontsize = 10, fontface = "bold"),legend_grid_width = unit(1, "cm"), legend_grid_height = unit(1, "cm"))
+png(filename = sprintf("%s_RNAassay.%s.aggregatedhtmap_top5DEGpercluster_annot.%s.png",prefix,clustering,date),
+    width = 22, height =15 , units = "in",
+    bg = "white",res=600)
+# Heatmap(mat, name = "mat", cluster_rows = row_dend)
+print(heatmap_plot)
+dev.off()
+
+
+doheatmap_roworder_genes <- rownames(clust.means.norm)[unname(unlist(row_order(heatmap_plot)))]
+doheatmap_col_ordr <- colnames(myscaled_htmapdata)[column_order(heatmap_plot)]
 
 
 levels(seurat_object) <- doheatmap_col_ordr
@@ -89,7 +108,7 @@ hm <- DoHeatmap(mini, features=doheatmap_roworder_genes, slot="data", disp.min=-
 print(hm);
 dev.off();
 
-saveRDS(list(phtmap=myhtmp_phtmp,roword=doheatmap_roworder_genes,col_ord=doheatmap_col_ordr,doheatmap=hm),file=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.rds",prefix,clustering,date))
+saveRDS(list(phtmap=myhtmp_phtmp,htmap_draw=heatmap_plot,roword=doheatmap_roworder_genes,col_ord=doheatmap_col_ordr,doheatmap=hm),file=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.rds",prefix,clustering,date))
 }
 
 
@@ -122,6 +141,11 @@ top25_DEGs_sig <- DEGs_sig %>%
   group_by(cluster) %>%
   arrange(desc(avg_log2FC))%>% 
   dplyr::slice(1:25)
+
+top5_DEGs_sig <- DEGs_sig %>%
+  group_by(cluster) %>%
+  arrange(desc(avg_log2FC))%>% 
+  dplyr::slice(1:5)
 
 
 make_heatmap_compdo(seurat_object = seurat_object,clustering=clustering,sel_genes=unique(top25_DEGs_sig$gene),date=date,prefix=prefix)
