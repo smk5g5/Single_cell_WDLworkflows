@@ -21,7 +21,7 @@ clustering <- as.character(args[4])
 
 seurat_object <- readRDS(Seurat_file)
 
-aggregate_exp_rds <- readRDS(args[5])
+aggregate_exp_rds <- args[5]
 
 clust.means.norm <- readRDS(aggregate_exp_rds)
 
