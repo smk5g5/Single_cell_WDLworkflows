@@ -67,8 +67,8 @@ myhtmp_phtmp <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,clust
                                           border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
                                           width = ncol(mat)*unit(10, "mm"), height = nrow(mat)*unit(5, "mm"))
 
-fig_ht <- nrow(mat)*unit(10, "mm")
-fig_wd <- 2 * ncol(mat)*unit(10, "mm")
+fig_ht <- nrow(clust.means.norm)*unit(10, "mm")
+fig_wd <- 2 * ncol(clust.means.norm)*unit(10, "mm")
 
 
 png(filename=sprintf("%s_RNAassay.%s.aggregatedhtmap.%s.png",prefix,clustering,date), units="cm", res=300, height=fig_ht, width=fig_wd);
