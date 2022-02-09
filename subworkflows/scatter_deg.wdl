@@ -13,7 +13,7 @@ workflow scatter_htmap{
     File htmap_rscript
     File aggregate_script
 	File inputSamplesFile
-	Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
+	Array[Array[File]] inputSamples = read_csv(inputSamplesFile)
 	}
 
 	scatter (sample in inputSamples) {
