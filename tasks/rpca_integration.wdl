@@ -11,10 +11,11 @@ task run_rpca_integration{
     String output_prefix
     String subset_column
     String subset_column_selection
+    String ident_DEGs
   }
 
    command <<<
-    Rscript ~{seurat_rpca_rscript} ~{Seurat_rds} ~{output_prefix} ~{subset_column} ~{subset_column_selection}
+    Rscript ~{seurat_rpca_rscript} ~{Seurat_rds} ~{output_prefix} ~{subset_column} ~{subset_column_selection} ~{ident_DEGs}
     >>>
 
   runtime {

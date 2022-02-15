@@ -1,0 +1,226 @@
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/cNMF_python/Get_transposed_counts.R scripts/Get_cNMF_counts.R .
+
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/cNMF_analysis_prepare.py .
+
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/cnmf.py .
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/corrplot_K10_vs_modscore.rds .
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/MouseTIL_Seurat_mc0.05/TCR_genes_remdf.csv .
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/MouseTIL_Seurat_mc0.05/Dimplot_highlight_colored_clonotypes_M_IB-\*.png .
+
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/top_genes_K9_ngene50.csv .
+
+
+LSF_DOCKER_PRESERVE_ENVIRONMENT=false bsub -G compute-allegra.petti -J module2_rhp -oo logs/module2_rhp.%J.out -q general -M 128GB -n 1 -R 'rusage[mem=128GB] span[hosts=1]'  -a 'docker(bhuvic/singlecell:v2)' Rscript /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/module2_rhp_functions.R /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/scwhann_scrna_only_rpca.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/nmf_h_coef_vs.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/nmf_w_basis_vs.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only
+
+
+nmf_paramdf_list[['ngenes_30_inter_min10_intra_min18_intra_max10']][['nmf_corr_complexity_tumor']]
+
+ scp -r Single_cell_WDLworkflows khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/
+
+
+ /storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_rPCA_integration/d66827ea-d69b-4e48-b893-35f123cee776/call-run_rpca_integration
+
+
+/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_rPCA_integration/d66827ea-d69b-4e48-b893-35f123cee776/call-run_rpca_integration/execution/
+
+glob-ef5df339533c1334f081dc8cc75ee4f3/DEGs.Wilcox.schwann_subcluster_scRNA_noriboclus.integrated_snn_res.0.5_onlypos.20220209.txt
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/metamodule_symbol_list_for_enrichment_analysis_intramin_35_intra_max_10_inter_min_10_n50genes.rds ./NMF_analysis_iteration2/
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/Scenic_iteration2/QC_plots_schwann_sublcuster.pdf .
+
+
+scp /Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/Get_cNMF_counts.R khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis
+
+
+scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.k_selection.png .
+
+rsync -ave ssh --include="*/" --exclude="*.npz" --exclude="*.rda" --exclude="*.RDS" --exclude="*.rds" --exclude="*.RData"  --exclude="*.txt" --exclude="*.npz" --exclude="*Old_analysis_snRNAndscRNA*/" --exclude="*_shelve.out"  --exclude="*.h5ad" --exclude="*.csv" --exclude="*.tsv" --exclude="*.txt" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .
+
+
+rsync -ave ssh --include="*/" --exclude="*.npz" --exclude="*.rda" --exclude="*.RDS" --exclude="*.rds" --exclude="*.RData"  --exclude="*.txt" --exclude="*.npz" --exclude="*Old_analysis_snRNAndscRNA*/" --exclude="*_shelve.out"  --exclude="*.h5ad" --exclude="*.tsv" --exclude="*.txt" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .
+
+/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad
+
+adata = sc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad')
+
+adata2 = sc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna.nmf_out.h5ad')
+
+sc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad')
+
+hvgs_file = '/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.overdispersed_genes.txt'
+
+sc.write('scwhann_scrna_noriboclus_cnmf_out_norm.h5ad', adata)
+
+hvgs = open(hvgs_file).read().split('\n')
+
+#bsub -oo logs/prepare_nmf.%J -q siteman -G compute-allegra.petti -g /khan.saad/R_seurat -M 128GB -n 1 -R 'rusage[mem=128GB] span[hosts=1]' -a 'docker(quay.io/dkotliar/cnmf:0.2)' /opt/miniconda3/envs/cnmf_env/bin/python cNMF_analysis_prepare.py schwann_subclus_scRNA_noriboclus_RNA_assay_counts_matrix.20220210.txt /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis scwhann_scrna_noriboclus_cnmf_out.h5ad
+
+/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/
+
+scwhann_scrna_noriboclus_cnmf_out_rawnorm.h5ad
+
+rsync -ave ssh --include="*.ipynb" --exclude="*.*" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/ .
+
+usage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\t', index_col=0)
+
+
+
+usage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_7.dt_0_05.consensus.txt',sep='\t', index_col=0)
+
+usage.columns = ['Usage_%s_K7' % i for i in usage.columns]
+
+usage_k8 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_8.dt_0_05.consensus.txt',sep='\t', index_col=0)
+
+usage_k8.columns = ['Usage_%s_K8' % i for i in usage_k8.columns]
+usage_k8.head()
+
+usage_k9 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_9.dt_0_10.consensus.txt',sep='\t', index_col=0)
+
+usage_k10 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\t', index_col=0)
+
+
+usage_k9.columns = ['Usage_%s_K9' % i for i in usage_k9.columns]
+usage_k9.head()
+
+usage_k10.columns = ['Usage_%s_K10' % i for i in usage_k10.columns]
+usage_k10.head()
+
+usage_norm = usage.div(usage.sum(axis=1), axis=0)
+
+usage_k9_norm = usage_k9.div(usage_k9.sum(axis=1), axis=0)
+
+usage_k8_norm = usage_k8.div(usage_k8.sum(axis=1), axis=0)
+
+usage_k10_norm = usage_k10.div(usage_k10.sum(axis=1), axis=0)
+
+adata.obs = pd.merge(left=adata.obs, right=usage_norm, how='left', left_index=True, right_index=True)
+
+sc.pl.umap(adata, color=usage_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K5_schwann_noriboclus.png')
+
+adata.obs = pd.merge(left=adata.obs, right=usage_k9_norm, how='left', left_index=True, right_index=True)
+
+sc.pl.umap(adata, color=usage_k9_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K9_schwann_noriboclus.png')
+
+
+adata.obs = pd.merge(left=adata.obs, right=usage_k8_norm, how='left', left_index=True, right_index=True)
+
+sc.pl.umap(adata, color=usage_k8_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K8_schwann_noriboclus.png')
+
+
+adata.obs = pd.merge(left=adata.obs, right=usage_k10_norm, how='left', left_index=True, right_index=True)
+
+sc.pl.umap(adata, color=usage_k10_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K10_schwann_noriboclus.png')
+
+
+
+gene_scores_K5 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_5.dt_0_10.txt',sep='\t', index_col=0).T
+
+gene_scores_K8 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_8.dt_0_05.txt',sep='\t', index_col=0).T
+
+gene_scores_K9 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_9.dt_0_10.txt',sep='\t', index_col=0).T
+
+gene_scores_K10 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_10.dt_0_05.txt',sep='\t', index_col=0).T
+
+
+def get_top_genes(gene_scores,ngenes,num_comp,adata):
+	top_genes = []
+	for gep in gene_scores.columns:
+		top_genes.append(list(gene_scores.sort_values(by=gep, ascending=False).index[:ngenes]))
+	top_genes = pd.DataFrame(top_genes, index=gene_scores.columns).T
+	top_genes.columns = ['program_%s_%s' % (i,num_comp) for i in top_genes.columns]
+	top1_gene_byprog = list(top_genes.iloc[0])
+	outplot= 'umap_top1genes_byprogram_schwann_noriboclus_'+num_comp+'.png'
+	sc.pl.umap(adata,use_raw=True, color=top1_gene_byprog,ncols=3,save=outplot)
+	outfile= 'top_genes_byprogram_schwann_noriboclus'+num_comp+'_ngene'+str(ngenes)+'.csv'
+	top_genes.to_csv(outfile, index=False)
+
+
+
+get_top_genes(gene_scores=gene_scores_K10,ngenes=50,num_comp='K10',adata=adata)
+
+top50_K10_genes.iloc[0]
+
+gene_scores.head()
+
+top_genes = []
+ngenes = 50
+for gep in gene_scores.columns:
+	top_genes.append(list(gene_scores.sort_values(by=gep, ascending=False).index[:ngenes]))
+top_genes = pd.DataFrame(top_genes, index=gene_scores.columns).T
+top_genes
+
+
+/rdcw/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/FASTQS
+
+/rdcw/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/FASTQS/B186/
+
+/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B186/outs/
+
+south asians
+
+
+
+scp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/schwann_subclus_scRNA_noriboclus/\*.jpg . 
+
+
+scp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/schwann_subclus_scRNA_noriboclus/DEGs.Wilcox.schwann_subcluster_scRNA_noriboclus.integrated_snn_res.0.5_onlypos.20220209.txt .
+
+
+scp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/Scenic_iteration2/universe_genes.rds .
+
+
+/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds
+
+
+/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/
+
+/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds
+
+b148 <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds')
+
+b148_immune_singleR <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_immune_res.rds')
+
+
+b148_non_immune_singleR <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_nonimmune_res.rds')
+
+/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_nonimmune_res.rds
+
+head(rownames(myorig[['br_imm_atl']]))
+
+myorig <- b148_immune_singleR@listData$orig.results
+
+head(b148_non_immune_singleR[['orig.results']][['stb']][['scores']])
+
+myorig[[i]][['scores']]
+
+for(i in names(myorig)){
+	rownames(myorig[[i]][['scores']]) <- rownames(myorig[[i]])
+	singleR_scores <- CreateAssayObject(data = t(as.matrix(myorig[[i]][['scores']])))
+	scrna[[sprintf("%s.singleR_scores", i)]] <- singleR_scores
+}
+
+sprintf("%s.singleR_scores", i)
+
+rownames(myorig[['br_imm_atl']])
+
+
+myorig$stb
+head(myorig$stb$scores)
+history()
+myorig$stb$scores
+
+
+
+
+mod_scores_seurat <- CreateAssayObject(data = t(as.matrix(scrna@meta.data[26:34])))
+scrna[["mod_scores_seurat"]] <- mod_scores_seurat
+
+
+

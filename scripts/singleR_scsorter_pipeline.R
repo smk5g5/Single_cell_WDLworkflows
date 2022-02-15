@@ -190,11 +190,17 @@ singleR_immune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_immune),
                              labels = make_singleR_labels(immune_ref_list),
                              BPPARAM=MulticoreParam())
 
-saveRDS(object=singleR_immune_res,file=sprintf("%s_singleR_immune_res.rds", sample_name))
+# saveRDS(object=singleR_immune_res,file=sprintf("%s_singleR_immune_res.rds", sample_name))
 
-#saveRDS(abc_momac_verse_diff,'mo_mac_verse_mulderetal_comp.rds')
+singleR_scores_immune <- singleR_immune_res@listData$orig.results
 
-#select non immune clusters
+for(i in names(singleR_scores_immune)){
+  rownames(singleR_scores_immune[[i]][['scores']]) <- rownames(singleR_scores_immune[[i]])
+  singleR_score_immune_assay <- CreateAssayObject(data = t(as.matrix(singleR_scores_immune[[i]][['scores']])))
+  seurat_obj_immune[[sprintf("%s.singleR.immune.scores", i)]] <- singleR_score_immune_assay
+}
+
+
 seurat_obj_nonimmune <- subset(seurat_obj,idents=sel_clus,invert=T)
 
 #read the nonimmune singleR references into a list
@@ -212,3 +218,5 @@ singleR_nonimmune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_nonim
                                 labels = make_singleR_labels(nonimmune_ref_list),BPPARAM=MulticoreParam())
 
 saveRDS(object=singleR_nonimmune_res,file=sprintf("%s_singleR_nonimmune_res.rds", sample_name))
+
+

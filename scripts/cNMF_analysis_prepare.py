@@ -23,4 +23,7 @@ if __name__ == "__main__":
 	f_exprMat = str(COUNTS)
 	print("f_exprMat ",f_exprMat)
 	adata = sc.read_text( f_exprMat, delimiter='\t', first_column_names=True )
+	adata = adata.transpose()
 	sc.write(output_h5ad, adata)
+
+	

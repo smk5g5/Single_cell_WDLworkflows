@@ -24,7 +24,7 @@ options(future.globals.maxSize = 16000 * 1024^3)
 args = commandArgs(trailingOnly=TRUE);
 print (length(args))
 
-if(length(args) != 4)
+if(length(args) != 5)
 {
   stop("\n adequate number of arguments not given \n")
 }
@@ -33,6 +33,8 @@ rds_file <- args[1]
 prefix <- args[2]
 subset_col <- args[3]
 subset_sel <- args[4]
+ident_name <- args[5]
+
 
 seurat_obj <- readRDS(rds_file)
 
@@ -115,7 +117,7 @@ combined <- ScaleData(combined, verbose = FALSE)
 combined <- RunPCA(combined, npcs = 30, verbose = FALSE)
 combined <- RunUMAP(combined, reduction = "pca", dims = 1:30)
 combined <- FindNeighbors(combined, reduction = "pca", dims = 1:30)
-combined <- FindClusters(combined, resolution = c(0.5, 0.7, 0.9))
+combined <- FindClusters(combined, resolution = c(0.1,0.3,0.5, 0.7, 0.9))
 
 # merge.tech <- DimPlot(combined, label = T, group.by = "technique", raster = F)
 # merge.samp <- DimPlot(combined, label = T, group.by = "orig.ident", raster = F)
@@ -135,7 +137,7 @@ integ_obj <- rpca_integration(seurat_obj,prefix)
 
 DefaultAssay(integ_obj) <- "RNA"
 
-Idents(integ_obj) <- 'integrated_snn_res.0.5'
+Idents(integ_obj) <- ident_name
 
 DEGs <- FindAllMarkers(object=integ_obj,only.pos = T);
 
@@ -149,13 +151,13 @@ col_vector = unlist(mapply(brewer.pal, qual_cols$maxcolors, rownames(qual_cols))
 sel_sig_colors <- sample(col_vector,length(sort(unique(Idents(integ_obj)))))
 names(sel_sig_colors) <- sort(unique(Idents(integ_obj)))
 
-jpeg(sprintf("%s.integrated_snn_res.0.5.labeled.%s.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.1,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+jpeg(sprintf("%s.%s.labeled.%s.jpg",ident_name, prefix, date), width = 15, height = 15, units="cm", res=300);
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = ident_name, cols = sel_sig_colors, pt.size=0.1,label=T,label.size = 6)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
-jpeg(sprintf("%s.integrated_snn_res.0.5.%s.jpg", prefix, date), width = 15, height = 15, units="cm", res=300);
-p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'integrated_snn_res.0.5', cols = sel_sig_colors, pt.size=0.1)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+jpeg(sprintf("%s.%s.%s.jpg",ident_name,prefix, date), width = 15, height = 15, units="cm", res=300);
+p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = ident_name, cols = sel_sig_colors, pt.size=0.1)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
 
@@ -176,4 +178,4 @@ print(p2);
 dev.off()
 
 
-saveRDS(integ_obj,file=sprintf("%s_rpca.%s.rds", prefix, date))
+saveRDS(integ_obj,file=sprintf("%s_rpca_%s_ident.%s.rds", prefix,ident_name,date))
