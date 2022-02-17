@@ -1,12 +1,12 @@
 version 1.0
 
-task run_singleR_scsorter {
+task run_singleR_immune_nonimmune {
 
   input {
     String docker_image
     String queue_name
     Int mem_gb
-    File singleR_scsorter_rscript
+    File singleR_immune_nonimmune_rscript
     String rds_file_path
     String Sample_name
     Float clustering_res
@@ -30,7 +30,7 @@ task run_singleR_scsorter {
   }
 }
 
-workflow SingleR_scsorter {
+workflow singleR_immune_nonimmune {
 
-  call run_singleR_scsorter
+  call run_singleR_immune_nonimmune
 }
