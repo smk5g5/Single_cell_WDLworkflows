@@ -25,7 +25,7 @@ scsorter_marker_list <- as.character(args[3])
 marker_list_name <- as.character(args[4])
 
 
-run_scsorter <- function(marker_list,seurat_obj,yaml_obj,def_wt=2){
+run_scsorter <- function(marker_list,seurat_obj,def_wt=2){
   DefaultAssay(seurat_obj) <- 'RNA'
   annot_df_scsorter <- markerlist_to_df(marker_list=marker_list,seurat_obj=seurat_obj)
   expr_obj <- FindVariableFeatures(seurat_obj, selection.method = "vst", nfeatures = 2000, verbose = F)
@@ -43,6 +43,8 @@ run_scsorter <- function(marker_list,seurat_obj,yaml_obj,def_wt=2){
   return(celltypes)
 }
 
-scsorter_preds <- run_scsorter(marker_list = sel_scsorter_marker_list,seurat_obj = seurat_obj_malig,yaml_obj=yaml_obj)
+seurat_obj <- readRDS(Seurat_rds)
+
+scsorter_preds <- run_scsorter(marker_list = sel_scsorter_marker_list,seurat_obj = seurat_obj)
 
 saveRDS(scsorter_preds,paste0(sample_name,'_scsorter_preds_',marker_list_name,'.rds')

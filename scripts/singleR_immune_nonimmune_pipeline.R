@@ -243,9 +243,9 @@ singleR_nonimmune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_nonim
 immune_res_cells <- singleR_immune_res$pruned.labels
 names(immune_res_cells) <- rownames(singleR_immune_res)
 
-seurat_obj_immune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
+seurat_obj_immune <- Add_singleR_scores_to_seuratassay(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
 
-seurat_obj_nonimmune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_nonimmune_res,seurat_obj=seurat_obj_nonimmune,type='non_immune')
+seurat_obj_nonimmune <- Add_singleR_scores_to_seuratassay(singleR_obj=singleR_nonimmune_res,seurat_obj=seurat_obj_nonimmune,type='non_immune')
 
 seurat_obj_immune <- Add_singleR_preds_to_seuratmeta(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
 
