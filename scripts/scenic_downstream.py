@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
 	meta = json.loads(zlib.decompress(base64.b64decode( lf.attrs.MetaData )))
 	#exprMat = pd.DataFrame( lf[:,:], index=lf.ra.Gene, columns=lf.ca.CellID)
-	auc_mtx = pd.DataFrame( lf.ca.RegulonsAUC, index=lf.ca.CellID)
+#	auc_mtx = pd.DataFrame( lf.ca.RegulonsAUC, index=lf.ca.CellID)
 	regulons = lf.ra.Regulons
 	dr_umap = pd.read_csv( 'scenic_umap.txt', sep='\t', header=0, index_col=0 )
 	dr_tsne = pd.read_csv( 'scenic_tsne.txt', sep='\t', header=0, index_col=0 )

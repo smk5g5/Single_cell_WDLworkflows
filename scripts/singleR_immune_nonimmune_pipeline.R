@@ -131,6 +131,32 @@ make_singleR_labels <- function(singleR_ref_list){
   return(label_list)
 }
 
+Add_singleR_scores_to_seuratassay <- function(singleR_obj,seurat_obj,type){
+  singleR_scores_immune <- singleR_obj@listData$orig.results
+
+  for(i in names(singleR_scores_immune)){
+    rownames(singleR_scores_immune[[i]][['scores']]) <- rownames(singleR_scores_immune[[i]])
+    singleR_score_immune_assay <- CreateAssayObject(data = t(as.matrix(singleR_scores_immune[[i]][['scores']])))
+    seurat_obj[[sprintf("%s.singleR.immune.scores", i)]] <- singleR_score_immune_assay
+  }
+return(seurat_obj)
+}
+
+Add_singleR_preds_to_seuratmeta <- function(singleR_obj,seurat_obj,type){
+  #make named vector for cells which are not malignant and not immune
+
+  singleR_preds <- singleR_obj$pruned.labels
+  names(singleR_preds) <- rownames(singleR_obj)
+  singleR_preds[which(is.na(singleR_preds))] = "No.Prediction"
+  #assign celltypes to seurat object to metadata name
+  index <- match(Cells(seurat_obj),names(singleR_preds))
+
+  ref_names <- paste0(names(singleR_obj@listData$orig.results),'.')
+  seurat_obj[[sprintf("singleR_results_%s_%s",ref_names,type)]] <- singleR_preds[index]
+  
+  return(seurat_obj)  
+}
+
 
 date = gsub("2021-","21",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
@@ -190,15 +216,14 @@ singleR_immune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_immune),
                              labels = make_singleR_labels(immune_ref_list),
                              BPPARAM=MulticoreParam())
 
-# saveRDS(object=singleR_immune_res,file=sprintf("%s_singleR_immune_res.rds", sample_name))
 
-singleR_scores_immune <- singleR_immune_res@listData$orig.results
+# singleR_scores_immune <- singleR_immune_res@listData$orig.results
 
-for(i in names(singleR_scores_immune)){
-  rownames(singleR_scores_immune[[i]][['scores']]) <- rownames(singleR_scores_immune[[i]])
-  singleR_score_immune_assay <- CreateAssayObject(data = t(as.matrix(singleR_scores_immune[[i]][['scores']])))
-  seurat_obj_immune[[sprintf("%s.singleR.immune.scores", i)]] <- singleR_score_immune_assay
-}
+# for(i in names(singleR_scores_immune)){
+#   rownames(singleR_scores_immune[[i]][['scores']]) <- rownames(singleR_scores_immune[[i]])
+#   singleR_score_immune_assay <- CreateAssayObject(data = t(as.matrix(singleR_scores_immune[[i]][['scores']])))
+#   seurat_obj_immune[[sprintf("%s.singleR.immune.scores", i)]] <- singleR_score_immune_assay
+# }
 
 
 seurat_obj_nonimmune <- subset(seurat_obj,idents=sel_clus,invert=T)
@@ -217,6 +242,24 @@ if(yaml_obj[['Merge_Neftel_refs']]=='TRUE'){
 singleR_nonimmune_res <- SingleR(test = as.SingleCellExperiment(seurat_obj_nonimmune),ref = nonimmune_ref_list,
                                 labels = make_singleR_labels(nonimmune_ref_list),BPPARAM=MulticoreParam())
 
+immune_res_cells <- singleR_immune_res$pruned.labels
+names(immune_res_cells) <- rownames(singleR_immune_res)
+
+seurat_obj_immune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
+
+seurat_obj_nonimmune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_nonimmune_res,seurat_obj=seurat_obj_nonimmune,type='non_immune')
+
+malignant_cells <- rownames(subset(singleR_nonimmune_res,pruned.labels==paste(yaml_obj[['Malignant_prefix']],'Malignant',sep='.')))
+
+seurat_obj_malig <- subset(seurat_obj,cells=malignant_cells)
+
+saveRDS(object=seurat_obj_nonimmune,file=sprintf("%s_singleR_seurat_obj_nonimmune.rds", sample_name))
+
+saveRDS(object=seurat_obj_immune,file=sprintf("%s_singleR_seurat_obj_immune.rds", sample_name))
+
+saveRDS(object=seurat_obj_malig,file=sprintf("%s_singleR_seurat_obj_malig.rds", sample_name))
+
 saveRDS(object=singleR_nonimmune_res,file=sprintf("%s_singleR_nonimmune_res.rds", sample_name))
 
+saveRDS(object=singleR_immune_res,file=sprintf("%s_singleR_immune_res.rds", sample_name))
 

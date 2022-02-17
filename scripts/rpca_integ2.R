@@ -72,11 +72,20 @@ print(seurat_obj)
 print('#####Default assay####')
 print(DefaultAssay(seurat_obj))
 
-
+# I had a similar issue when I switched from seurat 3 to 4, for me 
+# the issue was the introduction of the k.weight parameter in IntegrateData, 
+# which by default is set at 100, but should be less than the smallest number of cells 
+# you're integrating with. So, for example, if organoid.list contains objects with 100,
+ # 40, 200, and 300 cells, I would run
+# organoid.combined <- IntegrateData(anchorset = organoid.anchors, dims = 1:20,
+ # k.weight = 39)
+# I hope this helps!
 
 
 rpca_integration <- function(seurat_obj,prefix) {
 cluster <- SplitObject(seurat_obj, split.by = "orig.ident")
+
+def_k_wt = min(table(seurat_obj$orig.ident))-1
 
  for (j in 1:length(cluster)) {
     
@@ -110,7 +119,7 @@ for (j in 1:length(cluster)) {
 integ.features <- rownames(seurat_obj@assays$RNA@counts)
 
   print(paste0("Integrating ", prefix))
-  combined <- IntegrateData(anchorset = anchors, k.weight = 50,features.to.integrate = integ.features,verbose = FALSE)
+  combined <- IntegrateData(anchorset = anchors, k.weight = def_k_wt,features.to.integrate = integ.features,verbose = FALSE)
 
 DefaultAssay(combined) <- "integrated"
 combined <- ScaleData(combined, verbose = FALSE)
@@ -141,7 +150,7 @@ Idents(integ_obj) <- ident_name
 
 DEGs <- FindAllMarkers(object=integ_obj,only.pos = T);
 
-write.table(DEGs, file=sprintf("DEGs.Wilcox.%s.integrated_snn_res.0.5_onlypos.%s.txt", prefix, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
+write.table(DEGs, file=sprintf("DEGs.Wilcox.%s.%s_onlypos.%s.txt",ident_name, prefix, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
 
 qual_cols = brewer.pal.info[brewer.pal.info$category == "qual", ]
 qual_cols <- qual_cols[qual_cols$colorblind==T,]
@@ -176,6 +185,5 @@ jpeg(sprintf("%s.orig.ident.%s.jpg", prefix, date), width = 15, height = 15, uni
 p2 <- DimPlot(object = integ_obj, reduction = "umap", group.by = 'orig.ident', cols = sel_sig_colors, pt.size=0.1)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
 print(p2);
 dev.off()
-
 
 saveRDS(integ_obj,file=sprintf("%s_rpca_%s_ident.%s.rds", prefix,ident_name,date))

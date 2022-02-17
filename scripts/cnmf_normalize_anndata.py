@@ -108,6 +108,26 @@ gene_scores_K9 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NM
 gene_scores_K10 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_10.dt_0_05.txt',sep='\t', index_col=0).T
 
 get_top_genes(gene_scores=gene_scores_K10,ngenes=50,num_comp='K10',adata=adata)
+get_top_genes(gene_scores=gene_scores_K10,ngenes=25,num_comp='K10',adata=adata)
+
+get_top_genes(gene_scores=gene_scores_K5,ngenes=50,num_comp='K5',adata=adata)
+get_top_genes(gene_scores=gene_scores_K5,ngenes=25,num_comp='K5',adata=adata)
+
+get_top_genes(gene_scores=gene_scores_K8,ngenes=50,num_comp='K8',adata=adata)
+get_top_genes(gene_scores=gene_scores_K8,ngenes=25,num_comp='K8',adata=adata)
+
+get_top_genes(gene_scores=gene_scores_K9,ngenes=50,num_comp='K9',adata=adata)
+get_top_genes(gene_scores=gene_scores_K9,ngenes=25,num_comp='K9',adata=adata)
+
+usage_k10_norm.to_csv('usage_scores_by_cell_K10_schwann_noriboclus.csv', index=True)
+
+usage_k8_norm.to_csv('usage_scores_by_cell_K8_schwann_noriboclus.csv', index=True)
+
+usage_k9_norm.to_csv('usage_scores_by_cell_K9_schwann_noriboclus.csv', index=True)
+
+usage_norm.to_csv('usage_scores_by_cell_K5_schwann_noriboclus.csv', index=True)
+
+
 
 # countfn='/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna.nmf_out.h5ad'
 
