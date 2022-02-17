@@ -15,7 +15,7 @@ task run_singleR_immune_nonimmune {
   }
 
    command <<<
-    Rscript ~{singleR_scsorter_rscript} ~{rds_file_path} ~{Sample_name} ~{clustering_res} ~{nPC} ~{singleR_yaml}
+    Rscript ~{singleR_immune_nonimmune_rscript} ~{rds_file_path} ~{Sample_name} ~{clustering_res} ~{nPC} ~{singleR_yaml}
     >>>
 
   runtime {
