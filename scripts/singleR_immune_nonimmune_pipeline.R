@@ -150,10 +150,8 @@ Add_singleR_preds_to_seuratmeta <- function(singleR_obj,seurat_obj,type){
   singleR_preds[which(is.na(singleR_preds))] = "No.Prediction"
   #assign celltypes to seurat object to metadata name
   index <- match(Cells(seurat_obj),names(singleR_preds))
-
   ref_names <- paste0(names(singleR_obj@listData$orig.results),'.')
   seurat_obj[[sprintf("singleR_results_%s_%s",ref_names,type)]] <- singleR_preds[index]
-  
   return(seurat_obj)  
 }
 
@@ -248,6 +246,8 @@ names(immune_res_cells) <- rownames(singleR_immune_res)
 seurat_obj_immune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
 
 seurat_obj_nonimmune <- Add_singleR_object_to_seuratassay(singleR_obj=singleR_nonimmune_res,seurat_obj=seurat_obj_nonimmune,type='non_immune')
+
+seurat_obj_immune <- Add_singleR_preds_to_seuratmeta(singleR_obj=singleR_immune_res,seurat_obj=seurat_obj_immune,type='immune')
 
 malignant_cells <- rownames(subset(singleR_nonimmune_res,pruned.labels==paste(yaml_obj[['Malignant_prefix']],'Malignant',sep='.')))
 
