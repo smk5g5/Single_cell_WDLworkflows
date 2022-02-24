@@ -21,7 +21,7 @@ workflow scatter_scsorter{
           docker_image=docker_image,
           queue_name=queue_name,
           mem_gb=mem_gb,
-          Sample_name=Sample_name
+          Sample_name=Sample_name,
           scsorter_script=scsorter_script,
           marker_list_rds=sample[1],
           marker_list_name=sample[0],
