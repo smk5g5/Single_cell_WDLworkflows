@@ -21,7 +21,7 @@ if(length(args) < 5) {
 
 Seurat_rds <- as.character(args[1])
 sample_name <- as.character(args[2])
-scsorter_marker_list <- as.character(args[3])
+scsorter_marker_list_rds <- as.character(args[3])
 marker_list_name <- as.character(args[4])
 
 
@@ -43,7 +43,17 @@ run_scsorter <- function(marker_list,seurat_obj,def_wt=2){
   return(celltypes)
 }
 
+print('what we are trying to open? Seurat rds file')
+print(Seurat_rds)
+
 seurat_obj <- readRDS(Seurat_rds)
+
+print('what we are trying to open? marker_list rds file')
+print(scsorter_marker_list_rds)
+
+scsorter_marker_list <- readRDS(scsorter_marker_list_rds)
+
+sel_scsorter_marker_list <- lapply(scsorter_marker_list,intersect,x=rownames(seurat_obj))
 
 scsorter_preds <- run_scsorter(marker_list = sel_scsorter_marker_list,seurat_obj = seurat_obj)
 
