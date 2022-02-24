@@ -2,7 +2,7 @@ version 1.0
 
 import "../tasks/scsorter_run.wdl" as scsorter
 
-workflow scatter_scsorter{
+workflow scatter_gather_scsorter{
 
   input {
     String docker_image
