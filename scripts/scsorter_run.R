@@ -64,4 +64,4 @@ sel_scsorter_marker_list <- lapply(scsorter_marker_list,intersect,x=rownames(seu
 
 scsorter_preds <- run_scsorter(marker_list = sel_scsorter_marker_list,seurat_obj = seurat_obj)
 
-saveRDS(scsorter_preds,paste0(sample_name,'_scsorter_preds_',marker_list_name,'.rds')
+saveRDS(scsorter_preds,paste0(sample_name,'_scsorter_preds_',marker_list_name,'.rds'))
