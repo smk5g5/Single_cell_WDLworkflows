@@ -24,6 +24,19 @@ sample_name <- as.character(args[2])
 scsorter_marker_list_rds <- as.character(args[3])
 marker_list_name <- as.character(args[4])
 
+markerlist_to_df <- function(marker_list,seurat_obj){
+  sub_marker_list <- list()
+  df <- data.frame(Type=character(),Marker=character())
+  for(i in names(marker_list)){
+    sub_marker_list[[i]] <- intersect(marker_list[[i]],rownames(seurat_obj))
+  }
+  for(i in names(sub_marker_list)){
+    celltype <- rep(i,length(sub_marker_list[[i]]))
+    de <- list(Type=celltype,Marker=sub_marker_list[[i]])
+    df = rbind(df,de,stringsAsFactors=FALSE)
+  }
+  return(df)
+}
 
 run_scsorter <- function(marker_list,seurat_obj,def_wt=2){
   DefaultAssay(seurat_obj) <- 'RNA'
@@ -43,13 +56,7 @@ run_scsorter <- function(marker_list,seurat_obj,def_wt=2){
   return(celltypes)
 }
 
-print('what we are trying to open? Seurat rds file')
-print(Seurat_rds)
-
 seurat_obj <- readRDS(Seurat_rds)
-
-print('what we are trying to open? marker_list rds file')
-print(scsorter_marker_list_rds)
 
 scsorter_marker_list <- readRDS(scsorter_marker_list_rds)
 
