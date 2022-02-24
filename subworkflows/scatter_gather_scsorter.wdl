@@ -42,6 +42,7 @@ workflow scatter_scsorter{
 }
 
 task merge_scsorter_results {
+  input {
     String docker_image
     String queue_name
     Int mem_gb
@@ -50,7 +51,7 @@ task merge_scsorter_results {
     String seurat_rds_path
     String type
     Array[File] scsorter_runs
-
+  }
    command <<<
     Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{Sample_name} ~{type} ~{sep=" " scsorter_runs}
     >>>
