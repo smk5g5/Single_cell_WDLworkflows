@@ -22,6 +22,7 @@ workflow scatter_scsorter{
           queue_name=queue_name,
           mem_gb=mem_gb,
           Sample_name=Sample_name,
+          rds_file_path=rds_file_path,
           scsorter_script=scsorter_script,
           marker_list_rds=sample[1],
           marker_list_name=sample[0],
