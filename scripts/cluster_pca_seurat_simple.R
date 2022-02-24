@@ -70,11 +70,11 @@ scrna_GEX <- RunPCA(object = scrna_GEX, npcs = nPC, verbose = FALSE);
 print("Saving scrna_GEX object...");
 saveRDS(scrna_GEX, file = sprintf("%s.%s.PCA.%s.rds", sample_name,control,date));
 print("Object saved.");
-print ("Elbow Running...");
-elbow <- ElbowPlot(object = scrna_GEX)
-jpeg(sprintf("%s.PCA30.elbow.%s.%s.jpg", sample_name, control, date), width = 6, height = 8, units="in", res=300);
-print(elbow);
-dev.off();
+# print ("Elbow Running...");
+# elbow <- ElbowPlot(object = scrna_GEX)
+# jpeg(sprintf("%s.PCA30.elbow.%s.%s.jpg", sample_name, control, date), width = 6, height = 8, units="in", res=300);
+# print(elbow);
+# dev.off();
 scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
 scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
 ##
