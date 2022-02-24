@@ -63,3 +63,91 @@ saveRDS(Nowaski_DevelopingBrain_list,'./essential_inputs/Nowaski_DevelopingBrain
 
 #/rdcw/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/brain_cell_markers/Wang_SingleCell_CancerDiscovery2019.txt
 
+############Clean Neftel data############
+
+Neftel <- read.table('/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/brain_cell_markers/neftel_gbm_signatures.txt',header=T,sep="\t")
+
+clean_neftel_grep <- function(x){
+return(x[grep('^$',x,invert=T)])
+}
+
+neftel_lists <- list()
+
+for(i in colnames(Neftel)){
+  neftel_lists[[i]] <- Neftel[[i]] 
+}
+
+neftel_lists_clnd <- lapply(neftel_lists,clean_neftel_grep)
+
+saveRDS(neftel_lists_clnd,'./essential_inputs/Neftel_etal.rds')
+
+###################################################
+
+Panglioma <- read.table('/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/brain_cell_markers/panglioma.txt',header=T,sep="\t")
+
+panglioma_list <- df_to_marker_list(Panglioma,cluster_col='pan_glioma_state',gene_col='gene')
+
+saveRDS(panglioma_list,'./essential_inputs/panglioma_list.rds')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

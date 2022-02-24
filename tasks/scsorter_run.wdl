@@ -24,7 +24,7 @@ task run_scsorter {
   }
 
   output {
-  Array[File] output_rds = glob("*.rds")
+  File scsorter_preds_rds = glob("*_scsorter_preds_*.rds")[0]
   }
 }
 
