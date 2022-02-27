@@ -55,6 +55,13 @@ task merge_scsorter_results {
    command <<<
     Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{Sample_name} ~{type} ~{sep=" " scsorter_runs}
     >>>
+
+  runtime {
+      docker : docker_image
+      memory: mem_gb + " GB"
+      queue: queue_name
+  }
+
   output {
     File Seurat_merged_scsorter = glob("*.seurat_scsorter_mergedpreds.*.rds")[0]
   }
