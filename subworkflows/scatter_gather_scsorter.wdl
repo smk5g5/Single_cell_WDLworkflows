@@ -50,7 +50,7 @@ task merge_scsorter_results {
     String Sample_name
     String seurat_rds_path
     String type
-    Array[File] scsorter_runs
+    Array[String] scsorter_runs
   }
    command <<<
     Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{Sample_name} ~{type} ~{sep=" " scsorter_runs}
