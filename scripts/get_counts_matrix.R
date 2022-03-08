@@ -44,46 +44,46 @@ write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt"
 
 
 
-seurat_object <- macs
+# seurat_object <- macs
 
-DefaultAssay(seurat_object) <- 'RNA'
+# DefaultAssay(seurat_object) <- 'RNA'
 
-write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date),sep = "\t")
+# write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date),sep = "\t")
 
-write.table(counts_matrix, sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date),sep = "\t",row.names=TRUE,col.names=TRUE)
-
-
-"orig.ident"	"cluster_functionalannot"
-
-metadata_df <- seurat_object@meta.data
-
-sub_metadata_df <- metadata_df[c('orig.ident','newlabel')]
-
-colnames(sub_metadata_df) <- c("orig.ident","cluster_functionalannot")
-
-write.table(sub_metadata_df, file="sub_metadata_df_scrna.txt", row.names=T, col.names=NA,sep="\t")
+# write.table(counts_matrix, sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date),sep = "\t",row.names=TRUE,col.names=TRUE)
 
 
-get_counts_matrix <- function(seurat_object,prefix,date){
+# "orig.ident"	"cluster_functionalannot"
 
-DefaultAssay(seurat_object) <- 'RNA'
+# metadata_df <- seurat_object@meta.data
 
-counts_matrix <- as.matrix(seurat_object@assays$RNA@counts)
+# sub_metadata_df <- metadata_df[c('orig.ident','newlabel')]
 
-counts_matrix <- t(counts_matrix)
+# colnames(sub_metadata_df) <- c("orig.ident","cluster_functionalannot")
 
-write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",prefix,date),sep = "\t",row.names=T,col.names=NA)
-
-metadata_df <- seurat_object@meta.data
-
-sub_metadata_df <- metadata_df[c('orig.ident','newlabel')]
-
-colnames(sub_metadata_df) <- c("orig.ident","cluster_functionalannot")
-
-write.table(sub_metadata_df, file=sprintf("%s_sub_metadata_df_scrna.%s.txt",prefix,date), row.names=T, col.names=NA,sep="\t")
-}
+# write.table(sub_metadata_df, file=sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date), row.names=T, col.names=NA,sep="\t")
 
 
+# get_counts_matrix <- function(seurat_object,prefix,date){
 
-get_counts_matrix(seurat_object,prefix,date)
+# DefaultAssay(seurat_object) <- 'RNA'
+
+# counts_matrix <- as.matrix(seurat_object@assays$RNA@counts)
+
+# counts_matrix <- t(counts_matrix)
+
+# write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",prefix,date),sep = "\t",row.names=T,col.names=NA)
+
+# metadata_df <- seurat_object@meta.data
+
+# sub_metadata_df <- metadata_df[c('orig.ident','newlabel')]
+
+# colnames(sub_metadata_df) <- c("orig.ident","cluster_functionalannot")
+
+# write.table(sub_metadata_df, file=sprintf("%s_sub_metadata_df_scrna.%s.txt",prefix,date), row.names=T, col.names=NA,sep="\t")
+# }
+
+
+
+# get_counts_matrix(seurat_object,prefix,date)
 
