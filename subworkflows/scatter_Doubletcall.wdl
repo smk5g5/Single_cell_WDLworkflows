@@ -1,7 +1,5 @@
 version 1.0
 
-version 1.0
-
 import "../tasks/Doublet_calling.wdl" as doublet
 
 workflow scatter_doublet{
@@ -26,4 +24,5 @@ workflow scatter_doublet{
           Sample_name=sample[0]
   }
 
+}
 }
