@@ -150,7 +150,7 @@ for (i in 1:length(matrix.dirs)) {
  scrna_GEX.list[[i]][["Sample"]] = sample_names[i];
 }
 
-scrna_GEX <- merge(x=scrna_GEX.list[[1]],y=scrna_GEX.list[[2:length(sample_names)]],add.cell.ids = sample_names,project=project_name)
+scrna_GEX <- merge(x=scrna_GEX.list[[1]],y=scrna_GEX.list[2:length(sample_names)],add.cell.ids = sample_names,project=project_name)
 
 mito.genes <- grep(pattern = "^MT-", x = rownames(x = scrna_GEX), value = TRUE,ignore.case = TRUE);
 percent.mito <- Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts')[mito.genes, ]) / Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts'));
