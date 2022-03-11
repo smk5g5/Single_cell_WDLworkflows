@@ -234,12 +234,12 @@ dev.off()
 saveRDS(scrna_GEX, file = sprintf("%s.MergedFilteredSeuratObject.%s.rds", project_name, date))
 
 png(sprintf("VlnPlot.Filtered.nCount.25Kmax.%s.%s.png",control, date), width = 10, height = 10, units="in", res=300)
-vln <- VlnPlot(object = scrna_GEX, features = "nCount_RNA", pt.size=0, group.by="Batch", y.max=25000)
+vln <- VlnPlot(object = scrna_GEX, features = "nCount_RNA", pt.size=0, group.by="Sample", y.max=25000)
 print(vln)
 dev.off();
 
 png(sprintf("VlnPlot.Filtered.nFeature.%s.%s.png",control, date), width = 10, height = 10, units="in", res=300)
-vln <- VlnPlot(object = scrna_GEX, features = "nFeature_RNA", pt.size=0, group.by="Batch")
+vln <- VlnPlot(object = scrna_GEX, features = "nFeature_RNA", pt.size=0, group.by="Sample")
 print(vln)
 dev.off()
 
