@@ -217,7 +217,7 @@ for (i in 1:length(x = scrna_GEX.list)) {
      scrna_GEX.list[[i]] <- subset(x = scrna_GEX.list[[i]], subset = nFeature_RNA > 700 & nCount_RNA < Count93 & percent.mito < mc.hi)
 }
 
-scrna_GEX <- merge(x=scrna_GEX.list[[1]],y=c(scrna_GEX.list[[2:length(sample_names)]]),add.cell.ids = sample_names,project=project_name)
+scrna_GEX <- merge(x=scrna_GEX.list[[1]],y=c(scrna_GEX.list[2:length(sample_names)]),add.cell.ids = sample_names,project=project_name)
 
 plot_qc_metrics(seurat_obj=scrna_GEX,filename=sprintf("%s.Post_filtering_QC.%s.pdf",project_name, date))
 
