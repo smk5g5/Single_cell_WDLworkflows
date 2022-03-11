@@ -1,4 +1,5 @@
 .libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
+library(DoubletCollection)
 library(DoubletFinder)
 library(scds)
 library(scDblFinder)
@@ -9,6 +10,7 @@ library(cowplot)
 library(dplyr)
 library(Matrix)
 library(data.table)
+
 # koetjen/rstudio:seurat
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 2) {
@@ -39,8 +41,6 @@ print(Seurat_10x_directory)
 #/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B186/outs/filtered_feature_bc_matrix
 # /raw_feature_bc_matrix/barcodes.tsv.gz
 data.10x <- Read10X(data.dir = Seurat_10x_directory);
-
-library(DoubletCollection)
 
 methods <- c('doubletCells','cxds','bcds','hybrid','scDblFinder','DoubletFinder')
 score.list <- FindScores(data.10x, methods)
