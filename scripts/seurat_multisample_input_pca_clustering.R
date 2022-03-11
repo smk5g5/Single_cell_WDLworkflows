@@ -449,7 +449,7 @@ for(i in unique(glists$List)) {
   outfile = sprintf("umap.%s.%s.%s.pdf",j, control, date);
   if(ng==1){
   fp <- FeaturePlot(object = scrna_GEX, features = genesToPlot, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
-  ggsave(outfile,plot=fp,width = 5, height = 5)
+  ggsave(outfile,plot=fp,width = 5, height = 5) + ggtitle(sprintf("%s (%s)",k,j))
   }  else{
     gplotlist=list();
     for(k in genesToPlot){
