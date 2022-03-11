@@ -1,0 +1,11 @@
+{
+  "Seurat_multisample.run_seurat_multisample.docker_image": "smk5g5/seurat_4_1_0_cellid:1.2.1",
+  "Seurat_multisample.run_seurat_multisample.project_name": "Stegh_GBM",
+  "Seurat_multisample.run_seurat_multisample.organism": "mouse",
+  "Seurat_multisample.run_seurat_multisample.seurat_multisample_rscript": "./scripts/seurat_multisample_input_pca_clustering.R",
+  "Seurat_multisample.run_seurat_multisample.mem_gb": "128",
+  "Seurat_multisample.run_seurat_multisample.queue_name": "general",
+  "Seurat_multisample.run_seurat_multisample.multisample_seurat_10x_inp": "./example_inputs/multisample_seurat_input.tsv",
+  "Seurat_multisample.run_seurat_multisample.gene_lists": "/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/gene_lists_mouse_170228.csv"
+}
+

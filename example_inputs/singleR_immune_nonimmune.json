@@ -1,0 +1,12 @@
+{
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.singleR_yaml": "/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/reference_singleR.yaml",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.nPC": "30",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.Sample_name": "B148",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.queue_name": "siteman",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.mem_gb": "128",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.singleR_immune_nonimmune_rscript": "./scripts/singleR_immune_nonimmune_pipeline.R",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.rds_file_path": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.clustering_res": "0.5",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.docker_image": "koetjen/rstudio:seurat"
+}
+

@@ -1,0 +1,8 @@
+{
+  "scatter_doublet.doublet_calling_script": "./scripts/Doublet_collection.R",
+  "scatter_doublet.queue_name": "siteman",
+  "scatter_doublet.inputSamplesFile": "./example_inputs/multisample_seurat_input.tsv",
+  "scatter_doublet.mem_gb": "128",
+  "scatter_doublet.docker_image": "koetjen/rstudio:seurat"
+}
+

@@ -1,0 +1,11 @@
+{
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column_selection": "NA",
+  "Seurat_rPCA_integration.run_rpca_integration.seurat_rpca_rscript": "./scripts/rpca_integ2.R",
+  "Seurat_rPCA_integration.run_rpca_integration.mem_gb": "128",
+  "Seurat_rPCA_integration.run_rpca_integration.queue_name": "general",
+  "Seurat_rPCA_integration.run_rpca_integration.output_prefix": "schwann_subcluster_scRNA_noriboclus",
+  "Seurat_rPCA_integration.run_rpca_integration.Seurat_rds": "/storage1/fs1/alberthkim/Active/users/khan.saad/Scenic_iteration2/schwann_newlabels_noriboclus.rds",
+  "Seurat_rPCA_integration.run_rpca_integration.docker_image": "koetjen/rstudio:seurat",
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column": "NA"
+}
+

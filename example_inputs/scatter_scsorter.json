@@ -1,0 +1,10 @@
+{
+  "scatter_scsorter.docker_image": "koetjen/rstudio:seurat",
+  "scatter_scsorter.Sample_name": "B148",
+  "scatter_scsorter.mem_gb": "128",
+  "scatter_scsorter.scsorter_script": "./scripts/scsorter_run.R",
+  "scatter_scsorter.rds_file_path": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_seurat_obj_malig.rds",
+  "scatter_scsorter.queue_name": "general",
+  "scatter_scsorter.inputSamplesFile": "./example_inputs/scsorter_refs.tsv"
+}
+

@@ -1,0 +1,12 @@
+{
+  "scatter_gather_scsorter.mem_gb": "128",
+  "scatter_gather_scsorter.docker_image": "koetjen/rstudio:seurat",
+  "scatter_gather_scsorter.inputSamplesFile": "./example_inputs/scsorter_refs_malignant.tsv",
+  "scatter_gather_scsorter.rds_file_path": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_seurat_obj_malig.rds",
+  "scatter_gather_scsorter.Sample_name": "B148",
+  "scatter_gather_scsorter.merge_scsorter_results.type": "malignant",
+  "scatter_gather_scsorter.merge_scsorter_results.merge_scsorter_script": "./scripts/merge_scsorter_results.R",
+  "scatter_gather_scsorter.scsorter_script": "./scripts/scsorter_run.R",
+  "scatter_gather_scsorter.queue_name": "general"
+}
+
