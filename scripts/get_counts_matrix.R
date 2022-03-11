@@ -13,7 +13,7 @@ if(length(args) < 1) {
 Seurat_file <- as.character(args[1])
 prefix <- as.character(args[2])
 
-date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 seurat_object <- readRDS(Seurat_file)
@@ -61,7 +61,7 @@ write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt"
 
 # colnames(sub_metadata_df) <- c("orig.ident","cluster_functionalannot")
 
-# write.table(sub_metadata_df, file=sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'macs_scrna',date), row.names=T, col.names=NA,sep="\t")
+# write.table(sub_metadata_df, file=sprintf("%s_metadata_df.%s.txt",prefix,date), row.names=T, col.names=NA,sep="\t")
 
 
 # get_counts_matrix <- function(seurat_object,prefix,date){

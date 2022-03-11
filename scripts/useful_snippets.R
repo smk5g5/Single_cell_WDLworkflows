@@ -90,64 +90,8 @@ panglioma_list <- df_to_marker_list(Panglioma,cluster_col='pan_glioma_state',gen
 saveRDS(panglioma_list,'./essential_inputs/panglioma_list.rds')
 
 
+mycelltype <- gsub(pattern = '\\/',replacement = '_or_',i)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+gsub('.rds','',unlist(str_split(basename(outrds_name),pattern='_scsorter_preds_',simplify=T))[2])
 

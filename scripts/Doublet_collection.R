@@ -55,7 +55,7 @@ score.list <- FindScores(data.10x, methods)
 
 #10x doublet rates 
 
-doublet_results <- FindDoublets(score.list=score.list,rate= 0.08) #using a default doublet rate of 0.08
+doublet_results <- FindDoublets(score.list=score.list,rate= 0.08)
 
 myres_list <- list(doublet_scores=score.list,doublet_results=doublet_results,cellnames=colnames(data.10x))
 

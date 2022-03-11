@@ -11,7 +11,7 @@ library("cowplot");
 library(MASS)
 
 
-date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 args = commandArgs(trailingOnly=TRUE);
