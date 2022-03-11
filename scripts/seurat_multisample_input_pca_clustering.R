@@ -233,12 +233,12 @@ dev.off()
 
 saveRDS(scrna_GEX, file = sprintf("%s.MergedFilteredSeuratObject.%s.rds", project_name, date))
 
-png(sprintf("%s/VlnPlot.Filtered.nCount.25Kmax.%s.%s.png", output.stats, control, date), width = 10, height = 10, units="in", res=300)
+png(sprintf("VlnPlot.Filtered.nCount.25Kmax.%s.%s.png",control, date), width = 10, height = 10, units="in", res=300)
 vln <- VlnPlot(object = scrna_GEX, features = "nCount_RNA", pt.size=0, group.by="Batch", y.max=25000)
 print(vln)
 dev.off();
 
-png(sprintf("%s/VlnPlot.Filtered.nFeature.%s.%s.png", output.stats, control, date), width = 10, height = 10, units="in", res=300)
+png(sprintf("VlnPlot.Filtered.nFeature.%s.%s.png",control, date), width = 10, height = 10, units="in", res=300)
 vln <- VlnPlot(object = scrna_GEX, features = "nFeature_RNA", pt.size=0, group.by="Batch")
 print(vln)
 dev.off()
@@ -289,14 +289,14 @@ scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:50)
 
 scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
 scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
-jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", output.stats, control, date), width = 10, height = 6, units="in", res=300);
+jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
 js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
 print(js);
 dev.off();
 
 pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
 print(pc.pval);
-write.table(pc.pval, file=sprintf("PCA.jackstraw.scores.%s.%s.xls", output.stats, control, date), quote=FALSE, sep='\t', col.names=TRUE);
+write.table(pc.pval, file=sprintf("PCA.jackstraw.scores.%s.%s.xls",control, date), quote=FALSE, sep='\t', col.names=TRUE);
 
 nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) #redefine nPCs based on number of significant prinicipal components in jackstraw plot
 
@@ -310,19 +310,19 @@ scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
 
 scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
 scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
-jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", output.stats, control, date), width = 10, height = 6, units="in", res=300);
+jpeg(sprintf("PCA.jackstraw.%s.%s.jpg",control, date), width = 10, height = 6, units="in", res=300);
 js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
 print(js);
 dev.off();
 
 
-jpeg(sprintf("UMAP.%s.%s.jpg", output.stats, control, date), width = 10, height = 8, units="in", res=300);
+jpeg(sprintf("UMAP.%s.%s.jpg",control, date), width = 10, height = 8, units="in", res=300);
 p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = "Sample", pt.size=0.1)
 print(p2);
 dev.off();
 
 print ("VizDimLoadings Running...");
-jpeg(sprintf("VizDimLoadings.%s.%s.jpg", output.stats, control, date), width = 8, height = 30, units="in", res=300);
+jpeg(sprintf("VizDimLoadings.%s.%s.jpg",control, date), width = 8, height = 30, units="in", res=300);
 vdl <- VizDimLoadings(object = scrna_GEX, dims = 1:3)
 print(vdl);
 dev.off();
@@ -333,12 +333,12 @@ scrna_GEX <- ProjectDim(object = scrna_GEX)
 
 
 print ("DimHeatmap Running...");
-jpeg(sprintf("PCA.heatmap.top.%s.%s.jpg", output.stats, control, date), width = 8.5, height = 11, units="in", res=300);
+jpeg(sprintf("PCA.heatmap.top.%s.%s.jpg",control, date), width = 8.5, height = 11, units="in", res=300);
 hm <- DimHeatmap(object = scrna_GEX, dims = 1, cells = 500, balanced = TRUE);
 print(hm);
 dev.off();
 
-jpeg(sprintf("PCA.heatmap.multi.%s.%s.jpg", output.stats, control, date), width = 8.5, height = 24, units="in", res=300);
+jpeg(sprintf("PCA.heatmap.multi.%s.%s.jpg",control, date), width = 8.5, height = 24, units="in", res=300);
 hm.multi <- DimHeatmap(object = scrna_GEX, dims = 1:10, cells = 500, balanced = TRUE);
 print(hm.multi);
 dev.off();
