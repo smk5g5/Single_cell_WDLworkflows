@@ -4,7 +4,7 @@ version 1.0
 
 import "../tasks/Doublet_calling.wdl" as doublet
 
-workflow scatter_gather_scsorter{
+workflow scatter_doublet{
 
   input {
     String docker_image

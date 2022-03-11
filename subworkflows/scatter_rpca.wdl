@@ -25,7 +25,5 @@ workflow scatter_rpca{
     			output_prefix=sample[0],
     			subset_column=sample[2],
 				subset_column_selection=sample[3]
-	}
-
-}
+	}}
 }
