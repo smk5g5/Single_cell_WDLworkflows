@@ -110,8 +110,7 @@ gene_lists <- as.character(args[4])
 
 if(organism=='human'){
 genome <- "GRCh38";
-}
-else{
+} else{
   genome <- "GRCm38";
 }
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
@@ -200,8 +199,7 @@ mc.hi = 0.05;
 
 if(organism=='human'){
 mc.hi = 0.1;
-}
-else{
+} else{
 mc.hi = 0.05;
 }
 
@@ -250,8 +248,7 @@ if(organism=='human'){
 cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
 s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
 g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
-}
-else{
+} else{
 cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
 s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
 g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
@@ -436,7 +433,7 @@ print ("color UMAP by Principal Components");
 
 saveRDS(scrna_GEX, file = sprintf("%s.SCT.PCA.UMAP.TSNE.CLUST.%s.rds",control,date))
 
-#must have column header containing List,Name 
+#gene lists must have column header containing List,Name 
 # where List is the broad celltype and Name contains the marker gene for that celltype
 #sep="," separator has to be comma for this
 
@@ -453,8 +450,7 @@ for(i in unique(glists$List)) {
   if(ng==1){
   fp <- FeaturePlot(object = scrna_GEX, features = genesToPlot, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   ggsave(outfile,plot=fp,width = 5, height = 5)
-  }
-  else{
+  }  else{
     gplotlist=list();
     for(k in genesToPlot){
       gplotlist[[k]] <- FeaturePlot(object = scrna_GEX, features = genesToPlot, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank()) + ggtitle(sprintf("%s (%s)",k,j))
