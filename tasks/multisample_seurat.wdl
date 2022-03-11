@@ -31,7 +31,7 @@ task run_seurat_multisample{
   }
 }
 
-workflow Seurat__multisample {
+workflow Seurat_multisample {
 
   call run_seurat_multisample
 }
