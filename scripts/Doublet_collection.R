@@ -37,7 +37,8 @@ print(Seurat_10x_directory)
 # WU1200_Core_CD45neg
 #   11:32
 # Also, Neftel 10x and Neftel Smartseq
-
+# Error: package or namespace load failed for ‘DoubletCollection’ in loadNamespace(i, c(lib.loc, .libPaths()), versionChec
+# k = vI[[i]]):
 #/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B186/outs/filtered_feature_bc_matrix
 # /raw_feature_bc_matrix/barcodes.tsv.gz
 data.10x <- Read10X(data.dir = Seurat_10x_directory);

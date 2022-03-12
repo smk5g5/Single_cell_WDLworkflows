@@ -193,7 +193,13 @@ dev.off();
 
 saveRDS(scrna_GEX, file = sprintf("MergedSeuratObject_GEX.%s.rds",date))
 
-plot_qc_metrics(seurat_obj=scrna_GEX,filename=sprintf("%s.Pre_filtering_QC.%s.pdf",project_name , date))
+# plot_qc_metrics <- function(seurat_obj,filename,mt_pat="^MT-") {
+
+if(organism=='human'){
+plot_qc_metrics(seurat_obj=scrna_GEX,filename=sprintf("%s.Pre_filtering_QC.%s.pdf",project_name , date),mt_pat="^MT-")
+} else{
+plot_qc_metrics(seurat_obj=scrna_GEX,filename=sprintf("%s.Pre_filtering_QC.%s.pdf",project_name , date),mt_pat="^mt-")
+}
 
 mc.hi = 0.05;
 
@@ -352,7 +358,7 @@ scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC", cluster.res, nPC)]] <- Idents(objec
 
 DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
 write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.%s.%s.xls", nPC, control, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
-saveRDS(scrna_GEX, file = sprintf("%s/%s.SCT.PCA.UMAP.TSNE.CLUST.%s.rds", control, date))
+saveRDS(scrna_GEX, file = sprintf("%s.SCT.PCA.UMAP.TSNE.CLUST.%s.rds", control, date))
 
 control <- 'Cycling'
 n.graph = length(unique(scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",cluster.res, nPC)]][,1]));

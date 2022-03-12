@@ -15,18 +15,10 @@ library(yaml)
 library(Ckmeans.1d.dp)
 library(stringr)
 
-args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 3) {
-  args <- c("--help")
-}
-
 Seurat_file <- as.character(args[1])
-doublet_file <- as.character(args[2])
-outfile_seurat <- as.character(args[3])
+input_tsv_file <- as.character(args[2])
+doublet_files <- as.character(args[3])
 
-
-seurat_object <- readRDS(Seurat_file)
-doublet_object <- readRDS(doublet_file)
 
 add_doublet_predictions_to_seurat_singlesample <- function(seurat_object,doublet_object){
   doublet_object[['doublet_results']] <- FindDoublets(score.list=doublet_object$doublet_scores,rate=0.08)
@@ -55,6 +47,15 @@ add_doublet_predictions_to_seurat_singlesample <- function(seurat_object,doublet
   return(seurat_object)
 }
 
+# df$count <- rowSums(df[c(1,3)] == "Yes")
 
-seurat_object <- add_doublet_predictions_to_seurat_singlesample(seurat_object=seurat_object,doublet_object=doublet_object)
-saveRDS(object = seurat_object,file=outfile_seurat)
+input_df <- read.table(input_tsv_file,sep="\t",header=FALSE)
+colnames(input_df) <- c('Sample','cellranger_10x_directory')
+
+doublet_sample_list <- list()
+
+
+for(i in 1:nrow(input_df)){
+doublet_sample_list[[input_df$Sample[i]]] <- doublet_files[grep(input_df$Sample[i],doublet_files)]
+}
+
