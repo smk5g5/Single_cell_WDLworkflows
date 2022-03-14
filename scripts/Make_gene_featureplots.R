@@ -16,14 +16,31 @@ library(ggplot2)
 library(gridExtra)
 #source('./scripts/Plot_QC_scrnaseq.R')
 
-glists.raw <- read.table(gene_lists, sep=",",row.names=NULL,header=TRUE,as.is=TRUE); # gene lists
-glists <- glists.raw[which(glists.raw$Name %in% rownames(scrna_GEX)),]; # filtered genelists
+args <- commandArgs(trailingOnly = TRUE)
+if(length(args) < 4) {
+  args <- c("--help")
+}
 
-for(i in unique(glists$List)) {
+#
+seurat_rds <- as.character(args[1])
+gene_lists <- as.character(args[2])
+gene_column <- as.character(args[3])
+type_column <- as.character(args[4])
+
+
+control <- 'Cycling'
+
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
+
+glists.raw <- read.table(gene_lists, sep=",",row.names=NULL,header=TRUE,as.is=TRUE); # gene lists
+glists <- glists.raw[which(glists.raw[[gene_column]] %in% rownames(scrna_GEX)),]; # filtered genelists
+
+for(i in unique(glists[[type_column]])) {
   j=gsub(" ","_",i);
   j=gsub("/","_",j);
-  sub_glists <- subset(glists,List==i)
-  genesToPlot = sub_glists$Name
+  sub_glists <- glists[glists[[type_column]]==i,]
+  genesToPlot = sub_glists[[gene_column]]
   ng = length(genesToPlot); # number of genes
   outfile = sprintf("umap.%s.%s.%s.pdf",j, control, date);
   if(ng==1){
