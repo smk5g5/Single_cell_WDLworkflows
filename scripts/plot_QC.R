@@ -26,7 +26,7 @@ organism <- as.character(args[2])
 project_name <- as.character(args[3])
 pre_post <- as.character(args[4])
 
-
+scrna_GEX <- readRDS(seurat_rds)
 
 plot_qc_metrics <- function(seurat_obj,filename,mt_pat) {
 seurat_obj$log10GenesPerUMI <- log10(seurat_obj$nFeature_RNA) / log10(seurat_obj$nCount_RNA)
