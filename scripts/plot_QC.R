@@ -18,13 +18,20 @@ library(ggplot2)
 library(gridExtra)
 #source('./scripts/Plot_QC_scrnaseq.R')
 
-date = gsub("2022-","22",Sys.Date(),perl=TRUE);
-date = gsub("-","",date);
+args <- commandArgs(trailingOnly = TRUE)
+if(length(args) < 4) {
+  args <- c("--help")
+}
 
 seurat_rds <- as.character(args[1])
 organism <- as.character(args[2])
 project_name <- as.character(args[3])
 pre_post <- as.character(args[4])
+
+
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
+
 
 scrna_GEX <- readRDS(seurat_rds)
 
