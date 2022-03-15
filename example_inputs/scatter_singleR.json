@@ -1,0 +1,9 @@
+{
+  "scatter_singleR.seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.220312.rds",
+  "scatter_singleR.queue_name": "general",
+  "scatter_singleR.inputSamplesFile": "./example_inputs/SingleR_singleref_scatter_mouse.tsv",
+  "scatter_singleR.singleR_singleref_rscript": "./scripts/SingleR_singleRef.R",
+  "scatter_singleR.docker_image": "koetjen/rstudio:seurat",
+  "scatter_singleR.mem_gb": "128"
+}
+

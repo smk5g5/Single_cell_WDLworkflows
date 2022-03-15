@@ -1,0 +1,10 @@
+{
+  "scatter_gather_singleR.singleR_singleref_rscript": "./scripts/SingleR_singleRef.R",
+  "scatter_gather_singleR.queue_name": "general",
+  "scatter_gather_singleR.seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.doublet_calls.220315.rds",
+  "scatter_gather_singleR.mem_gb": "128",
+  "scatter_gather_singleR.docker_image": "koetjen/rstudio:seurat",
+  "scatter_gather_singleR.inputSamplesFile": "./example_inputs/SingleR_singleref_scatter_mouse.tsv",
+  "scatter_gather_singleR.merge_SingleR_in_seurat_script": "./scripts/add_singleR_to_multisample_seurat.R"
+}
+

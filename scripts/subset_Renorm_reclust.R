@@ -14,20 +14,25 @@ if(length(args) < 5) {
 seurat_loc <- as.character(args[1])
 sub_col <- as.character(args[2])
 tech <- as.character(args[3])
-#output.stats <- as.character(args[4])
-output_meta <- as.character(args[4])
+inverse <- as.character(args[3])
+output.stats <- as.character(args[4])
+output_meta <- as.character(args[5])
 
 seurat_obj <- readRDS(seurat_loc)
 
 print(names(seurat_obj@meta.data))
 
-subset_recluster_renormalize <- function(seurat_obj,sub_col,tech,output_meta) {
+subset_renormalize_recluster<- function(seurat_obj,sub_col,tech,inverse,output_meta) {
   DefaultAssay(seurat_obj) <- "RNA"
   Idents(seurat_obj) <- sub_col
-  scrna_GEX <- subset(seurat_obj,idents=tech)
+  if(inverse==TRUE){
+    scrna_GEX <- subset(seurat_obj,idents=tech,invert = TRUE)
+  }else{
+    scrna_GEX <- subset(seurat_obj,idents=tech)
+  }
   scrna_GEX <- FindVariableFeatures(scrna_GEX)  
   genome <- "GRCh38";
-  date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+  date = gsub("2022-","22",Sys.Date(),perl=TRUE);
   date = gsub("-","",date);
 
   scrna_GEX <- ScaleData(scrna_GEX, verbose = FALSE)
@@ -36,12 +41,12 @@ subset_recluster_renormalize <- function(seurat_obj,sub_col,tech,output_meta) {
   scrna_GEX <- FindNeighbors(scrna_GEX, reduction = "pca", dims = 1:30)
   scrna_GEX <- FindClusters(scrna_GEX, resolution = c(0.5, 0.7, 0.9))
   
-  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_%s_only_%.1f_%dPC",tech,0.5, 30))
-  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_%s_only_%.1f_%dPC",tech,0.7, 30))
-  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_%s_only_%.1f_%dPC",tech,0.9, 30))
+  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_scrnaonly_%.1f_%dPC",0.5, 30))
+  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_scrnaonly_%.1f_%dPC",0.7, 30))
+  scrna_GEX <- StashIdent(object = scrna_GEX, save.name = sprintf("Clusters_scrnaonly_%.1f_%dPC",0.9, 30))
   Idents(scrna_GEX) <- sprintf("Clusters_scrnaonly_%.1f_%dPC",0.5, 30)
   DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
-  write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%s_only.%d.cluster.%.1f.%s.xls",tech,30, 0.5, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
+  write.table(DEGs, file=sprintf("%s/DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls", output.stats, 30, 0.5, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
 	
   n.graph = length(unique(Idents(scrna_GEX)))
   print(n.graph)
@@ -50,18 +55,18 @@ subset_recluster_renormalize <- function(seurat_obj,sub_col,tech,output_meta) {
   print(rainbow.colors)
   print(length(rainbow.colors))
 
-  jpeg(sprintf("UMAP.clusters.%d.%.1f.%s.jpg", 30, 0.5, date), width = 10, height = 8, units="in", res=300);
-  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("Clusters_%s_only_%.1f_%dPC",tech,0.5, 30), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+  jpeg(sprintf("%s/UMAP.clusters.%d.%.1f.%s.jpg", output.stats, 30, 0.5, date), width = 10, height = 8, units="in", res=300);
+  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("Clusters_scrnaonly_%.1f_%dPC",0.5, 30), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
   
-  jpeg(sprintf("UMAP.clusters.labeled.%d.%.1f.%s.jpg",30, 0.5, date), width = 10, height = 8, units="in", res=300);
-  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("Clusters_%s_only_%.1f_%dPC",tech,0.5, 30), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+  jpeg(sprintf("%s/UMAP.clusters.labeled.%d.%.1f.%s.jpg", output.stats,30, 0.5, date), width = 10, height = 8, units="in", res=300);
+  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("Clusters_scrnaonly_%.1f_%dPC",0.5, 30), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
   
   print ("color UMAP by Principal Components");
-  jpeg(sprintf("UMAP.%d.%.1f.colorby.PCs.%s.jpg", 30, 0.5, date), width = 12, height = 6, units="in", res=100);
+  jpeg(sprintf("%s/UMAP.%d.%.1f.colorby.PCs.%s.jpg", output.stats, 30, 0.5, date), width = 12, height = 6, units="in", res=100);
   redblue=c("blue","gray","red");
   fp1 <- FeaturePlot(object = scrna_GEX, features = 'PC_1', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   fp2 <- FeaturePlot(object = scrna_GEX, features = 'PC_2', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
@@ -76,7 +81,7 @@ subset_recluster_renormalize <- function(seurat_obj,sub_col,tech,output_meta) {
   print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9, fp10));
   # print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9));
   dev.off();
-  output_name <- paste0(output_meta,'_',tech,'_only','.rds')
+  output_name <- paste0(output.stats,'/',output_meta,'.RDS')
   saveRDS(scrna_GEX,file=output_name)
 }
 

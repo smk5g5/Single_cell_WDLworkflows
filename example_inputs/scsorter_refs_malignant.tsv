@@ -1,0 +1,6 @@
+Ivy_GBM_atlas	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/Ivy_markers_top50_list.rds
+Wang_CancerCell	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/Wang_CancerCell_list.rds
+Wang_CancerDisc	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/Wang_SingleCell_CancerDiscovery_list.rds
+Garofano_etal	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/Garofano_etal.rds
+Neftel_etal	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/Neftel_etal.rds
+Panglioma	/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/essential_inputs/panglioma_list.rds

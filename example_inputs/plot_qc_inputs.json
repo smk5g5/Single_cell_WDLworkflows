@@ -1,0 +1,11 @@
+{
+  "QC_plots.plot_qc.queue_name": "general",
+  "QC_plots.plot_qc.organism": "mouse",
+  "QC_plots.plot_qc.docker_image": "koetjen/rstudio:seurat",
+  "QC_plots.plot_qc.project_name": "Stegh_GBM",
+  "QC_plots.plot_qc.pre_post": "Pre",
+  "QC_plots.plot_qc.seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/MergedSeuratObject_GEX.220312.rds",
+  "QC_plots.plot_qc.mem_gb": "128",
+  "QC_plots.plot_qc.plot_qc_script": "./scripts/plot_QC.R"
+}
+

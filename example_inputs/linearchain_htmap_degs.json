@@ -1,0 +1,15 @@
+{
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.queue_name": "general",
+  "DEGs_downstream.make_heatmap_DEGs.queue_name": "general",
+  "DEGs_downstream.make_heatmap_DEGs.docker_image": "smk5g5/seurat_4.1.0:clusterprofiler_htmap",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.docker_image": "koetjen/rstudio:seurat",
+  "DEGs_downstream.DEG_file": "/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/T_NK_subcluster_scRNA_only/DEGs.Wilcox.T_NK_subcluster_scRNA_only.integrated_snn_res.0.5_onlypos.20220129.txt",
+  "DEGs_downstream.make_heatmap_DEGs.htmap_rscript": "./scripts/DEG_downstream_analysis.R",
+  "DEGs_downstream.Seurat_rds": "/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/T_NK_subcluster_scRNA_only/T_NK_subcluster_scRNA_only_rpca.20220129.rds",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.aggregate_script": "./scripts/aggregate_expression_seurat4.0.3.R",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.mem_gb": "128",
+  "DEGs_downstream.output_prefix": "T_NK_subcluster_scRNA",
+  "DEGs_downstream.clustering": "integrated_snn_res.0.5",
+  "DEGs_downstream.make_heatmap_DEGs.mem_gb": "128"
+}
+

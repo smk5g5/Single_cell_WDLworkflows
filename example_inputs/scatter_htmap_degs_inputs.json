@@ -1,0 +1,10 @@
+{
+  "scatter_htmap.queue_name": "general",
+  "scatter_htmap.inputSamplesFile": "./example_inputs/deg_htmap_scatter.csv",
+  "scatter_htmap.docker_image_htmap": "smk5g5/seurat_4.1.0:clusterprofiler_htmap",
+  "scatter_htmap.mem_gb": "128",
+  "scatter_htmap.aggregate_script": "./scripts/aggregate_expression_seurat4.0.3.R",
+  "scatter_htmap.docker_image_aggr": "koetjen/rstudio:seurat",
+  "scatter_htmap.htmap_rscript": "./scripts/DEG_downstream_analysis.R"
+}
+

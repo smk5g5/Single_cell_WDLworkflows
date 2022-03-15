@@ -1,0 +1,11 @@
+{
+  "scatter_doublet.doublet_calling_script": "./scripts/Doublet_collection.R",
+  "scatter_doublet.add_doublets_metadata_tomultisample_seurat.split_by": "Sample",
+  "scatter_doublet.queue_name": "general",
+  "scatter_doublet.merged_seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.220312.rds",
+  "scatter_doublet.inputSamplesFile": "/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/example_inputs/multisample_seurat_input.tsv",
+  "scatter_doublet.merge_doublet_calls_in_seurat_script": "./scripts/add_doublet_predictions_to_seurat_multisample.R",
+  "scatter_doublet.mem_gb": "128",
+  "scatter_doublet.docker_image": "koetjen/rstudio:seurat"
+}
+

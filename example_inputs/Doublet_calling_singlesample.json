@@ -1,9 +1,9 @@
 {
-  "Doublet_colletion.run_doublet_collection.docker_image": "String",
-  "Doublet_colletion.run_doublet_collection.mem_gb": "Int",
-  "Doublet_colletion.run_doublet_collection.doublet_calling_script": "File",
-  "Doublet_colletion.run_doublet_collection.cellranger_outs_directory": "String",
-  "Doublet_colletion.run_doublet_collection.queue_name": "String",
-  "Doublet_colletion.run_doublet_collection.Sample_name": "String"
+  "Doublet_colletion.run_doublet_collection.docker_image": "koetjen/rstudio:seurat",
+  "Doublet_colletion.run_doublet_collection.mem_gb": "128",
+  "Doublet_colletion.run_doublet_collection.doublet_calling_script": "./scripts/Doublet_collection.R",
+  "Doublet_colletion.run_doublet_collection.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/SAMPLES/KO1/filtered_feature_bc_matrix",
+  "Doublet_colletion.run_doublet_collection.queue_name": "siteman",
+  "Doublet_colletion.run_doublet_collection.Sample_name": "KO1"
 }
 
