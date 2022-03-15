@@ -136,20 +136,20 @@ feature.pal = rev(colorRampPalette(brewer.pal(11,"Spectral"))(20))
 
 for(i in colnames(All_doublet_scores)){
   dm <-FeaturePlot(seurat_object,features =c(i),cols = feature.pal,label = T,pt.size = 5,label.size = 15)
-  dm <- dm + theme(text = element_text(size = 44)) + theme(legend.title=element_text(color="black",size=40))+ theme(legend.text=element_text(size=40))+guides(fill = guide_legend(override.aes = list(size=25)),colour = guide_colourbar(barwidth =10,barheight=20))
-  dm <- dm +theme(axis.text.y = element_text(color="black",size=44))+theme(axis.text.x = element_text(color="black",size=44))+theme(axis.title.x = element_text(color="black",size=44))+theme(axis.title.y = element_text(color="black",size=44))
-  dm <- dm+ggtitle(i);
+  dm <- dm + theme(text = element_text(size = 22)) + theme(legend.title=element_text(color="black",size=20))+ theme(legend.text=element_text(size=20))+guides(fill = guide_legend(override.aes = list(size=15)),colour = guide_colourbar(barwidth =10,barheight=20))
+  dm <- dm +theme(axis.text.y = element_text(color="black",size=22))+theme(axis.text.x = element_text(color="black",size=22))+theme(axis.title.x = element_text(color="black",size=22))+theme(axis.title.y = element_text(color="black",size=22))
+  dm <- dm+ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
   ggsave(sprintf("featureplot_%s_lab_%s.png",i,date),plot = dm, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
 }
-
-mydmplt <-DimPlot(CD8_select_filtered2, label=F,cols= cellmatch_colors[unique(CD8_select_filtered2$Cellmatch_results)],pt.size = 2) + ggtitle('Cellmatch results on filtered (second) CD8 subset')
 
 doublet_cols <- c("darkred","grey88")
 names(doublet_cols) <- c("yes","no")
 
 for(i in colnames(All_doublet_preds)){
   Idents(seurat_object) <- i
-  mydmplt <-DimPlot(seurat_object,cols= doublet_cols,pt.size = 5) + ggtitle(i)
+  mydmplt <-DimPlot(seurat_object,cols= doublet_cols,pt.size = 5) + ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
+  mydmplt <- mydmplt + theme(text = element_text(size = 22)) + theme(legend.title=element_text(color="black",size=20))+ theme(legend.text=element_text(size=20))+guides(fill = guide_legend(override.aes = list(size=15)),colour = guide_colourbar(barwidth =10,barheight=20))
+  mydmplt <- mydmplt +theme(axis.text.y = element_text(color="black",size=22))+theme(axis.text.x = element_text(color="black",size=22))+theme(axis.title.x = element_text(color="black",size=22))+theme(axis.title.y = element_text(color="black",size=22))
   ggsave(sprintf("Dimplot_%s_%s.png",i,date),plot = mydmplt, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
 }
 
