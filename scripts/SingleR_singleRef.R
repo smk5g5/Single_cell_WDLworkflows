@@ -20,8 +20,8 @@ if(length(args) < 4) {
 
 Seurat_rds <- as.character(args[1])
 singleR_reference <- as.character(args[2])
-reference_name =  as.numeric(args[3])
-label_column_name =  as.numeric(args[4])
+reference_name =  as.character(args[3])
+label_column_name =  as.character(args[4])
 
 seurat_obj <- readRDS(Seurat_rds)
 singleR_obj <- readRDS(singleR_reference)
