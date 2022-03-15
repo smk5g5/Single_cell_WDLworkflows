@@ -14,7 +14,7 @@ library(scSorter)
 library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 5) {
+if(length(args) < 4) {
   args <- c("--help")
 }
 
@@ -22,7 +22,6 @@ Seurat_rds <- as.character(args[1])
 singleR_reference <- as.character(args[2])
 reference_name =  as.numeric(args[3])
 label_column_name =  as.numeric(args[4])
-
 
 seurat_obj <- readRDS(Seurat_rds)
 singleR_obj <- readRDS(singleR_reference)
