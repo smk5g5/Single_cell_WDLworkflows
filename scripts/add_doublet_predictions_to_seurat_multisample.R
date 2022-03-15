@@ -64,7 +64,9 @@ add_doublet_predictions_to_seurat_singlesample_mod <- function(seurat_object,dou
   }
   for(i in names(doublet_object[['doublet_scores']])){
     doubscores <- doublet_object[['doublet_scores']][[i]]
-    names(doubscores) <- doublet_object$cellnames
+    new_cellnames <- paste0(seurat_cellname_prefix,'_',seurat_cellname_prefix,'_',doublet_object$cellnames)
+    # names(doubscores) <- doublet_object$cellnames
+    names(doubscores) <- new_cellnames
     sel_cells <- intersect(Cells(seurat_object),names(doubscores))
     sel_doubscores <- doubscores[sel_cells]
     index <- match(Cells(seurat_object),names(sel_doubscores))
