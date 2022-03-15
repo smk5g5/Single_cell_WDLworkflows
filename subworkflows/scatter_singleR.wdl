@@ -22,7 +22,7 @@ workflow scatter_singleR{
     			queue_name=queue_name,
     			mem_gb=mem_gb,
     			singleR_singleref_rscript=singleR_singleref_rscript,
-    			Seurat_rds=seurat_rds,
+    			seurat_rds=seurat_rds,
     			reference_name=sample[0],
     			singleR_ref_rds=sample[2],
 				label_column_name=sample[1]
