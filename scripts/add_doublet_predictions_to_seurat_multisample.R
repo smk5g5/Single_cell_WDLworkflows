@@ -25,9 +25,9 @@ args <- commandArgs(trailingOnly = TRUE)
 
 Seurat_file <- as.character(args[1])
 input_tsv_file <- as.character(args[2])
-project_name <- as.character(args[3])
-split_by <- as.character(args[4])
-doublet_files <- as.character(args[5:length(args)])
+# project_name <- as.character(args[3])
+split_by <- as.character(args[3])
+doublet_files <- as.character(args[4:length(args)])
 
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
