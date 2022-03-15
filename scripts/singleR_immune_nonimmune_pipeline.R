@@ -156,7 +156,7 @@ Add_singleR_preds_to_seuratmeta <- function(singleR_obj,seurat_obj,type){
 }
 
 
-date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 seurat_obj <- readRDS(Seurat_rds)
