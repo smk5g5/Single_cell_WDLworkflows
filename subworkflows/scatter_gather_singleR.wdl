@@ -10,6 +10,7 @@ workflow scatter_gather_singleR{
     String queue_name
     Int mem_gb
     File singleR_singleref_rscript
+    File merge_SingleR_in_seurat_script
     File seurat_rds
 	File inputSamplesFile
 	Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
