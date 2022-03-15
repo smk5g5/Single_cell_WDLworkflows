@@ -17,15 +17,21 @@ library(stringr)
 
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 4) {
-  args <- c("--help")
-}
+# if(length(args) < 4) {
+#   args <- c("--help")
+# }
+
 
 
 Seurat_file <- as.character(args[1])
 input_tsv_file <- as.character(args[2])
-doublet_files <- as.character(args[3])
+project_name <- as.character(args[3])
 split_by <- as.character(args[4])
+doublet_files <- as.character(args[5:length(args)])
+
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
+
 
 add_doublet_predictions_to_seurat_singlesample_mod <- function(seurat_object,doublet_object,seurat_cellname_prefix){
   # doublet_object[['doublet_results']] <- FindDoublets(score.list=doublet_object$doublet_scores,rate=0.08)
@@ -123,6 +129,9 @@ seurat_object <- AddMetaData(object = seurat_object,metadata =All_doublet_preds)
 
 seurat_object <- AddMetaData(object = seurat_object,metadata =All_doublet_scores)
 
+date = gsub(".rds",".doublet_calls.rds",basename(Seurat_file));
+
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',date,".doublet_calls.rds"))
 
 # test_doublet[['doublet_results']] <- FindDoublets(score.list=test_doublet$doublet_scores,rate=0.08)
 

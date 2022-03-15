@@ -27,6 +27,17 @@ workflow scatter_doublet{
   }
 
 }
+
+ call add_doublets_metadata_tomultisample_seurat {
+      input: 
+        docker_image=docker_image, 
+        queue_name=queue_name,
+        mem_gb=mem_gb,
+
+        seurat_rds_path=rds_file_path,
+        scsorter_runs=run_scsorter.scsorter_preds_rds
+    }
+
 }
 
 task merge_scsorter_results {
@@ -35,13 +46,14 @@ task merge_scsorter_results {
     String queue_name
     Int mem_gb
     File merge_scsorter_script
-    String Sample_name
+    File inputSamplesFile
+    String project_name
     String seurat_rds_path
-    String type
+    String split_by
     Array[String] scsorter_runs
   }
    command <<<
-    Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{Sample_name} ~{type} ~{sep=" " scsorter_runs}
+    Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{project_name} ~{inputSamplesFile} ~{split_by} ~{sep=" " scsorter_runs}
     >>>
 
   runtime {
@@ -54,3 +66,34 @@ task merge_scsorter_results {
     File Seurat_merged_scsorter = glob("*.seurat_scsorter_mergedpreds.*.rds")[0]
   }
 }
+
+task add_doublets_metadata_tomultisample_seurat{
+
+  input {
+    String docker_image
+    String queue_name
+    Int mem_gb
+    File merge_doublet_calls_in_seurat_script
+    File inputSamplesFile
+    File multisample_seurat_rds
+    String split_by
+    Array[String] doublet_files
+  }
+
+   command <<<
+    Rscript ~{merge_doublet_calls_in_seurat_script} ~{multisample_seurat_rds} ~{inputSamplesFile} ~{split_by} ~{sep=" " doublet_files}
+    >>>
+
+  runtime {
+    docker : docker_image
+    memory: mem_gb + " GB"
+    queue: queue_name
+  }
+
+  output {
+  File seurat_doublet_rds = glob("*.doublet_calls.rds")[0] 
+  }
+}
+
+
+
