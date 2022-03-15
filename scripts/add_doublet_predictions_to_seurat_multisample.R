@@ -95,7 +95,7 @@ doublet_scores_df <- list()
 
 for(i in names(seurat_object_list)){
 doublet_object <- readRDS(doublet_sample_list[[i]])
-doublet_dfs <- add_doublet_predictions_to_seurat_singlesample_mod(seurat_object=seurat_object_list[[i]],doublet_object=doublet_object,seurat_cellname_prefix=i){
+doublet_dfs <- add_doublet_predictions_to_seurat_singlesample_mod(seurat_object=seurat_object_list[[i]],doublet_object=doublet_object,seurat_cellname_prefix=i)
 doublet_prediction_df[[i]] <- doublet_dfs$doublet_prediction
 doublet_scores_df[[i]] <- doublet_dfs$doublet_scores
 }

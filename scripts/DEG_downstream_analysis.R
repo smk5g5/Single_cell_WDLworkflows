@@ -42,8 +42,8 @@ colors = unique(c(seq(-1,-0.1,length=27),seq(-0.1,0.1,length=24),seq(0.1,1,lengt
 my.palette = colorRampPalette(rev(brewer.pal(n=7, name="RdYlBu")))(n=75);
 
 myhtmp_phtmp <- ComplexHeatmap::pheatmap(clust.means.norm,cluster_rows = T,cluster_cols = T,show_rownames = T,column_title = "Average expression by cluster",show_colnames=T,treeheight_row=0,treeheight_col=0,
-                                          border_color='black', scale="none",breaks=colors,color=my.palette,fontsize=30,fontsize_row=16,fontsize_col=30,
-                                          cellwidth = ncol(clust.means.norm)*unit(10, "mm"), cellheight = nrow(clust.means.norm)*unit(5, "mm"))
+                                          border_color='black', scale="none",breaks=colors,color=my.palette,)
+
 
 fig_ht <- min(125,nrow(clust.means.norm)*unit(5, "mm"))
 fig_wd <- min(160,2 * ncol(clust.means.norm)*unit(5, "mm"))
