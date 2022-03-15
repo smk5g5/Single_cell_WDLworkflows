@@ -33,38 +33,12 @@ workflow scatter_doublet{
         docker_image=docker_image, 
         queue_name=queue_name,
         mem_gb=mem_gb,
-
-        seurat_rds_path=rds_file_path,
-        scsorter_runs=run_scsorter.scsorter_preds_rds
+        merge_doublet_calls_in_seurat_script=merge_doublet_calls_in_seurat_script,
+        inputSamplesFile=inputSamplesFile,
+        multisample_seurat_rds=merged_seurat_rds,
+        doublet_files=run_doublet.doublet_results
     }
 
-}
-
-task merge_scsorter_results {
-  input {
-    String docker_image
-    String queue_name
-    Int mem_gb
-    File merge_scsorter_script
-    File inputSamplesFile
-    String project_name
-    String seurat_rds_path
-    String split_by
-    Array[String] scsorter_runs
-  }
-   command <<<
-    Rscript ~{merge_scsorter_script} ~{seurat_rds_path} ~{project_name} ~{inputSamplesFile} ~{split_by} ~{sep=" " scsorter_runs}
-    >>>
-
-  runtime {
-      docker : docker_image
-      memory: mem_gb + " GB"
-      queue: queue_name
-  }
-
-  output {
-    File Seurat_merged_scsorter = glob("*.seurat_scsorter_mergedpreds.*.rds")[0]
-  }
 }
 
 task add_doublets_metadata_tomultisample_seurat{
