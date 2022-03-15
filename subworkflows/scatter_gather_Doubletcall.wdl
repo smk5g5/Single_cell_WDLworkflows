@@ -65,7 +65,7 @@ task add_doublets_metadata_tomultisample_seurat{
   }
 
   output {
-  File seurat_doublet_rds = glob("*.doublet_calls.rds")[0] 
+  File seurat_doublet_rds = glob("*.doublet_calls*.rds")[0] 
   }
 }
 

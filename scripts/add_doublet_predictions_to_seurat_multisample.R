@@ -131,7 +131,7 @@ seurat_object <- AddMetaData(object = seurat_object,metadata =All_doublet_scores
 
 date = gsub(".rds",".doublet_calls.rds",basename(Seurat_file));
 
-saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',date,".doublet_calls.rds"))
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".doublet_calls.",date,".rds"))
 
 # test_doublet[['doublet_results']] <- FindDoublets(score.list=test_doublet$doublet_scores,rate=0.08)
 
