@@ -7,7 +7,7 @@ library(Matrix)
 library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 5) {
+if(length(args) < 6) {
   args <- c("--help")
 }
 
@@ -16,7 +16,7 @@ sub_col <- as.character(args[2])
 ident_names <- as.character(args[3])
 inverse <- as.character(args[4])
 output_suffix <- as.character(args[5])
-
+organism <- as.character(args[6])
 # output.stats <- as.character(args[4])
 # output_meta <- as.character(args[5])
 
