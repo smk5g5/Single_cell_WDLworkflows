@@ -29,6 +29,7 @@ date = gsub("-","",date);
 
 
 get_significant_pcs <- function(scrna_GEX,nPC=50) {
+  control='Cycling'
   scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
@@ -36,11 +37,8 @@ get_significant_pcs <- function(scrna_GEX,nPC=50) {
   js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
   print(js);
   dev.off();
-
   pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
   print(pc.pval);
-  write.table(pc.pval, file=sprintf("PCA.jackstraw.scores.%s.%s.xls",control, date), quote=FALSE, sep='\t', col.names=TRUE);
-
   nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
   #redefine nPCs based on number of significant prinicipal components in jackstraw plot
   return(nPC)
