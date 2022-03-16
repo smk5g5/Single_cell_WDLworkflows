@@ -1,0 +1,34 @@
+version 1.0
+
+task subset_recluster_renormalize{
+
+  input {
+    String docker_image
+    String queue_name
+    Int mem_gb
+    File recluster_renormalize_script
+    File seurat_rds
+    String subset_column_name
+    String ident_name
+    String inverse
+  }
+
+   command <<<
+    Rscript ~{recluster_renormalize_script} ~{seurat_rds} ~{subset_column_name} ~{ident_name} ~{inverse}
+    >>>
+
+  runtime {
+    docker : docker_image
+    memory: mem_gb + " GB"
+    queue: queue_name
+  }
+
+  output {
+  File seurat_doublet_rds = glob("*.doublets.rds")[0] 
+  }
+}
+
+workflow Add_doublet_info{
+
+  call add_doublets_metadata
+}
