@@ -14,13 +14,19 @@ if(length(args) < 5) {
 seurat_loc <- as.character(args[1])
 sub_col <- as.character(args[2])
 ident_names <- as.character(args[3])
-inverse <- as.character(args[3])
+inverse <- as.character(args[4])
+output_suffix <- as.character(args[5])
+
 # output.stats <- as.character(args[4])
 # output_meta <- as.character(args[5])
 
 seurat_obj <- readRDS(seurat_loc)
 
 print(names(seurat_obj@meta.data))
+
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
+
 
 get_significant_pcs <- function(seurat_obj) {
   seurat_obj <- RunPCA(seurat_obj, npcs = 50, verbose = FALSE)
@@ -61,9 +67,6 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
   scrna_GEX <- FindVariableFeatures(scrna_GEX)
 
   control='Cycling'
-
-  date = gsub("2022-","22",Sys.Date(),perl=TRUE);
-  date = gsub("-","",date);
 
   scrna_GEX <- ScaleData(scrna_GEX, verbose = FALSE)
 
@@ -213,3 +216,9 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
 }
 
 seurat_obj <- subset_recluster_renormalize(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse)
+
+output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
+
+saveRDS(seurat_object, file = output_file)
+
+

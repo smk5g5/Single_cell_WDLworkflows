@@ -11,10 +11,11 @@ task subset_recluster_renormalize{
     String subset_column_name
     String ident_name
     String inverse
+    String output_suffix
   }
 
    command <<<
-    Rscript ~{recluster_renormalize_script} ~{seurat_rds} ~{subset_column_name} ~{ident_name} ~{inverse}
+    Rscript ~{recluster_renormalize_script} ~{seurat_rds} ~{subset_column_name} ~{ident_name} ~{inverse} ~{output_suffix}
     >>>
 
   runtime {
