@@ -28,8 +28,8 @@ date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 
-get_significant_pcs <- function(scrna_GEX) {
-  scrna_GEX <- RunPCA(scrna_GEX, npcs = 50, verbose = FALSE)
+get_significant_pcs <- function(scrna_GEX,nPC=50) {
+  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
   jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
