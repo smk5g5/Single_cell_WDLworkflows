@@ -62,11 +62,33 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
   scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
   ##################################################################################
 
-  scrna_GEX <- FindVariableFeatures(scrna_GEX)
+  if(organism=='human'){
+  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
+  s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
+  g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
+  } else{
+  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
+  s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
+  g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
+  }
+
+  scrna_GEX <- CellCycleScoring(object=scrna_GEX, s.features=s.genes, g2m.features=g2m.genes, set.ident=FALSE)
+
+  scrna_GEX <- NormalizeData(object = scrna_GEX, normalization.method = "LogNormalize", scale.factor = 1e6); # 1e6 is new as of 1/8/20
+
+  scrna_GEX <- FindVariableFeatures(object = scrna_GEX, selection.method = 'vst', mean.cutoff = c(0.1,8), dispersion.cutoff = c(1, Inf))
 
   control='Cycling'
 
-  scrna_GEX <- ScaleData(scrna_GEX, verbose = FALSE)
+  if (control == "Cycling") { # This removes all signal associated with the cell cycle
+   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c("S.Score","G2M.Score"), display.progress=FALSE);
+  } else if (control == "CyclingRB") {
+   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c("S.Score","G2M.Score","percent.ribo"), display.progress=FALSE);
+  } else if (control == "CyclingDiff") {
+   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c("CC.Difference"), display.progress=FALSE);
+  } else {
+   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), display.progress=FALSE);
+  }
 
   nPC <- get_significant_pcs(scrna_GEX)
 
