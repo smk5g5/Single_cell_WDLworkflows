@@ -11,5 +11,10 @@ workflow LinearChain_recluster_rerun_singleR {
     File seurat_rds
 }
   call recluster_renormalize.subset_recluster_renormalize { input: seurat_rds=seurat_rds }
-  call scatter_gather_singleR { input: seurat_rds=recluster_renormalize.subset_recluster_renormalize.seurat_sub_renorm_reclust_rds }
+  call scatter_gather_singleR.run_singleR { input: seurat_rds=recluster_renormalize.subset_recluster_renormalize.seurat_sub_renorm_reclust_rds }
+  call scatter_gather_singleR.add_singleR_results_to_seurat {
+   input: 
+   seurat_rds=recluster_renormalize.subset_recluster_renormalize.seurat_sub_renorm_reclust_rds,
+   singleR_pred_rds=scatter_gather_singleR.run_singleR.singleR_pred_rds
+  }
 }
