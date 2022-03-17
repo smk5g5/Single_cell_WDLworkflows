@@ -142,6 +142,8 @@ for(i in colnames(All_doublet_scores)){
   ggsave(sprintf("featureplot_%s_lab_%s.png",i,date),plot = dm, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
 }
 
+ # /storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_doublet/b4473306-6ff6-4a81-86b0-b44e275c90b7/call-add_doublets_metadata_tomultisample_seurat/execution/
+
 doublet_cols <- c("darkred","grey88")
 names(doublet_cols) <- c("yes","no")
 

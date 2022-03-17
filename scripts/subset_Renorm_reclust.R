@@ -45,7 +45,7 @@ get_significant_pcs <- function(scrna_GEX,nPC=50) {
   return(nPC)
 }
 
-subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse) {
+subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {
   DefaultAssay(seurat_obj) <- "RNA"
   Idents(seurat_obj) <- sub_col
   if(inverse==TRUE){
@@ -236,7 +236,7 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
   return(scrna_GEX)
 }
 
-seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse)
+seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse,date=date)
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
 
