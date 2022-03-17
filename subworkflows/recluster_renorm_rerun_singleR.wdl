@@ -1,6 +1,6 @@
 version 1.0
 
-import "../tasks/subset_renormalize_recluster.wdl" as recluster_renormalize
+import "../tasks/subset_renormalize_recluster.wdl" as rec_ren
 import "../tasks/SingleR_singleref.wdl" as singleR
 
 
@@ -17,7 +17,7 @@ workflow LinearChain_recluster_rerun_singleR{
   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }
 
-  call recluster_renormalize.subset_recluster_renormalize { input: seurat_rds=seurat_rds }
+  call rec_ren.subset_recluster_renormalize as sub_rec_ren { input: seurat_rds=seurat_rds }
 
   scatter (sample in inputSamples) {
     call singleR.run_singleR_singleref as run_singleR {
@@ -26,7 +26,7 @@ workflow LinearChain_recluster_rerun_singleR{
           queue_name=queue_name,
           mem_gb=mem_gb,
           singleR_singleref_rscript=singleR_singleref_rscript,
-          seurat_rds=recluster_renormalize.subset_recluster_renormalize.seurat_sub_renorm_reclust_rds,
+          seurat_rds=sub_rec_ren.seurat_sub_renorm_reclust_rds,
           reference_name=sample[0],
           singleR_ref_rds=sample[2],
         label_column_name=sample[1]
