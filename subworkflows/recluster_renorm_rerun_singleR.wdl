@@ -39,7 +39,7 @@ workflow LinearChain_recluster_rerun_singleR{
         mem_gb=mem_gb,
         merge_SingleR_in_seurat_script=merge_SingleR_in_seurat_script,
         inputSamplesFile=inputSamplesFile,
-        seurat_rds=recluster_renormalize.subset_recluster_renormalize.seurat_sub_renorm_reclust_rds,
+        seurat_rds=sub_rec_ren.seurat_sub_renorm_reclust_rds,
         singleR_pred_rds=run_singleR.singleR_pred_rds
     }
 }
