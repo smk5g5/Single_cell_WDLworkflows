@@ -26,7 +26,7 @@ task subset_recluster_renormalize{
   }
 
   output {
-  File seurat_sub_renorm_reclust_rds = glob("*${output_suffix}.rds")[0] 
+  File seurat_sub_renorm_reclust_rds = glob("*${output_suffix}*.rds")[0] 
   }
 }
 

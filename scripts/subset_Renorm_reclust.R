@@ -240,6 +240,6 @@ seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
 
-saveRDS(seurat_object, file = output_file)
+saveRDS(seurat_obj, file = output_file)
 
 
