@@ -1,6 +1,8 @@
 version 1.0
 
 import "../tasks/subset_renormalize_recluster.wdl" as recluster_renormalize
+import "../tasks/SingleR_singleref.wdl" as singleR
+
 
 workflow LinearChain_recluster_rerun_singleR{
 
