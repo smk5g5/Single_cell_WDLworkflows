@@ -20,8 +20,8 @@ workflow LinearChain_recluster_rerun_singleR{
   call rec_ren.subset_recluster_renormalize as sub_rec_ren { 
     input: 
     seurat_rds=seurat_rds,
-    queue_name=queue_name
-    mem_gb=mem_gb
+    queue_name=queue_name,
+    mem_gb=mem_gb,
     docker_image=docker_image
      }
 
