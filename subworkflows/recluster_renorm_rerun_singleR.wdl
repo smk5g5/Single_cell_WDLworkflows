@@ -17,7 +17,13 @@ workflow LinearChain_recluster_rerun_singleR{
   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }
 
-  call rec_ren.subset_recluster_renormalize as sub_rec_ren { input: seurat_rds=seurat_rds }
+  call rec_ren.subset_recluster_renormalize as sub_rec_ren { 
+    input: 
+    seurat_rds=seurat_rds,
+    queue_name=queue_name
+    mem_gb=mem_gb
+    docker_image=docker_image
+     }
 
   scatter (sample in inputSamples) {
     call singleR.run_singleR_singleref as run_singleR {
