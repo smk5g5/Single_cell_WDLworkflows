@@ -5,6 +5,7 @@ library(cowplot)
 library(dplyr)
 library(Matrix)
 library(RColorBrewer)
+library(ggthemes)
 
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 6) {
