@@ -158,12 +158,12 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
   print(length(rainbow.colors))
 
   jpeg(sprintf("UMAP.clusters.%d.%.1f.%s.jpg", nPC, 0.7, date), width = 10, height = 8, units="in", res=300);
-  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, 30), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, nPC), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
   
   jpeg(sprintf("UMAP.clusters.labeled.%d.%.1f.%s.jpg",nPC, 0.7, date), width = 10, height = 8, units="in", res=300);
-  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, 30), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
+  p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, nPC), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
 
@@ -216,7 +216,7 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse)
 
   
   print ("color UMAP by Principal Components");
-  jpeg(sprintf("UMAP.%d.%.1f.colorby.PCs.%s.jpg", 30, 0.5, date), width = 12, height = 6, units="in", res=100);
+  jpeg(sprintf("UMAP.%d.%.1f.colorby.PCs.%s.jpg", nPC, 0.7, date), width = 12, height = 6, units="in", res=100);
   redblue=c("blue","gray","red");
   fp1 <- FeaturePlot(object = scrna_GEX, features = 'PC_1', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   fp2 <- FeaturePlot(object = scrna_GEX, features = 'PC_2', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
