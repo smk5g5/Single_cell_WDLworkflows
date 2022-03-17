@@ -54,14 +54,14 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
     scrna_GEX <- subset(seurat_obj,idents=ident_names)
   }
 
-  ##################################################################################
-  # This bit is only for testing purposes for the rscript within wdl would be disabled
-  # in the main workflow
-  set.seed(100)
-  random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.1)
-  #select 10% of all cells randomly for testing the script.
-  scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
-  ##################################################################################
+  # ##################################################################################
+  # # This bit is only for testing purposes for the rscript within wdl would be disabled
+  # # in the main workflow
+  # set.seed(100)
+  # random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.1)
+  # #select 10% of all cells randomly for testing the script.
+  # scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
+  # ##################################################################################
 
   if(organism=='human'){
   cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
