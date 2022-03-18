@@ -64,7 +64,7 @@ workflow end_to_end_seurat_single_sample{
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        seurat_rds=scat_gath_singleR.add_singleR_results_to_seurat.seurat_singleR_rds,
+        seurat_rds=scat_gath_singleR.seurat_singleR_rds,
         inputSamplesFile=singleR_refsFile
         }
 }
@@ -74,7 +74,7 @@ workflow end_to_end_seurat_single_sample{
         docker_image=docker_image, 
         queue_name=queue_name,
         mem_gb=mem_gb,
-        seurat_files=LinearChain_recluster_rerun_singleR.add_singleR_results_to_seurat.seurat_singleR_rds,
+        seurat_files=LinearChain_recluster_rerun_singleR.seurat_singleR_rds,
     }
 }
 

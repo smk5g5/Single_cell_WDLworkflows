@@ -21,7 +21,7 @@ workflow LinearChain_recluster_rerun_singleR{
     input: 
     seurat_rds=seurat_rds,
     queue_name=queue_name,
-    mem_gb=mem_gb,
+    mem_gb=mem_gb
     docker_image=docker_image
      }
 
@@ -48,6 +48,10 @@ workflow LinearChain_recluster_rerun_singleR{
         seurat_rds=sub_rec_ren.seurat_sub_renorm_reclust_rds,
         singleR_pred_rds=run_singleR.singleR_pred_rds
     }
+
+output {
+    File seurat_singleR_rds = add_singleR_results_to_seurat.seurat_singleR_rds
+  }
 }
 
 

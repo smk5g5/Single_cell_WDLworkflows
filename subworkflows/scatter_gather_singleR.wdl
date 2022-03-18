@@ -39,6 +39,10 @@ workflow scatter_gather_singleR{
         seurat_rds=seurat_rds,
         singleR_pred_rds=run_singleR.singleR_pred_rds
     }
+
+  output {
+  File seurat_singleR_rds = add_singleR_results_to_seurat.seurat_singleR_rds
+  }  
 }
 
 
