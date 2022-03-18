@@ -9,11 +9,10 @@ task add_doublets_metadata{
     File add_meta_script
     String doublet_file
     String input_rds_file
-    String output_rds_file
   }
 
    command <<<
-    Rscript ~{add_meta_script} ~{input_rds_file} ~{doublet_file} ~{output_rds_file}
+    Rscript ~{add_meta_script} ~{input_rds_file} ~{doublet_file}
     >>>
 
   runtime {

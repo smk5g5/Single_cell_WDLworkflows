@@ -8,51 +8,27 @@ library(RColorBrewer)
 library(ggthemes)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 6) {
-  args <- c("--help")
+
+project_name <- as.character(args[1])
+organism <- as.character(args[2])
+seurat_files <- args[3:length(args)]
+
+if(organism=='human'){
+genome <- "GRCh38";
+} else{
+  genome <- "GRCm38";
 }
-
-seurat_loc <- as.character(args[1])
-sub_col <- as.character(args[2])
-ident_names <- as.character(args[3])
-inverse <- as.character(args[4])
-output_suffix <- as.character(args[5])
-organism <- as.character(args[6])
-# output.stats <- as.character(args[4])
-# output_meta <- as.character(args[5])
-
-seurat_obj <- readRDS(seurat_loc)
-
-print(names(seurat_obj@meta.data))
-
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
-
-get_significant_pcs <- function(scrna_GEX,nPC=50) {
-  control='Cycling'
-  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
-  scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
-  scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
-  jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
-  js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
-  print(js);
-  dev.off();
-  pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
-  print(pc.pval);
-  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
-  #redefine nPCs based on number of significant prinicipal components in jackstraw plot
-  return(nPC)
-}
-
-subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {
-  DefaultAssay(seurat_obj) <- "RNA"
-  Idents(seurat_obj) <- sub_col
-  if(inverse=='TRUE'){
-    scrna_GEX <- subset(seurat_obj,idents=ident_names,invert = TRUE)
-  }else{
-    scrna_GEX <- subset(seurat_obj,idents=ident_names)
-  }
+renormalize_recluster <- function(scrna_GEX,date,organism) {
+  # DefaultAssay(seurat_obj) <- "RNA"
+  # Idents(seurat_obj) <- sub_col
+  # if(inverse=='TRUE'){
+  #   scrna_GEX <- subset(seurat_obj,idents=ident_names,invert = TRUE)
+  # }else{
+  #   scrna_GEX <- subset(seurat_obj,idents=ident_names)
+  # }
 
   # ##################################################################################
   # # This bit is only for testing purposes for the rscript within wdl would be disabled
@@ -236,10 +212,20 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
   return(scrna_GEX)
 }
 
-seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse,date=date)
+seurat_obj_list <- list()
+sample_names <- c()
 
-output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
+for(i in 1:length(seurat_files)){
+obj_name <- seurat_files[i]
+sample_names[i] <- unlist(str_split(string=basename(obj_name),pattern='\\.'))[1]
+seurat_obj_list[[i]] <- readRDS(obj_name)
+}
 
-saveRDS(seurat_obj, file = output_file)
+seurat_obj <- merge(x=seurat_obj_list[[1]],y=seurat_obj_list[2:length(sample_names)],add.cell.ids = sample_names,project=project_name)
+
+seurat_obj <- renormalize_recluster(scrna_GEX=seurat_obj,date=date,organism=organism)
+
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',project_name,".merged_multisample.",date,".rds"))
+
 
 

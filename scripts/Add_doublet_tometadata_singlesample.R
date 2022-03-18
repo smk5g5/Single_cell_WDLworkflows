@@ -55,6 +55,55 @@ add_doublet_predictions_to_seurat_singlesample <- function(seurat_object,doublet
   return(seurat_object)
 }
 
-
 seurat_object <- add_doublet_predictions_to_seurat_singlesample(seurat_object=seurat_object,doublet_object=doublet_object)
-saveRDS(object = seurat_object,file=outfile_seurat)
+
+
+All_doublet_preds <- seurat_object@meta.data[grep('doublet_results_',names(seurat_object@meta.data))]
+
+All_doublet_scores <- seurat_object@meta.data[grep('doublet_scores_',names(seurat_object@meta.data))]
+# All_doublet_preds <- do.call(rbind,unname(doublet_prediction_df))
+
+ncol_doubs <- ncol(All_doublet_preds)
+maj <- round((ncol_doubs/2)+1, digits = 0)
+
+All_doublet_preds$prediction_aggrement <- rowSums(All_doublet_preds=='yes')
+#doublet predictor aggrement for each cell
+
+All_doublet_preds$majority_doublet_predictions <- 'no'
+All_doublet_preds$majority_doublet_predictions[All_doublet_preds$prediction_aggrement >= maj]  <- 'yes'
+#majority doublets : predictions for which majority of doublet predictors agree
+
+All_doublet_preds$prediction_aggrement <- NULL
+
+index <- match(Cells(seurat_object),rownames(All_doublet_preds))
+
+seurat_object$majority_doublet_predictions <- All_doublet_preds$majority_doublet_predictions[index]
+
+feature.pal = rev(colorRampPalette(brewer.pal(11,"Spectral"))(20))
+
+for(i in colnames(All_doublet_scores)){
+  dm <-FeaturePlot(seurat_object,features =c(i),cols = feature.pal,label = T,pt.size = 0.8,label.size = 15)
+  dm <- dm + theme(text = element_text(size = 22)) + theme(legend.title=element_text(color="black",size=20))+ theme(legend.text=element_text(size=20))+guides(fill = guide_legend(override.aes = list(size=15)),colour = guide_colourbar(barwidth =10,barheight=20))
+  dm <- dm +theme(axis.text.y = element_text(color="black",size=22))+theme(axis.text.x = element_text(color="black",size=22))+theme(axis.title.x = element_text(color="black",size=22))+theme(axis.title.y = element_text(color="black",size=22))
+  dm <- dm+ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
+  ggsave(sprintf("featureplot_%s_lab_%s.png",i,date),plot = dm, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
+}
+
+ # /storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_doublet/b4473306-6ff6-4a81-86b0-b44e275c90b7/call-add_doublets_metadata_tomultisample_seurat/execution/
+
+doublet_cols <- c("darkred","grey88")
+names(doublet_cols) <- c("yes","no")
+
+for(i in colnames(All_doublet_preds)){
+  Idents(seurat_object) <- i
+  mydmplt <-DimPlot(seurat_object,cols= doublet_cols,pt.size = 0.8) + ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
+  mydmplt <- mydmplt + theme(text = element_text(size = 22)) + theme(legend.title=element_text(color="black",size=20))+ theme(legend.text=element_text(size=20))+guides(fill = guide_legend(override.aes = list(size=15)))
+  mydmplt <- mydmplt +theme(axis.text.y = element_text(color="black",size=22))+theme(axis.text.x = element_text(color="black",size=22))+theme(axis.title.x = element_text(color="black",size=22))+theme(axis.title.y = element_text(color="black",size=22))
+  ggsave(sprintf("Dimplot_%s_%s.png",i,date),plot = mydmplt, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
+}
+
+# saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".doublet_calls.",date,".rds"))
+saveRDS(seurat_object, file = outfile_seurat)
+
+# seurat_object <- add_doublet_predictions_to_seurat_singlesample(seurat_object=seurat_object,doublet_object=doublet_object)
+# saveRDS(object = seurat_object,file=outfile_seurat)
