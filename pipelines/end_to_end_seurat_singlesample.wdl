@@ -19,7 +19,7 @@ workflow end_to_end_seurat_single_sample{
     }
 
     scatter (sample in inputSamples) {
-        call Doublet_calling.Doublet_colletion.run_doublet_collection {
+        call Doublet_calling.run_doublet_collection {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
@@ -27,7 +27,7 @@ workflow end_to_end_seurat_single_sample{
         cellranger_outs_directory=sample[1],
         Sample_name=sample[0]
         }
-        call single_sample_filtering.Seurat_single_sample.run_seurat_singlesample {
+        call single_sample_filtering.run_seurat_singlesample {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
@@ -35,28 +35,28 @@ workflow end_to_end_seurat_single_sample{
         cellranger_outs_directory=sample[1],
         Sample_name=sample[0]
         }
-        call single_sample_clustering.Seurat_clustering_simple.run_clustering_n_pca_simple {
+        call single_sample_clustering.run_clustering_n_pca_simple {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        rds_file_path=single_sample_filtering.Seurat_single_sample.run_seurat_singlesample.intermed_rds,
+        rds_file_path=single_sample_filtering.run_seurat_singlesample.intermed_rds,
         Sample_name=sample[0]
         }
-        call add_doubletinfo.Add_doublet_info.add_doublets_metadata {
+        call add_doubletinfo.add_doublets_metadata {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
         input_rds_file=single_sample_clustering.Seurat_clustering_simple.run_clustering_n_pca_simple.intermed_rds,
-        doublet_file=Doublet_calling.Doublet_colletion.run_doublet_collection.doublet_results
+        doublet_file=Doublet_calling.run_doublet_collection.doublet_results
         }
         call scatter_gather_singleR.scatter_gather_singleR {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        seurat_rds=add_doubletinfo.Add_doublet_info.add_doublets_metadata.seurat_doublet_rds,
+        seurat_rds=add_doubletinfo.add_doublets_metadata.seurat_doublet_rds,
         inputSamplesFile=singleR_refsFile
         }
         call recluster_renorm_rerun_singleR.LinearChain_recluster_rerun_singleR {
