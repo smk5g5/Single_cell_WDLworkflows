@@ -21,7 +21,7 @@ workflow LinearChain_recluster_rerun_singleR{
     input: 
     seurat_rds=seurat_rds,
     queue_name=queue_name,
-    mem_gb=mem_gb
+    mem_gb=mem_gb,
     docker_image=docker_image
      }
 
