@@ -8,11 +8,16 @@ workflow LinearChain_recluster_rerun_singleR{
 
   input {
   String docker_image
-    String queue_name
-    Int mem_gb
-    File singleR_singleref_rscript
-    File merge_SingleR_in_seurat_script
-    File seurat_rds
+  String queue_name
+  Int mem_gb
+  File singleR_singleref_rscript
+  File merge_SingleR_in_seurat_script
+  File seurat_rds
+  String subset_column_name
+  String ident_name
+  String inverse
+  String output_suffix
+  String organism    
   File inputSamplesFile
   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }

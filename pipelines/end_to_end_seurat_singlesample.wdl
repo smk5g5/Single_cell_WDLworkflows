@@ -15,6 +15,12 @@ workflow end_to_end_seurat_single_sample{
     Int mem_gb
     File inputSamplesFile
     File singleR_refsFile
+    String subset_column_name
+    String ident_name
+    String inverse
+    String output_suffix
+    String organism    
+    File recluster_renormalize_script
     Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
     }
 
@@ -65,6 +71,11 @@ workflow end_to_end_seurat_single_sample{
         queue_name=queue_name,
         mem_gb=mem_gb,
         seurat_rds=scat_gath_singleR.seurat_singleR_rds,
+        subset_column_name=subset_column_name,
+        ident_name=ident_name,
+        inverse=inverse,
+        organism=organism,
+        output_suffix=output_suffix,
         inputSamplesFile=singleR_refsFile
         }
 }
