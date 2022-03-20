@@ -40,7 +40,6 @@ workflow filter_n_doublets{
 		mem_gb=mem_gb,
 		queue_name=queue_name,
 		input_rds_file=seurat_singlesample.intermed_rds,
-		output_rds_file=sub(seurat_singlesample.intermed_rds, "\\.rds", ".doublets.rds")
 	}
 
 	output {

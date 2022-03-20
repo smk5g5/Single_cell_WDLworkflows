@@ -16,13 +16,15 @@ library(Ckmeans.1d.dp)
 library(stringr)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 3) {
+if(length(args) < 2) {
   args <- c("--help")
 }
 
 Seurat_file <- as.character(args[1])
 doublet_file <- as.character(args[2])
-outfile_seurat <- as.character(args[3])
+
+print(Seurat_file)
+print(doublet_file)
 
 
 seurat_object <- readRDS(Seurat_file)
@@ -102,8 +104,8 @@ for(i in colnames(All_doublet_preds)){
   ggsave(sprintf("Dimplot_%s_%s.png",i,date),plot = mydmplt, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
 }
 
-# saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".doublet_calls.",date,".rds"))
-saveRDS(seurat_object, file = outfile_seurat)
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".doublet_calls.",date,".rds"))
+#saveRDS(seurat_object, file = outfile_seurat)
 
 # seurat_object <- add_doublet_predictions_to_seurat_singlesample(seurat_object=seurat_object,doublet_object=doublet_object)
 # saveRDS(object = seurat_object,file=outfile_seurat)
