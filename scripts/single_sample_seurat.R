@@ -104,6 +104,16 @@ data.10x  <- Read10X(data.dir = Seurat_10x_directory);
 scrna_GEX = CreateSeuratObject(counts = data.10x, min.cells=10, min.features=100, project=sample_name);
 scrna_GEX$Sample = sample_name
 
+# ##################################################################################
+# # This bit is only for testing purposes for the rscript within wdl would be disabled
+# # in the main workflow
+set.seed(100)
+random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.1)
+#select 10% of all cells randomly for testing the script.
+scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
+###################################################################################
+
+
 mito.genes <- grep(pattern = "^MT-", x = rownames(x = scrna_GEX), value = TRUE,ignore.case = TRUE);
 percent.mito <- Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts')[mito.genes, ]) / Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts'));
 scrna_GEX[['percent.mito']] <- percent.mito;

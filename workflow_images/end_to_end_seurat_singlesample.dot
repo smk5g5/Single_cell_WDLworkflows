@@ -1,0 +1,29 @@
+digraph end_to_end_seurat_single_sample {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  SCATTER_0_VARIABLE_sample -> CALL_run_doublet
+  CALL_add_doub_to_srt -> CALL_scat_gath_singleR
+  CALL_run_doublet -> CALL_add_doub_to_srt
+  CALL_LinearChain_recluster_rerun_singleR -> CALL_merge_singlesample_seurat_to_multisample
+  CALL_scat_gath_singleR -> CALL_LinearChain_recluster_rerun_singleR
+  CALL_run_single_srt -> CALL_run_srt_clust_simp
+  SCATTER_0_VARIABLE_sample -> CALL_run_single_srt
+  CALL_run_srt_clust_simp -> CALL_add_doub_to_srt
+  SCATTER_0_VARIABLE_sample -> CALL_run_srt_clust_simp
+
+  # Nodes
+  CALL_merge_singlesample_seurat_to_multisample [label="call merge_singlesample_seurat_to_multisample"]
+  subgraph cluster_0 {
+    style="filled,solid";
+    fillcolor=white;
+    CALL_add_doub_to_srt [label="call add_doub_to_srt"]
+    CALL_LinearChain_recluster_rerun_singleR [label="call LinearChain_recluster_rerun_singleR";shape="oval";peripheries=2]
+    SCATTER_0_VARIABLE_sample [shape="hexagon" label="scatter over Array[File] as sample"]
+    CALL_run_srt_clust_simp [label="call run_srt_clust_simp"]
+    CALL_run_single_srt [label="call run_single_srt"]
+    CALL_run_doublet [label="call run_doublet"]
+    CALL_scat_gath_singleR [label="call scat_gath_singleR";shape="oval";peripheries=2]
+  }
+}
