@@ -12,6 +12,7 @@ workflow LinearChain_recluster_rerun_singleR{
   Int mem_gb
   File singleR_singleref_rscript
   File merge_SingleR_in_seurat_script
+  File recluster_renormalize_script
   File seurat_rds
   String subset_column_name
   String ident_name
@@ -27,7 +28,13 @@ workflow LinearChain_recluster_rerun_singleR{
     seurat_rds=seurat_rds,
     queue_name=queue_name,
     mem_gb=mem_gb,
-    docker_image=docker_image
+    docker_image=docker_image,
+    inverse=inverse,
+    ident_name=ident_name,
+    recluster_renormalize_script=recluster_renormalize_script,
+    subset_column_name=subset_column_name,
+    output_suffix=output_suffix,
+    organism=organism
      }
 
   scatter (sample in inputSamples) {
