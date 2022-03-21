@@ -29,8 +29,13 @@ date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 
-get_significant_pcs <- function(scrna_GEX,nPC=50) {
+get_significant_pcs <- function(scrna_GEX) {
   control='Cycling'
+  if(length(unique(scrna_GEX$orig.ident))==1){
+   nPC=20 
+  }else{
+    nPC=50
+  }
   # print('Does the error happen inside get_significant_pcs?')
   scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
