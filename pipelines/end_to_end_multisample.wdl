@@ -40,7 +40,6 @@ workflow end_to_end_seurat_single_sample{
             queue_name=queue_name,
             mem_gb=mem_gb,
             inputSamplesFile=inputSamplesFile,
-            merge_doublet_calls_in_seurat_script=merge_doublet_calls_in_seurat_script,
             multisample_seurat_rds=run_seurat_multisample.final_rds,
     }
     call scatter_gather_singleR.scatter_gather_singleR as scatter_gather_singleR {
