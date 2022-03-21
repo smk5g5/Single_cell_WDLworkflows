@@ -54,7 +54,7 @@ workflow end_to_end_seurat_single_sample{
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        input_rds_file=run_srt_clust_simp.intermed_rds,
+        input_rds_file=run_srt_clust_simp.clustering_rds,
         doublet_file=run_doublet.doublet_results
         }
         call scatter_gather_singleR.scatter_gather_singleR as scat_gath_singleR {
