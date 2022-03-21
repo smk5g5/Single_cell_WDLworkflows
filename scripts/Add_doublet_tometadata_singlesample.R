@@ -14,6 +14,9 @@ library(BiocParallel)
 library(yaml)
 library(Ckmeans.1d.dp)
 library(stringr)
+library(RColorBrewer)
+library(gridExtra)
+
 
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 2) {
