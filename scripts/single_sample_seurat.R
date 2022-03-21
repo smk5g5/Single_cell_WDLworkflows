@@ -179,10 +179,11 @@ vln <- VlnPlot(object = scrna_GEX, features = "nFeature_RNA", pt.size=0, group.b
 print(vln)
 dev.off()
 
-set.seed(100)
+#only for testing purposes
+# set.seed(100)
 # select 2500 or all cells from single cell object after filtering (whichever is minimum) of cells from filtered subset randomly for testing the script.
-random_sample_of_cells = sample(Cells(scrna_GEX),min(4000,length(Cells(scrna_GEX))))
-scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
+# random_sample_of_cells = sample(Cells(scrna_GEX),min(4000,length(Cells(scrna_GEX))))
+# scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
 
 
 saveRDS(scrna_GEX, file = sprintf("%s.MergedFilteredSeuratObject.%s.rds", sample_name, date))
