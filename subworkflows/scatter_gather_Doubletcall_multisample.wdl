@@ -39,6 +39,10 @@ workflow scatter_doublet{
         doublet_files=run_doublet.doublet_results
     }
 
+  output {
+  File seurat_doublet_rds = add_doublets_metadata_tomultisample_seurat.seurat_doublet_rds
+  }
+
 }
 
 task add_doublets_metadata_tomultisample_seurat{

@@ -39,6 +39,10 @@ workflow scatter_gather_scsorter{
         seurat_rds_path=rds_file_path,
         scsorter_runs=run_scsorter.scsorter_preds_rds
     }
+
+  output {
+    File Seurat_merged_scsorter = merge_scsorter_results.Seurat_merged_scsorter
+  }
 }
 
 task merge_scsorter_results {
