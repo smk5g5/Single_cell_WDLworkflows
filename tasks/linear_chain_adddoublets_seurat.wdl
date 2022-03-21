@@ -48,7 +48,7 @@ workflow linear_chain_single_sample_seurat_doubletsadd{
     docker_image=docker_image,
     queue_name=queue_name,
     mem_gb=mem_gb,
-    input_rds_file=run_srt_clust_simp.intermed_rds,
+    input_rds_file=run_srt_clust_simp.clustering_rds,
     doublet_file=run_doublet.doublet_results
     }
     output {

@@ -29,7 +29,7 @@ task run_clustering_n_pca_simple{
   Array[File] output_pngs = glob("*.png")
   Array[File] output_rds = glob("*.rds")
   Array[File] output_jpgs = glob("*.jpg")
-  File intermed_rds = glob("*.Cycling.SCT.PCA.UMAP.TSNE.CLUST.*.rds")[0]
+  File clustering_rds = glob("*.Cycling.SCT.PCA.UMAP.TSNE.CLUST.*.rds")[0]
   }
 }
 
