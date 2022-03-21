@@ -12,6 +12,7 @@ workflow scatter_doublet{
     File merged_seurat_rds
     File merge_doublet_calls_in_seurat_script
     File inputSamplesFile
+    String split_by
     Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }
 
@@ -36,6 +37,7 @@ workflow scatter_doublet{
         merge_doublet_calls_in_seurat_script=merge_doublet_calls_in_seurat_script,
         inputSamplesFile=inputSamplesFile,
         multisample_seurat_rds=merged_seurat_rds,
+        split_by=split_by,
         doublet_files=run_doublet.doublet_results
     }
 
