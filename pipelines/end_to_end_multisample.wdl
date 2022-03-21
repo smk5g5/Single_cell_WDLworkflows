@@ -17,7 +17,9 @@ workflow end_to_end_seurat_single_sample{
     String ident_name
     String inverse
     String output_suffix
-    String organism    
+    String organism
+    String project_name
+    File gene_lists     
     File recluster_renormalize_script
     Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
     }
@@ -30,7 +32,6 @@ workflow end_to_end_seurat_single_sample{
             organism=organism,
             project_name=project_name,
             gene_lists=gene_lists,
-            seurat_multisample_rscript=seurat_multisample_rscript,
             multisample_seurat_10x_inp=inputSamplesFile,
     }
     call scatter_gather_doublet.scatter_doublet as scatter_gather_doublet {
@@ -47,17 +48,15 @@ workflow end_to_end_seurat_single_sample{
             docker_image=docker_image,
             queue_name=queue_name,
             mem_gb=mem_gb,
-            inputSamplesFile=inputSamplesFile,
-            singleR_singleref_rscript=singleR_singleref_rscript,
-            merge_doublet_calls_in_seurat_script=merge_doublet_calls_in_seurat_script,
-            multisample_seurat_rds=scatter_gather_doublet.seurat_doublet_rds,
+            inputSamplesFile=singleR_refsFile,
+            seurat_rds=scatter_gather_doublet.seurat_doublet_rds
     }
     call recluster_renorm_rerun_singleR.LinearChain_recluster_rerun_singleR as LinearChain_recluster_rerun_singleR {
         input:
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        seurat_rds=scat_gath_singleR.seurat_singleR_rds,
+        seurat_rds=scatter_gather_singleR.seurat_singleR_rds,
         subset_column_name=subset_column_name,
         ident_name=ident_name,
         inverse=inverse,
@@ -65,5 +64,4 @@ workflow end_to_end_seurat_single_sample{
         output_suffix=output_suffix,
         inputSamplesFile=singleR_refsFile
         }
-
 }
