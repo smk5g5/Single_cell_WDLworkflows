@@ -11,11 +11,7 @@ workflow linear_chain_single_sample_seurat_doubletsadd{
     String docker_image
     String queue_name
     Int mem_gb
-    String subset_column_name
-    String ident_name
-    String inverse
     String organism    
-    File recluster_renormalize_script
     String Sample_name
     String cellranger_outs_directory
     }
