@@ -29,6 +29,8 @@ doublet_file <- as.character(args[2])
 print(Seurat_file)
 print(doublet_file)
 
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("-","",date);
 
 seurat_object <- readRDS(Seurat_file)
 doublet_object <- readRDS(doublet_file)
