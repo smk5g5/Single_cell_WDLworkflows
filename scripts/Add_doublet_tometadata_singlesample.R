@@ -109,7 +109,7 @@ for(i in colnames(All_doublet_preds)){
   ggsave(sprintf("Dimplot_%s_%s.png",i,date),plot = mydmplt, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
 }
 
-saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".doublet_calls.",date,".rds"))
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST',".doublet_calls.",date,".rds"))
 #saveRDS(seurat_object, file = outfile_seurat)
 
 # seurat_object <- add_doublet_predictions_to_seurat_singlesample(seurat_object=seurat_object,doublet_object=doublet_object)
