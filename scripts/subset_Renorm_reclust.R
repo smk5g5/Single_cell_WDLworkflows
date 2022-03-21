@@ -31,7 +31,7 @@ date = gsub("-","",date);
 
 get_significant_pcs <- function(scrna_GEX,nPC=50) {
   control='Cycling'
-  print('Does the error happen inside get_significant_pcs?')
+  # print('Does the error happen inside get_significant_pcs?')
   scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
@@ -42,14 +42,14 @@ get_significant_pcs <- function(scrna_GEX,nPC=50) {
   pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
   print(pc.pval);
   nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
-  print('No the error does not happen inside get_significant_pcs!')
+  # print('No the error does not happen inside get_significant_pcs!')
   #redefine nPCs based on number of significant prinicipal components in jackstraw plot
   return(nPC)
 }
 
 subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {
   DefaultAssay(seurat_obj) <- "RNA"
-  print('Does the error happen inside subset_renormalize_recluster?')
+  # print('Does the error happen inside subset_renormalize_recluster?')
   Idents(seurat_obj) <- sub_col
   if(inverse=='TRUE'){
     scrna_GEX <- subset(seurat_obj,idents=ident_names,invert = TRUE)
@@ -95,6 +95,7 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
   }
 
   nPC <- get_significant_pcs(scrna_GEX)
+  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
 
   scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
   scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
@@ -235,7 +236,7 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
   print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9, fp10));
   # print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9));
   dev.off();
-  print('No the error does not happen inside subset_renormalize_recluster!')
+  # print('No the error does not happen inside subset_renormalize_recluster!')
 
   # output_name <- paste0(output.stats,'/',output_meta,'.RDS')
   return(scrna_GEX)
