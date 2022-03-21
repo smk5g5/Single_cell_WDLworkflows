@@ -9,7 +9,7 @@ workflow scatter_doublet{
     String queue_name
     Int mem_gb
     File doublet_calling_script
-    File merged_seurat_rds
+    File multisample_seurat_rds
     File merge_doublet_calls_in_seurat_script
     File inputSamplesFile
     String split_by
@@ -36,7 +36,7 @@ workflow scatter_doublet{
         mem_gb=mem_gb,
         merge_doublet_calls_in_seurat_script=merge_doublet_calls_in_seurat_script,
         inputSamplesFile=inputSamplesFile,
-        multisample_seurat_rds=merged_seurat_rds,
+        multisample_seurat_rds=multisample_seurat_rds,
         split_by=split_by,
         doublet_files=run_doublet.doublet_results
     }
