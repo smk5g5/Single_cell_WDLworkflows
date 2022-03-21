@@ -14,7 +14,6 @@ workflow linear_chain_single_sample_seurat_doubletsadd{
     String subset_column_name
     String ident_name
     String inverse
-    String output_suffix
     String organism    
     File recluster_renormalize_script
     String Sample_name
