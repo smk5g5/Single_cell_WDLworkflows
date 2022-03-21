@@ -22,7 +22,7 @@ task add_doublets_metadata{
   }
 
   output {
-  File seurat_doublet_rds = glob("*.doublet_calls.rds")[0] 
+  File seurat_doublet_rds = glob("*.doublet_calls.*rds")[0] 
   }
 }
 
