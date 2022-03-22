@@ -5,7 +5,7 @@ import "../subworkflows/scatter_gather_Doubletcall_multisample.wdl" as scatter_g
 import "../subworkflows/scatter_gather_singleR.wdl" as scatter_gather_singleR
 import "../subworkflows/recluster_renorm_rerun_singleR.wdl" as recluster_renorm_rerun_singleR
 
-workflow end_to_end_seurat_multi_sample{
+workflow multisample_seurat_doublet_singler{
 
     input {
     String docker_image

@@ -455,11 +455,11 @@ for(i in unique(glists$List)) {
   outfile = sprintf("umap.%s.%s.%s.pdf",j, control, date);
   if(ng==1){
   fp <- FeaturePlot(object = scrna_GEX, features = genesToPlot, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
-  ggsave(outfile,plot=fp,width = 5, height = 5) + ggtitle(sprintf("%s (%s)",k,j))
+  ggsave(outfile,plot=fp,width = 5, height = 5) + ggtitle(genesToPlot)
   }  else{
     gplotlist=list();
     for(k in genesToPlot){
-      gplotlist[[k]] <- FeaturePlot(object = scrna_GEX, features = k, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank()) + ggtitle(sprintf("%s (%s)",k,j))
+      gplotlist[[k]] <- FeaturePlot(object = scrna_GEX, features = k, cols = c("gray","red"), ncol=2, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())
     }
     ml <- marrangeGrob(gplotlist, nrow=2, ncol=2)
     ggsave(outfile,ml,width=10, height=10)
