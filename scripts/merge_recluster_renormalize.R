@@ -4,8 +4,16 @@ library(ggplot2)
 library(cowplot)
 library(dplyr)
 library(Matrix)
-library(RColorBrewer)
-library(ggthemes)
+library("sctransform");
+library("dplyr");
+library("RColorBrewer");
+library("ggthemes");
+library("ggplot2");
+library("cowplot");
+library(tidyverse)
+
+library(ggplot2)
+library(gridExtra)
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -217,7 +225,9 @@ sample_names <- c()
 
 for(i in 1:length(seurat_files)){
 obj_name <- seurat_files[i]
-sample_names[i] <- unlist(str_split(string=basename(obj_name),pattern='\\.'))[1]
+test_obj <- readRDS(obj_name)
+sample_names[i] <-  as.character(unique(test_obj$Sample))
+# sample_names[i] <- unlist(str_split(string=basename(obj_name),pattern='\\.'))[1]
 seurat_obj_list[[i]] <- readRDS(obj_name)
 }
 
