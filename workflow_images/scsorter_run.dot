@@ -1,0 +1,10 @@
+digraph scsorter_markerprediction {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  
+
+  # Nodes
+  CALL_run_scsorter [label="call run_scsorter"]
+}

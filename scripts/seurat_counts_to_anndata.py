@@ -17,7 +17,7 @@ if __name__ == "__main__":
     matrix with genes as rows and cells as columns""")
 
 	parser.add_argument("Counts", help="Count input file")
-	parser.add_argument("output_h5ad", help="output_file_name")
+	parser.add_argument("sample_name", help="sample name")
 
 	args = parser.parse_args()
 

@@ -1,0 +1,13 @@
+digraph filter_n_doublets {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_dc -> CALL_add_in
+  CALL_seurat_singlesample -> CALL_add_in
+
+  # Nodes
+  CALL_dc [label="call dc"]
+  CALL_add_in [label="call add_in"]
+  CALL_seurat_singlesample [label="call seurat_singlesample"]
+}

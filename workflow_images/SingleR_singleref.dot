@@ -1,0 +1,10 @@
+digraph singleR_singleref {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  
+
+  # Nodes
+  CALL_run_singleR_singleref [label="call run_singleR_singleref"]
+}

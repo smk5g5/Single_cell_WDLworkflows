@@ -1,0 +1,17 @@
+digraph scatter_gather_singleR {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_run_singleR -> CALL_add_singleR_results_to_seurat
+  SCATTER_0_VARIABLE_sample -> CALL_run_singleR
+
+  # Nodes
+  CALL_add_singleR_results_to_seurat [label="call add_singleR_results_to_seurat"]
+  subgraph cluster_0 {
+    style="filled,solid";
+    fillcolor=white;
+    CALL_run_singleR [label="call run_singleR"]
+    SCATTER_0_VARIABLE_sample [shape="hexagon" label="scatter over Array[File] as sample"]
+  }
+}

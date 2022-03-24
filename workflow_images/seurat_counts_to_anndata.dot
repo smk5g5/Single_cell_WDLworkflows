@@ -1,0 +1,11 @@
+digraph seurat_counts_to_anndata {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_Get_seurat_counts -> CALL_make_anndata_object
+
+  # Nodes
+  CALL_Get_seurat_counts [label="call Get_seurat_counts"]
+  CALL_make_anndata_object [label="call make_anndata_object"]
+}

@@ -1,0 +1,17 @@
+digraph scatter_doublet {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  SCATTER_0_VARIABLE_sample -> CALL_run_doublet
+  CALL_run_doublet -> CALL_add_doublets_metadata_tomultisample_seurat
+
+  # Nodes
+  subgraph cluster_0 {
+    style="filled,solid";
+    fillcolor=white;
+    CALL_run_doublet [label="call run_doublet"]
+    SCATTER_0_VARIABLE_sample [shape="hexagon" label="scatter over Array[File] as sample"]
+  }
+  CALL_add_doublets_metadata_tomultisample_seurat [label="call add_doublets_metadata_tomultisample_seurat"]
+}

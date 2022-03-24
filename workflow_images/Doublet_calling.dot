@@ -1,0 +1,10 @@
+digraph Doublet_colletion {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  
+
+  # Nodes
+  CALL_run_doublet_collection [label="call run_doublet_collection"]
+}

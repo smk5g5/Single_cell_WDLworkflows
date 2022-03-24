@@ -1,0 +1,15 @@
+digraph end_to_end_seurat_multi_sample {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_scatter_gather_doublet -> CALL_scatter_gather_singleR
+  CALL_scatter_gather_singleR -> CALL_LinearChain_recluster_rerun_singleR
+  CALL_run_seurat_multisample -> CALL_scatter_gather_doublet
+
+  # Nodes
+  CALL_scatter_gather_singleR [label="call scatter_gather_singleR";shape="oval";peripheries=2]
+  CALL_LinearChain_recluster_rerun_singleR [label="call LinearChain_recluster_rerun_singleR";shape="oval";peripheries=2]
+  CALL_scatter_gather_doublet [label="call scatter_gather_doublet";shape="oval";peripheries=2]
+  CALL_run_seurat_multisample [label="call run_seurat_multisample"]
+}

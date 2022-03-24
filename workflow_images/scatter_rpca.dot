@@ -1,0 +1,15 @@
+digraph scatter_rpca {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  SCATTER_0_VARIABLE_sample -> CALL_run_rpca
+
+  # Nodes
+  subgraph cluster_0 {
+    style="filled,solid";
+    fillcolor=white;
+    CALL_run_rpca [label="call run_rpca"]
+    SCATTER_0_VARIABLE_sample [shape="hexagon" label="scatter over Array[File] as sample"]
+  }
+}

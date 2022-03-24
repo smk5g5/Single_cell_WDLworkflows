@@ -1,0 +1,15 @@
+digraph linear_chain_single_sample_seurat_doubletsadd {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_run_single_srt -> CALL_run_srt_clust_simp
+  CALL_run_doublet -> CALL_add_doub_to_srt
+  CALL_run_srt_clust_simp -> CALL_add_doub_to_srt
+
+  # Nodes
+  CALL_run_single_srt [label="call run_single_srt"]
+  CALL_run_srt_clust_simp [label="call run_srt_clust_simp"]
+  CALL_add_doub_to_srt [label="call add_doub_to_srt"]
+  CALL_run_doublet [label="call run_doublet"]
+}

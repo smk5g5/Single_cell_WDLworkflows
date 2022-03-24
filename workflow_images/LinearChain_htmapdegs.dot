@@ -1,0 +1,11 @@
+digraph DEGs_downstream {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  CALL_aggregate_expression_seurat4_0_3 -> CALL_make_heatmap_DEGs
+
+  # Nodes
+  CALL_make_heatmap_DEGs [label="call make_heatmap_DEGs"]
+  CALL_aggregate_expression_seurat4_0_3 [label="call aggregate_expression_seurat4_0_3"]
+}

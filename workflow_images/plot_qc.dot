@@ -1,0 +1,10 @@
+digraph QC_plots {
+  #rankdir=LR;
+  compound=true;
+
+  # Links
+  
+
+  # Nodes
+  CALL_plot_qc [label="call plot_qc"]
+}
