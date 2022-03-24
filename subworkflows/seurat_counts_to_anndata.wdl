@@ -33,7 +33,7 @@ task make_anndata_object{
     String queue_name
     Int mem_gb
     File make_anndata_py
-    File counts_matrix_file = Get_seurat_counts.counts_matrix
+    File counts_matrix_file
     String Sample_name
   }
 
@@ -56,5 +56,8 @@ task make_anndata_object{
 workflow seurat_counts_to_anndata{
 
   call Get_seurat_counts
-  call make_anndata_object
+  call make_anndata_object {
+    input:
+    counts_matrix_file=Get_seurat_counts.counts_matrix,
+  }
 }
