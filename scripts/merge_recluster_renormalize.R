@@ -29,6 +29,12 @@ genome <- "GRCh38";
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
+recale_plot_agg <- function(myplot_obj,plot_name,mywid,myht,mydpi) {
+  ggsave(plot_name, plot = myplot_obj, device = ragg::agg_png, width = mywid, height = myht, units = "in",dpi = mydpi) # units = "in"
+  ggs <- image_read(plot_name)
+  print(ggs)
+}
+
 renormalize_recluster <- function(scrna_GEX,date,organism) {
   # DefaultAssay(seurat_obj) <- "RNA"
   # Idents(seurat_obj) <- sub_col
@@ -236,6 +242,3 @@ seurat_obj <- merge(x=seurat_obj_list[[1]],y=seurat_obj_list[2:length(sample_nam
 seurat_obj <- renormalize_recluster(scrna_GEX=seurat_obj,date=date,organism=organism)
 
 saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',project_name,".merged_multisample.",date,".rds"))
-
-
-

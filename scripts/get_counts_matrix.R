@@ -6,7 +6,7 @@ library(MASS)
 
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 1) {
+if(length(args) < 2) {
   args <- c("--help")
 }
 
@@ -24,25 +24,11 @@ counts_matrix <- as.matrix(seurat_obj@assays$RNA@counts)
 
 counts_matrix <- t(counts_matrix)
 
-write.matrix(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",prefix,date),sep = "\t")
+write.matrix(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",prefix,date),sep = "\t",row.names=T,col.names=NA)
 
+metadata_df <- seurat_object@meta.data
 
-write.table(sub_metadata_df, file="sub_metadata_df_scrna.txt", row.names=T, col.names=T,na='',sep="\t")
-
-write_counts_matrix <- function(seurat_obj,prefix,date) {
-
-DefaultAssay(seurat_object) <- 'RNA'
-
-counts_matrix <- as.matrix(seurat_object@assays$RNA@counts)
-
-counts_matrix <- t(counts_matrix)
-
-write.table(counts_matrix,sprintf("%s_RNA_assay_counts_matrix_transposed.%s.txt",'schwann',date),sep = "\t",row.names=T,col.names=NA)
-
-}
-
-
-
+write.table(metadata_df, file=sprintf("%s_metadata_df_scrna.%s.txt",prefix,date), row.names=T, col.names=T,na='',sep="\t")
 
 # seurat_object <- macs
 
