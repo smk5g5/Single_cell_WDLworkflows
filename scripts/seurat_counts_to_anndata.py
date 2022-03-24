@@ -55,7 +55,7 @@ if __name__ == "__main__":
 	adata.raw = adata
 
 	# Regress out effects of total counts per cell and the percentage of mitochondrial genes expressed. Scale the data to unit variance.
-	sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
+	# sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt']) #might not need to do this
 	sc.pp.scale(adata, max_value=10)
 	sc.tl.pca(adata, svd_solver='arpack')
 	fig_out = 'pca_variance_ratio_'+Sample_name+'.pdf'
