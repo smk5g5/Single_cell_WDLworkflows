@@ -20,7 +20,7 @@ seurat_object <- readRDS(Seurat_file)
 
 DefaultAssay(seurat_object) <- 'RNA'
 
-counts_matrix <- as.matrix(seurat_obj@assays$RNA@counts)
+counts_matrix <- as.matrix(seurat_object@assays$RNA@counts)
 
 counts_matrix <- t(counts_matrix)
 
