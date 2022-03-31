@@ -30,9 +30,9 @@ or it could be an end to end (multi sample/single sample pipeline,shown here is 
 This multi-sample end-to-end pipeline takes multiple sample,merges them in seurat object ---> Runs doublet calling on each of the sample (10x input) ---> Merges doublet calls for each of the sample in the multi-sample seurat object--->Makes SingleR predictions based on the input singleR references--->Removed the doublet based on majority predictions(ie if majority of the doublet calling methods identify the cell as doublet)--->Renormalizes,reclusters and reruns SingleR to give a final seurat object.
 
 # Running a WDL workflow 
-# Here is an example of end to end multi-sample WDL workflow
+***Here is an example of end to end multi-sample WDL workflow***
 
-# This workflow is run on compute1 as shown here.
+***This workflow is run on compute1 as shown here.***
 
 ```
 bsub -oo WDL_end_to_end_multisample_seurat_CT2A.%J.out -G compute-allegra.petti -g /allegrapetti-gms/khan.saad -q siteman -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /usr/bin/java -Dconfig.file=cromwell_compute1_final.config -jar /opt/cromwell.jar run -t wdl ./pipelines/end_to_end_multisample.wdl -i ./end_to_end_seurat_multisample_CT2A.json
