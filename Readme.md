@@ -1,6 +1,6 @@
 # How to validate the WDL file. This requires that you have the cromwell docker image loaded in an interactive session on compute1.
 
-#You need to have womtool-53.1.jar in your current working directory if you need to validate/generate json file for inputs. You can download the womtool jar file from here 
+# You need to have womtool-53.1.jar in your current working directory if you need to validate/generate json file for inputs. You can download the womtool jar file from here 
 https://github.com/broadinstitute/cromwell/releases/download/
 
 I am currently using the following image for cromwell which also happens to be the latest gms image
