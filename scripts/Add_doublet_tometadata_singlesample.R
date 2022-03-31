@@ -86,6 +86,8 @@ index <- match(Cells(seurat_object),rownames(All_doublet_preds))
 
 seurat_object$majority_doublet_predictions <- All_doublet_preds$majority_doublet_predictions[index]
 
+# majority_doublet_predictions
+
 feature.pal = rev(colorRampPalette(brewer.pal(11,"Spectral"))(20))
 
 for(i in colnames(All_doublet_scores)){

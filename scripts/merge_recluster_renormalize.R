@@ -35,6 +35,30 @@ recale_plot_agg <- function(myplot_obj,plot_name,mywid,myht,mydpi) {
   print(ggs)
 }
 
+
+get_significant_pcs <- function(scrna_GEX) {
+  control='Cycling'
+  if(length(unique(scrna_GEX$orig.ident))==1){
+   nPC=20 
+  }else{
+    nPC=50
+  }
+  # print('Does the error happen inside get_significant_pcs?')
+  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
+  scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
+  scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
+  jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
+  js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
+  print(js);
+  dev.off();
+  pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
+  print(pc.pval);
+  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
+  # print('No the error does not happen inside get_significant_pcs!')
+  #redefine nPCs based on number of significant prinicipal components in jackstraw plot
+  return(nPC)
+}
+
 renormalize_recluster <- function(scrna_GEX,date,organism) {
   # DefaultAssay(seurat_obj) <- "RNA"
   # Idents(seurat_obj) <- sub_col
@@ -82,6 +106,8 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   }
 
   nPC <- get_significant_pcs(scrna_GEX)
+  
+  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
 
   scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
   scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
@@ -241,4 +267,4 @@ seurat_obj <- merge(x=seurat_obj_list[[1]],y=seurat_obj_list[2:length(sample_nam
 
 seurat_obj <- renormalize_recluster(scrna_GEX=seurat_obj,date=date,organism=organism)
 
-saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',project_name,".merged_multisample.",date,".rds"))
+saveRDS(seurat_obj, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',project_name,".merged_multisample.",date,".rds"))

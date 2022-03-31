@@ -1,0 +1,593 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"le",
+				"levels"
+			],
+			[
+				"spl",
+				"split.by"
+			],
+			[
+				"sample",
+				"sample_cols"
+			],
+			[
+				"scr",
+				"scrna_GEX"
+			],
+			[
+				"out",
+				"output_h5ad"
+			],
+			[
+				"len",
+				"length"
+			],
+			[
+				"me",
+				"metadata_df"
+			],
+			[
+				"T",
+				"TRUE"
+			],
+			[
+				"Def",
+				"DefaultAssay"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/cNMF_python/Get_transposed_counts.R scripts/Get_cNMF_counts.R .\n\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/cNMF_analysis_prepare.py .\n\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/cnmf.py .\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/corrplot_K10_vs_modscore.rds .\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/MouseTIL_Seurat_mc0.05/TCR_genes_remdf.csv .\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/MouseTIL_Seurat_mc0.05/Dimplot_highlight_colored_clonotypes_M_IB-\\*.png .\n\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/top_genes_K9_ngene50.csv .\n\n\nLSF_DOCKER_PRESERVE_ENVIRONMENT=false bsub -G compute-allegra.petti -J module2_rhp -oo logs/module2_rhp.%J.out -q general -M 128GB -n 1 -R 'rusage[mem=128GB] span[hosts=1]'  -a 'docker(bhuvic/singlecell:v2)' Rscript /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/module2_rhp_functions.R /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/scwhann_scrna_only_rpca.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/nmf_h_coef_vs.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only/nmf_w_basis_vs.RDS /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis/scwhann_scrna_only\n\n\nnmf_paramdf_list[['ngenes_30_inter_min10_intra_min18_intra_max10']][['nmf_corr_complexity_tumor']]\n\n scp -r Single_cell_WDLworkflows khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/\n\n\n scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_subcluster_scRNA_nosuspcells_nomyelination .\n\n scp -r khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/*.json .\n\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_immune_res.rds .\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_nonimmune_res.rds .\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_seurat_obj_immune.rds .\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_nonimmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_seurat_obj_nonimmune.rds .\n\nscp -r khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/example_inputs/\\* ./Single_cell_WDLworkflows/example_inputs\n\nsingleR_files <- c('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_gather_singleR/20f49d16-401c-492a-8b67-c9c7e0b5b0f2/call-run_singleR/shard-1/execution/Brain_immune_atlas_singleR_preds.rds','/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_gather_singleR/20f49d16-401c-492a-8b67-c9c7e0b5b0f2/call-run_singleR/shard-0/execution/Haemopedia_singleR_preds.rds')\n\nsingleR_tsv_file <- '/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/example_inputs/SingleR_singleref_scatter_mouse.tsv'\n\nSeurat_file <- '/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.doublet_calls.220315.rds'\n\n  scp -r /Users/khan.saad/Vest_schwanomma_proj/NMF_analysis/subset_Renorm_reclust.R khan.saad@compute1-client-4.ris.wustl.edu:\n\nscatter_gather_singleR/20f49d16-401c-492a-8b67-c9c7e0b5b0f2/call-add_singleR_results_to_seurat/inputs/403717767/SingleR_singleref_scatter_mouse.tsv\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_gather_singleR/20f49d16-401c-492a-8b67-c9c7e0b5b0f2/call-add_singleR_results_to_seurat/inputs/1114994943/add_singleR_to_multisample_seurat.R:\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/universe_genes.rds .\n\n  scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/universe_genes_tnksubclus.rds .\n\n  DEGs.Wilcox.integrated_snn_res.0.5.T_NK_subcluster_scRNA_doublets_rem_onlypos.20220216.txt\n\n scp -r Single_cell_WDLworkflows khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/\n\nseurat_obj <- readRDS('/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.220312.rds')\n\nplot_qc_inputs.json\n\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_doublet/2a763d72-6eb1-4b41-8119-223edce1b0fa/call-run_doublet/shard-2/execution/OE1_plus_2_Doublet_collection_results.rds\n\n./scatter_gather_doublets.json\n./subworkflows/scatter_gather_Doubletcall.wdl\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/scatter_doublet/1316cd00-6ae5-49f3-8bd2-49cc3d8a2168/call-add_doublets_metadata_tomultisamp\nle_seurat/execution/stderr.\n\ndoublet_results_dfs$doublet_prediction\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/QC_plots/d54ade36-460e-4182-a262-3d1fb5467a0b/call-plot_qc/execution/glob-0131b28e008140b45cfc92ed88b1ad1e/Stegh_GBM.Post_filtering_QC.220314.pdf\n\n    \"QC_plots.plot_qc.output_pdfs\": [\"\n\n    /storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/QC_plots/0e68d8b3-a1e9-4fa5-b14a-2190f3cb4722/call-plot_qc/execution/glob-0131b28e008140b45cfc92ed88b1a\n\n./tasks/plot_qc.wdl\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis .\n\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/scratch1/fs1/allegra.petti/khan.saad/STEGH_analysis .\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Meningioma_dunn/Seurat_analysis .\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/Final_figures .\n\n scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_subcluster_scRNA_nosuspcells_nomyelination/DEGs.Wilcox.schwann_subcluster_scRNA_nosuspcells_nomyelination.integrated_snn_res.0.5_onlypos.20220215.txt .\n\n scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/Final_figures/Figure1b_genelist.rds .\n\n\n\n /storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_rPCA_integration/d66827ea-d69b-4e48-b893-35f123cee776/call-run_rpca_integration\n\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_rPCA_integration/d66827ea-d69b-4e48-b893-35f123cee776/call-run_rpca_integration/execution/\n\nglob-ef5df339533c1334f081dc8cc75ee4f3/DEGs.Wilcox.schwann_subcluster_scRNA_noriboclus.integrated_snn_res.0.5_onlypos.20220209.txt\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/metamodule_symbol_list_for_enrichment_analysis_intramin_35_intra_max_10_inter_min_10_n50genes.rds ./NMF_analysis_iteration2/\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/Scenic_iteration2/QC_plots_schwann_sublcuster.pdf .\n\n\nscp /Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/Get_cNMF_counts.R khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis\n\n\nscp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.k_selection.png .\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.csv\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n\n\nrsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n\n/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad\n\nadata = sc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad')\n\nadata2 = sc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna.nmf_out.h5ad')\n\nsc.read('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad')\n\nhvgs_file = '/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.overdispersed_genes.txt'\n\nsc.write('scwhann_scrna_noriboclus_cnmf_out_norm.h5ad', adata)\n\nhvgs = open(hvgs_file).read().split('\\n')\n\n#bsub -oo logs/prepare_nmf.%J -q siteman -G compute-allegra.petti -g /khan.saad/R_seurat -M 128GB -n 1 -R 'rusage[mem=128GB] span[hosts=1]' -a 'docker(quay.io/dkotliar/cnmf:0.2)' /opt/miniconda3/envs/cnmf_env/bin/python cNMF_analysis_prepare.py schwann_subclus_scRNA_noriboclus_RNA_assay_counts_matrix.20220210.txt /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis scwhann_scrna_noriboclus_cnmf_out.h5ad\n\n/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/\n\nscwhann_scrna_noriboclus_cnmf_out_rawnorm.h5ad\n\nrsync -ave ssh --include=\"*.ipynb\" --exclude=\"*.*\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/ .\n\nusage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\n\n\nusage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_7.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\nusage.columns = ['Usage_%s_K7' % i for i in usage.columns]\n\nusage_k8 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_8.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\nusage_k8.columns = ['Usage_%s_K8' % i for i in usage_k8.columns]\nusage_k8.head()\n\nusage_k9 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_9.dt_0_10.consensus.txt',sep='\\t', index_col=0)\n\nusage_k10 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\n\nusage_k9.columns = ['Usage_%s_K9' % i for i in usage_k9.columns]\nusage_k9.head()\n\nusage_k10.columns = ['Usage_%s_K10' % i for i in usage_k10.columns]\nusage_k10.head()\n\nusage_norm = usage.div(usage.sum(axis=1), axis=0)\n\nusage_k9_norm = usage_k9.div(usage_k9.sum(axis=1), axis=0)\n\nusage_k8_norm = usage_k8.div(usage_k8.sum(axis=1), axis=0)\n\nusage_k10_norm = usage_k10.div(usage_k10.sum(axis=1), axis=0)\n\nadata.obs = pd.merge(left=adata.obs, right=usage_norm, how='left', left_index=True, right_index=True)\n\nsc.pl.umap(adata, color=usage_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K5_schwann_noriboclus.png')\n\nadata.obs = pd.merge(left=adata.obs, right=usage_k9_norm, how='left', left_index=True, right_index=True)\n\nsc.pl.umap(adata, color=usage_k9_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K9_schwann_noriboclus.png')\n\n\nadata.obs = pd.merge(left=adata.obs, right=usage_k8_norm, how='left', left_index=True, right_index=True)\n\nsc.pl.umap(adata, color=usage_k8_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K8_schwann_noriboclus.png')\n\n\nadata.obs = pd.merge(left=adata.obs, right=usage_k10_norm, how='left', left_index=True, right_index=True)\n\nsc.pl.umap(adata, color=usage_k10_norm.columns,ncols=3, vmin=0, vmax=1,save='umap_usage_K10_schwann_noriboclus.png')\n\n\n\ngene_scores_K5 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_5.dt_0_10.txt',sep='\\t', index_col=0).T\n\ngene_scores_K8 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_8.dt_0_05.txt',sep='\\t', index_col=0).T\n\ngene_scores_K9 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_9.dt_0_10.txt',sep='\\t', index_col=0).T\n\ngene_scores_K10 = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.gene_spectra_score.k_10.dt_0_05.txt',sep='\\t', index_col=0).T\n\n\ndef get_top_genes(gene_scores,ngenes,num_comp,adata):\n\ttop_genes = []\n\tfor gep in gene_scores.columns:\n\t\ttop_genes.append(list(gene_scores.sort_values(by=gep, ascending=False).index[:ngenes]))\n\ttop_genes = pd.DataFrame(top_genes, index=gene_scores.columns).T\n\ttop_genes.columns = ['program_%s_%s' % (i,num_comp) for i in top_genes.columns]\n\ttop1_gene_byprog = list(top_genes.iloc[0])\n\toutplot= 'umap_top1genes_byprogram_schwann_noriboclus_'+num_comp+'.png'\n\tsc.pl.umap(adata,use_raw=True, color=top1_gene_byprog,ncols=3,save=outplot)\n\toutfile= 'top_genes_byprogram_schwann_noriboclus'+num_comp+'_ngene'+str(ngenes)+'.csv'\n\ttop_genes.to_csv(outfile, index=False)\n\n\n\nget_top_genes(gene_scores=gene_scores_K10,ngenes=50,num_comp='K10',adata=adata)\n\ntop50_K10_genes.iloc[0]\n\ngene_scores.head()\n\ntop_genes = []\nngenes = 50\nfor gep in gene_scores.columns:\n\ttop_genes.append(list(gene_scores.sort_values(by=gep, ascending=False).index[:ngenes]))\ntop_genes = pd.DataFrame(top_genes, index=gene_scores.columns).T\ntop_genes\n\n\n/rdcw/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/FASTQS\n\n/rdcw/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/FASTQS/B186/\n\n/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B186/outs/\n\nsouth asians\n\n\n\nscp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/schwann_subclus_scRNA_noriboclus/\\*.jpg . \n\n\nscp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/data/VS/merged_analysis/merged_1k_genes/objects/cleaned_subclus_predictions/schwann_subclus_scRNA_noriboclus/DEGs.Wilcox.schwann_subcluster_scRNA_noriboclus.integrated_snn_res.0.5_onlypos.20220209.txt .\n\n\nscp khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/Scenic_iteration2/universe_genes.rds .\n\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds\n\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds\n\nb148 <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/filter_n_cluster/8d6549bd-41fe-43ba-b7e1-801d249202b4/call-clus_n_pca/execution/B148.Cycling.SCT.PCA.UMAP.TSNE.CLUST.20220126.rds')\n\nb148_immune_singleR <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_immune_res.rds')\n\n\nb148_non_immune_singleR <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_nonimmune_res.rds')\n\n/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/SingleR_scsorter/be860bc3-e7a4-4e6c-ae21-83142b070dd5/call-run_singleR_scsorter/execution/B148_singleR_nonimmune_res.rds\n\nhead(rownames(myorig[['br_imm_atl']]))\n\nmyorig <- b148_immune_singleR@listData$orig.results\n\nhead(b148_non_immune_singleR[['orig.results']][['stb']][['scores']])\n\nmyorig[[i]][['scores']]\n\nfor(i in names(myorig)){\n\trownames(myorig[[i]][['scores']]) <- rownames(myorig[[i]])\n\tsingleR_scores <- CreateAssayObject(data = t(as.matrix(myorig[[i]][['scores']])))\n\tscrna[[sprintf(\"%s.singleR_scores\", i)]] <- singleR_scores\n}\n\nsprintf(\"%s.singleR_scores\", i)\n\nrownames(myorig[['br_imm_atl']])\n\n\nmyorig$stb\nhead(myorig$stb$scores)\nhistory()\nmyorig$stb$scores\n\n\n\n\nmod_scores_seurat <- CreateAssayObject(data = t(as.matrix(scrna@meta.data[26:34])))\nscrna[[\"mod_scores_seurat\"]] <- mod_scores_seurat\n\n\n\n/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/corrplot_K10_vs_modscore.rds\n/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/seurat_obj_suspcellsrem_nomyelination_clus.rds\n/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/seurat_obj_suspcellsrem.rds\n\n\n\n\n\n",
+			"file": "scripts/scp -r  khan.saad@compute1-client-4.ris.wustl.edu:",
+			"file_size": 13612,
+			"file_write_time": 132894230791925636,
+			"settings":
+			{
+				"buffer_size": 20043,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 2 files for \"rsync\" (regex, case sensitive)\n\n/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/scp -r  khan.saad@compute1-client-4.ris.wustl.edu::\n   83  ./tasks/plot_qc.wdl\n   84  \n   85: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis .\n   86  \n   87  \n   88: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/Check_old_results .\n   89  \n   90   scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_subcluster_scRNA_nosuspcells_nomyelination/DEGs.Wilcox.schwann_subcluster_scRNA_nosuspcells_nomyelination.integrated_snn_res.0.5_onlypos.20220215.txt .\n   ..\n  107  scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.k_selection.png .\n  108  \n  109: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.csv\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n  110  \n  111  \n  112: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n  113  \n  114  /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad\n  ...\n  132  scwhann_scrna_noriboclus_cnmf_out_rawnorm.h5ad\n  133  \n  134: rsync -ave ssh --include=\"*.ipynb\" --exclude=\"*.*\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/ .\n  135  \n  136  usage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\n5 matches in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 3005,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/singleR_immune_noni\nmmune/08466c92-5f18-454e-b198-7229d806122f/call-run_singleR_immune_nonimmune/execution/glob-c312ce54c800e4f7b2886ad33e8b7f44/B148_singleR_seurat_obj_malig.rds\n\n\ncut -d $'\\t' -f2 example_inputs/meningioma_input.tsv|xargs -i |xargs wc -l\n\n\n\ncut -d $'\\t' -f2 example_inputs/meningioma_input.tsv| xargs -i  sh -c 'zcat {}/barcodes.tsv.gz|wc -l'\n",
+			"settings":
+			{
+				"buffer_size": 426,
+				"line_ending": "Unix",
+				"name": "/storage1/fs1/allegra.petti/Active/Users/khan.saad"
+			}
+		},
+		{
+			"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/tanner_paper_figures_plots.R",
+			"settings":
+			{
+				"buffer_size": 97897,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/reclustering_redoingPCA_tcrnegcd8negrem.R",
+			"settings":
+			{
+				"buffer_size": 16950,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/khan.saad/tanner_paper_figures/Paper_figure_code"
+	],
+	"file_history":
+	[
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/cNMF_analysis_prepare.py",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/prepare_cNMF.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/htmap_degs.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/aggregate_expression_seurat4.0.3.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/subset_Renorm_reclust.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/rpca_integ2.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/subworkflows/scatter_rpca.wdl",
+		"/Users/khan.saad/WDL_workflows/cromwell_compute1_final.config",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/cromwell_compute1.config",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/single_sample_seurat.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/clustering_n_pca_simple.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/essential_inputs/marker_lists.yaml",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/essential_inputs/reference_singleR.yaml",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/rpca_integration.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/Doublet_calling.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/Doublet_collection.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/subworkflows/single_sample_filtering_nd_doublets.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/add_doubletinfo.wdl",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/GSEA_analysis.R",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/Seurat_run_all_singlesample.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/single_sample_seurat.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/Add_metadata_seurat.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/singleR_scsorter_pipeline.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/cluster_pca_seurat_simple.R",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/Readme.md",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/subworkflows/single_sample_filtering_n_clustering.wdl",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/hello-world.wdl",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/hello-haplotypecaller.wdl",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/wdl_imp_bits.wdl",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/scatter-haplotypecaller.local.inputs.json",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/Plot_QC_scrnaseq.R",
+		"/Users/khan.saad/WDL_workflows/vcf-to-gds.wdl",
+		"/Users/khan.saad/WDL_workflows/WDL_tutorial_genomicsinthecloudbook/scatter-haplotypecaller.wdl",
+		"/Users/khan.saad/aspera_upload/:storage1:fs1:allegra.petti:Active:GBM:KimCollab20",
+		"/Users/khan.saad/umap_plot_scrublet.py",
+		"/Users/khan.saad/WGCNA_kim/logs/runRst_mouseseurat232721.err",
+		"/Users/khan.saad/WGCNA_kim/logs/runRst_mouseseurat232721.out",
+		"/Users/khan.saad/Downloads/cellbender_v5.sh",
+		"/Users/khan.saad/clonality_analysis/c(\"0\",\"1\",\"2\",\"6\",\"8\",\"11\")",
+		"/Users/khan.saad/clonality_analysis/untitled",
+		"/Users/khan.saad/clonality_analysis/file_locs_vcf.txt",
+		"/Users/khan.saad/scrnaseq_GBM_spatial/history_database.1",
+		"/Users/khan.saad/Downloads/SingleR_workflow.157602",
+		"/Users/khan.saad/sample_answer.txt",
+		"/Users/khan.saad/rshist_all",
+		"/Users/khan.saad/Documents/plot_umap_all_cnvs2 <- function(output.cnv,sample_",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/gms_pipelines",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/gms2",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/infercnv",
+		"/Users/khan.saad/gms.txt",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/gms+perl",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/sel_compclusterres",
+		"/Users/khan.saad/Schwanomma_cnv/Conics_schwannoma/tumorLittsham_bar",
+		"/Users/khan.saad/Desktop/scratch_runs",
+		"/Users/khan.saad/id1azfalUzkSb2Q3.bed",
+		"/Users/khan.saad/spaceranger_testing/MouseTIL_finafig3/carmona_etal_table3.xls",
+		"/Users/khan.saad/Docker_course/check_strandedness/check_strand.cwl",
+		"/Users/khan.saad/Desktop/CITEseq/seurat_loupe/aggr_presentation_vs_cd34_normal_12262019.csv",
+		"/Users/khan.saad/single_cell_RNAseq_scripts/Python_notebooks/vdj_gbm.sh",
+		"/Users/khan.saad/Desktop/Miscellanious/TCGA_analysis/WGCNA_tcga.r",
+		"/Users/khan.saad/Desktop/condapack_cellasgn.txt",
+		"/Users/khan.saad/Docker_course/udemy-docker-mastery/dockerfile-sample-1/Dockerfile",
+		"/Users/khan.saad/Desktop/cellrangerexamples",
+		"/Users/khan.saad/Desktop/TCGA_phenotype.csv",
+		"/Users/khan.saad/Library/Application Support/Sublime Text 3/Packages/User/sftp_servers/untitled",
+		"/Users/khan.saad/Library/Application Support/Sublime Text 3/Packages/User/sftp_servers/mgi_server"
+	],
+	"find":
+	{
+		"height": 46.0
+	},
+	"find_in_files":
+	{
+		"height": 143.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"Dotplot",
+			"dotplot",
+			"ggtitle",
+			"M_IB-GL261-CD4-3",
+			"M_IB-GL261-CD4_plusPDL1-4",
+			"M_IB-GL261_plusPDL1-2",
+			"M_IB-CT2A_plusPDL1-6",
+			"prop.table",
+			"axis.text.x ",
+			"Vlnplot",
+			"Tcf7",
+			"Exhaustion_markers1",
+			"Exhaustion",
+			"Ctla4",
+			"feature.pal",
+			"featureplot",
+			"rsync",
+			"smk5g5/scvi-tools",
+			"/usr/bin/java",
+			"rsync",
+			"\\s+",
+			"\n\n\n\n# sel_rownames <- setdiff(rownames(mycounts_mat),rownames_to_rem)\n\n# sel_matrix <-  mycounts_mat[sel_rownames,]\n\n",
+			"json.loads",
+			"clustering",
+			"enrichment_summary_BP_top25DEGs_",
+			"cluster",
+			"clust.means.norm",
+			"seurat_object",
+			"myscaled_htmapdata",
+			"anno_genes",
+			"mat",
+			"brewer.pal",
+			"schwann_subclus",
+			"tech",
+			"sprintf",
+			"tech",
+			"registry",
+			"-g",
+			"yaml_file",
+			"yaml_input",
+			"yaml_file",
+			"ptol_pal",
+			"feature.pal",
+			"PTPRC",
+			"imm",
+			"imm_params",
+			"gene.lists",
+			"broad",
+			"Tirosh",
+			"output.stats",
+			"s.VlnPlot.Filtered.nFeature.control.",
+			"VlnPlot.Filtered",
+			"VlnPlot.Filtered.nFeature.",
+			"s.VlnPlot.Filtered.nFeature.",
+			"control",
+			"scp",
+			"ScatterHaplotypeCallerGVCF",
+			"MergeVCFs",
+			"HaplotypeCallerGVCF"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\",\"",
+			"seurat_object",
+			"sample_name"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "scripts/scp -r  khan.saad@compute1-client-4.ris.wustl.edu:",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20043,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8830,
+								8830
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3790.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3005,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										213,
+										218
+									],
+									[
+										589,
+										594
+									],
+									[
+										1513,
+										1518
+									],
+									[
+										1965,
+										1970
+									],
+									[
+										2591,
+										2596
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								328,
+								328
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"incomplete_sync": null,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								324,
+								425
+							]
+						],
+						"settings":
+						{
+							"auto_name": "/storage1/fs1/allegra.petti/Active/Users/khan.saad",
+							"incomplete_sync": null,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/tanner_paper_figures_plots.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 97897,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7951,
+								7951
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1613.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/reclustering_redoingPCA_tcrnegcd8negrem.R",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 16950,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 53.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SFTP":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 156.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 156.0
+	},
+	"pinned_build_system": "",
+	"project": "singlecellwdl.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"mytab <- table(scrna_GEX$ClusterNames_0.7_31PC,scr"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 272.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
