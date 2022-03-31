@@ -32,7 +32,7 @@ This multi-sample end-to-end pipeline takes multiple sample,merges them in seura
 # Running a WDL workflow 
 ***Here is an example of end to end multi-sample WDL workflow***
 
-***This workflow is run on compute1 as shown here.***
+***This workflow is run on compute1 as shown here.Change job group, compute-group as necessary.***
 
 ```
 bsub -oo WDL_end_to_end_multisample_seurat_CT2A.%J.out -G compute-allegra.petti -g /allegrapetti-gms/khan.saad -q siteman -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /usr/bin/java -Dconfig.file=cromwell_compute1_final.config -jar /opt/cromwell.jar run -t wdl ./pipelines/end_to_end_multisample.wdl -i ./end_to_end_seurat_multisample_CT2A.json
