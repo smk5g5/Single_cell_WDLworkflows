@@ -13,7 +13,7 @@ import scipy.sparse as sp
 import os
 import argparse
 
-#This script will be updated
+#This script will be updated to work with WDL
 #for smk5g5/scvi-tools:latest call python3 not python
 
 if __name__ == "__main__":

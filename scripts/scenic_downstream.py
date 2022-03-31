@@ -15,6 +15,7 @@ import zlib
 import base64
 import pickle
 
+#This script will be updated to work with WDL
 
 # Regulon specificity scores (RSS) across predicted cell types
 from pyscenic.rss import regulon_specificity_scores
