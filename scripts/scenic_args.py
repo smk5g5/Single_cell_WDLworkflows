@@ -10,6 +10,8 @@ import importlib
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+#This script will be updated to work with WDL
+
 import argparse
 
 if __name__ == "__main__":

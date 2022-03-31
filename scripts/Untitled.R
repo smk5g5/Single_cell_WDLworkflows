@@ -23,6 +23,8 @@ library(ComplexHeatmap)
 library(circlize)
 library(genefilter)
 
+#This script will be updated to work with WDL
+
 makecomplexheatmap_bysymbols2 <- function(aggr_res,sel_genes,annot_df,des_col,gsmid,no_of_genes='all',myhite=50,rowfont,htmfont,mywid=30) {
   set.seed(100)
   gse_df <- aggr_res$combined_df

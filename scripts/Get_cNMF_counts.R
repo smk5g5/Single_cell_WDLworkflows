@@ -10,6 +10,7 @@ library("ggplot2");
 library("cowplot");
 library(MASS)
 
+#Needs to be tested with WDL
 
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);

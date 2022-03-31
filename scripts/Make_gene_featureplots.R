@@ -21,6 +21,7 @@ if(length(args) < 4) {
   args <- c("--help")
 }
 
+#Needs to be tested and integrated with WDL
 #
 seurat_rds <- as.character(args[1])
 gene_lists <- as.character(args[2])

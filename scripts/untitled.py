@@ -1,3 +1,5 @@
+#This script will be updated to work with WDL
+
 Embeddings_X = pd.DataFrame( index=lf.ca.CellID )
 Embeddings_X = pd.concat( [
 pd.DataFrame(adata.obsm['X_umap'],index=adata.obs.index)[0] ,

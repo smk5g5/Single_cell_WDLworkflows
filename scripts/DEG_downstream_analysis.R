@@ -14,6 +14,8 @@ if(length(args) < 5) {
   args <- c("--help")
 }
 
+#This script uses a different docker image for complexheatmap (its based on Seurat_4.1.0)
+
 Seurat_file <- as.character(args[1])
 DEG_file <- as.character(args[2])
 prefix <- as.character(args[3])

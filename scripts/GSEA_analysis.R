@@ -2,6 +2,7 @@
 library(clusterProfiler)
 library(org.Hs.eg.db)
 
+#Needs to be tested and integrated with WDL
 
 make_logfc_sorted_genelist_bycluster <- function(DEG_results){
   sorted_fc_list <- list()
