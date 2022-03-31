@@ -35,3 +35,17 @@ This multi-sample end-to-end pipeline takes multiple sample,merges them in seura
 ```
 bsub -oo WDL_end_to_end_multisample_seurat_CT2A.%J.out -G compute-allegra.petti -g /allegrapetti-gms/khan.saad -q siteman -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /usr/bin/java -Dconfig.file=cromwell_compute1_final.config -jar /opt/cromwell.jar run -t wdl ./pipelines/end_to_end_multisample.wdl -i ./end_to_end_seurat_multisample_CT2A.json
 ```
+
+# Cromwell-config file
+
+You can modify or use my own cromwell-config that I have here `cromwell_compute1_final.config` 
+You will need to change the cromwell logs directory and the root directory as well as the job group(mine is `-g /allegrapetti-gms` you need to change it based on what you see in bjgroup on compute1), compute-group (if you are not using `compute-allegra.petti`). FYI this config file does not have call-caching enabled. Call caching provides the user to be able to restart the WDL workflow from where it failed in case of failure. A caveat for using it is that you need to have a different root directory for every wdl you run since it creates a database lock file which won't be overwritten by a different wdl run and workflow may fail because of that.
+
+
+Since we are using the gms docker image @chrismiller wrote a script which generates a cromwell-config with call caching enabled that you can use `create_cromwell_config.sh`
+
+Ideally you would want to run the config generating script from inside the interactive job 
+```
+bsub -Is -q siteman-interactive -G compute-allegra.petti -g /khan.saad/R_seurat -M 128000000 -n 1 -R 'rusage[mem=128000]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /bin/bash
+```
+Otherwise it would generate paths with `/rdcw` instead of `/storage1` that you would need to replace using sed or from inside vim etc.
