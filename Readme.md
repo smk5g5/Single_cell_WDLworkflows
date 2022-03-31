@@ -4,7 +4,7 @@
 ***You need to have womtool-53.1.jar in your current working directory if you need to validate/generate json file for inputs. You can download the womtool jar file from here***
 https://github.com/broadinstitute/cromwell/releases/download/
 
-I am currently using the following image for cromwell which also happens to be the latest gms image
+I am currently using the following image for cromwell which also happens to be the gms image being used in analysis-workflows pipelines.
 ```
 bsub -Is -q siteman-interactive -G compute-allegra.petti -g /khan.saad/R_seurat -M 128000000 -n 1 -R 'rusage[mem=128000]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /bin/bash
 ```
