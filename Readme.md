@@ -1,6 +1,6 @@
 # How to validate the WDL file. This requires that you have the cromwell docker image loaded in an interactive session on compute1.
 
-# I am currently using the following image for cromwell which also happens to be the latest gms image
+I am currently using the following image for cromwell which also happens to be the latest gms image
 ```
 bsub -Is -q siteman-interactive -G compute-allegra.petti -g /khan.saad/R_seurat -M 128000000 -n 1 -R 'rusage[mem=128000]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /bin/bash
 ```
