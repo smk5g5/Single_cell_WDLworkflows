@@ -45,9 +45,9 @@ You can modify or use my own cromwell-config that I have here `cromwell_compute1
 You will need to change the cromwell logs directory and the root directory as well as the job group(mine is `-g /allegrapetti-gms` you need to change it based on what you see in bjgroup on compute1), compute-group (if you are not using `compute-allegra.petti`). FYI this config file does not have call-caching enabled. Call caching provides the user to be able to restart the WDL workflow from where it failed in case of failure. A caveat for using it is that you need to have a different root directory for every wdl you run since it creates a database lock file which won't be overwritten by a different wdl run and workflow may fail because of that.
 
 
-Since we are using the gms docker image @chrismiller wrote a script which generates a cromwell-config with call caching enabled that you can use `create_cromwell_config.sh`
+Since we are using the gms docker image @chrismiller wrote a script which generates a cromwell-config with call caching enabled that you can use `create_cromwell_config.sh`.
 
-Ideally you would want to run the config generating script from inside the interactive job 
+Ideally you would want to run the config generating script from inside the interactive job.
 ```
 bsub -Is -q siteman-interactive -G compute-allegra.petti -g /khan.saad/R_seurat -M 128000000 -n 1 -R 'rusage[mem=128000]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /bin/bash
 ```
