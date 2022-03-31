@@ -1,0 +1,25 @@
+{
+  "end_to_end_seurat_multi_sample.recluster_renormalize_script": "./scripts/subset_Renorm_reclust.R",
+  "end_to_end_seurat_multi_sample.inputSamplesFile": "example_inputs/multisample_seurat_input_littsham_CT2A.tsv",
+  "end_to_end_seurat_multi_sample.gene_lists": "/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/gene_lists_mouse_170228.csv",
+  "end_to_end_seurat_multi_sample.queue_name": "general",
+  "end_to_end_seurat_multi_sample.scatter_gather_singleR.singleR_singleref_rscript": "./scripts/SingleR_singleRef.R",
+  "end_to_end_seurat_multi_sample.project_name": "LITT_SHAM_CT2A",
+  "end_to_end_seurat_multi_sample.inverse": "TRUE",
+  "end_to_end_seurat_multi_sample.scatter_gather_doublet.doublet_calling_script": "./scripts/Doublet_collection.R",
+  "end_to_end_seurat_multi_sample.mem_gb": "128",
+  "end_to_end_seurat_multi_sample.ident_name": "yes",
+  "end_to_end_seurat_multi_sample.run_seurat_multisample.seurat_multisample_rscript": "./scripts/seurat_multisample_input_pca_clustering.R",
+  "end_to_end_seurat_multi_sample.scatter_gather_singleR.merge_SingleR_in_seurat_script": "./scripts/add_singleR_to_multisample_seurat.R",
+  "end_to_end_seurat_multi_sample.scatter_gather_doublet.split_by": "Sample",
+  "end_to_end_seurat_multi_sample.output_suffix": "doub_rem",
+  "end_to_end_seurat_multi_sample.docker_image": "koetjen/rstudio:seurat",
+  "end_to_end_seurat_multi_sample.LinearChain_recluster_rerun_singleR.recluster_renormalize_script": "./scripts/subset_Renorm_reclust.R",
+  "end_to_end_seurat_multi_sample.LinearChain_recluster_rerun_singleR.singleR_singleref_rscript": "./scripts/SingleR_singleRef.R",
+  "end_to_end_seurat_multi_sample.subset_column_name": "majority_doublet_predictions",
+  "end_to_end_seurat_multi_sample.organism": "mouse",
+  "end_to_end_seurat_multi_sample.LinearChain_recluster_rerun_singleR.merge_SingleR_in_seurat_script": "./scripts/add_singleR_to_multisample_seurat.R",
+  "end_to_end_seurat_multi_sample.scatter_gather_doublet.merge_doublet_calls_in_seurat_script": "./scripts/add_doublet_predictions_to_seurat_multisample.R",
+  "end_to_end_seurat_multi_sample.singleR_refsFile": "./example_inputs/SingleR_singleref_scatter_mouse_littsham.tsv"
+}
+

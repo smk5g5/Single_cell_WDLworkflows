@@ -1,5 +1,5 @@
 {
-  "Seurat_multisample.run_seurat_multisample.docker_image": "smk5g5/seurat_4_1_0_cellid:1.2.1",
+  "Seurat_multisample.run_seurat_multisample.docker_image": "koetjen/rstudio:seurat",
   "Seurat_multisample.run_seurat_multisample.project_name": "Stegh_GBM",
   "Seurat_multisample.run_seurat_multisample.organism": "mouse",
   "Seurat_multisample.run_seurat_multisample.seurat_multisample_rscript": "./scripts/seurat_multisample_input_pca_clustering.R",

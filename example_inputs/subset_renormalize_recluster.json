@@ -1,0 +1,13 @@
+{
+  "recluster_renormalize.subset_recluster_renormalize.ident_name": "yes",
+  "recluster_renormalize.subset_recluster_renormalize.organism": "mouse",
+  "recluster_renormalize.subset_recluster_renormalize.seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.doublet_calls.single_R_preds.220315.rds",
+  "recluster_renormalize.subset_recluster_renormalize.recluster_renormalize_script": "./scripts/subset_Renorm_reclust.R",
+  "recluster_renormalize.subset_recluster_renormalize.inverse": "TRUE",
+  "recluster_renormalize.subset_recluster_renormalize.mem_gb": "128",
+  "recluster_renormalize.subset_recluster_renormalize.docker_image": "koetjen/rstudio:seurat",
+  "recluster_renormalize.subset_recluster_renormalize.subset_column_name": "majority_doublet_predictions",
+  "recluster_renormalize.subset_recluster_renormalize.output_suffix": "doub_rem",
+  "recluster_renormalize.subset_recluster_renormalize.queue_name": "general"
+}
+

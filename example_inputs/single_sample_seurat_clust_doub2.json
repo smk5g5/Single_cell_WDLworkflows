@@ -1,0 +1,16 @@
+{
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.nPC": 30,
+  "linear_chain_single_sample_seurat_doubletsadd.add_doub_to_srt.add_meta_script": "./scripts/Add_doublet_tometadata_singlesample.R",
+  "linear_chain_single_sample_seurat_doubletsadd.mem_gb": "128",
+  "linear_chain_single_sample_seurat_doubletsadd.run_doublet.doublet_calling_script": "./scripts/Doublet_collection.R",
+  "linear_chain_single_sample_seurat_doubletsadd.Sample_name": "MEN008_2",
+  "linear_chain_single_sample_seurat_doubletsadd.docker_image": "koetjen/rstudio:seurat",
+  "linear_chain_single_sample_seurat_doubletsadd.organism": "human",
+  "linear_chain_single_sample_seurat_doubletsadd.run_single_srt.seurat_singlesample_rscript": "./scripts/single_sample_seurat.R",
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.clustering_res": 0.7,
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.clustering_script": "./scripts/cluster_pca_seurat_simple.R",
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.tirosh_file_path": "/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt",
+  "linear_chain_single_sample_seurat_doubletsadd.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/Users/az_wang/Desai_Wang_Meningioma/Cellranger_Files/MEN008_1_count_cellranger5/outs/filtered_feature_bc_matrix",
+  "linear_chain_single_sample_seurat_doubletsadd.queue_name": "general"
+}
+

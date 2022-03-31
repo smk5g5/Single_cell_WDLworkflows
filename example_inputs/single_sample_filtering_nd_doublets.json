@@ -1,11 +1,11 @@
 {
-  "filter_n_doublets.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/GBM/KimCollab2019/scrna/SAMPLES/GBM1_total_3p_GEX_CR3/outs/filtered_feature_bc_matrix",
+  "filter_n_doublets.cellranger_outs_directory": "/storage1/fs1/allegra.petti/Active/Users/az_wang/Desai_Wang_Meningioma/Cellranger_Files/MEN008_2_count_cellranger5/outs/filtered_feature_bc_matrix",
   "filter_n_doublets.mem_gb": "128",
   "filter_n_doublets.docker_image": "koetjen/rstudio:seurat",
   "filter_n_doublets.dc.doublet_calling_script": "./scripts/Doublet_collection.R",
-  "filter_n_doublets.Sample_name": "B148",
+  "filter_n_doublets.Sample_name": "Meningioma_test",
   "filter_n_doublets.queue_name": "general",
   "filter_n_doublets.seurat_singlesample.seurat_singlesample_rscript": "./scripts/single_sample_seurat.R",
-  "filter_n_doublets.add_in.add_meta_script": "./scripts/Add_metadata_seurat.R"
+  "filter_n_doublets.add_in.add_meta_script": "./scripts/Add_doublet_tometadata_singlesample.R"
 }
 

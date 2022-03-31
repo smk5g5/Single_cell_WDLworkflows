@@ -1,0 +1,14 @@
+{
+  "seurat_counts_to_anndata.Get_seurat_counts.queue_name": "String",
+  "seurat_counts_to_anndata.Get_seurat_counts.mem_gb": "Int",
+  "seurat_counts_to_anndata.Get_seurat_counts.Get_counts_script": "File",
+  "seurat_counts_to_anndata.make_anndata_object.mem_gb": "Int",
+  "seurat_counts_to_anndata.make_anndata_object.docker_image": "String",
+  "seurat_counts_to_anndata.Get_seurat_counts.seurat_rds": "File",
+  "seurat_counts_to_anndata.make_anndata_object.make_anndata_py": "File",
+  "seurat_counts_to_anndata.Get_seurat_counts.docker_image": "String",
+  "seurat_counts_to_anndata.make_anndata_object.Sample_name": "String",
+  "seurat_counts_to_anndata.Get_seurat_counts.Sample_name": "String",
+  "seurat_counts_to_anndata.make_anndata_object.queue_name": "String"
+}
+

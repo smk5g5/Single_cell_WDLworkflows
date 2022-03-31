@@ -1,0 +1,16 @@
+{
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.inverse": "TRUE",
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.ident_name": "yes",
+  "LinearChain_recluster_rerun_singleR.singleR_singleref_rscript": "./scripts/SingleR_singleRef.R",
+  "LinearChain_recluster_rerun_singleR.seurat_rds": "/storage1/fs1/allegra.petti/Active/GBM/Stegh/Seurat_analysis/RDS_files/Cycling.SCT.PCA.UMAP.TSNE.CLUST.doublet_calls.single_R_preds.220315.rds",
+  "LinearChain_recluster_rerun_singleR.queue_name": "general",
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.subset_column_name": "majority_doublet_predictions",
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.recluster_renormalize_script": "./scripts/subset_Renorm_reclust.R",
+  "LinearChain_recluster_rerun_singleR.merge_SingleR_in_seurat_script": "./scripts/add_singleR_to_multisample_seurat.R",
+  "LinearChain_recluster_rerun_singleR.docker_image": "koetjen/rstudio:seurat",
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.output_suffix": "doub_rem",
+  "LinearChain_recluster_rerun_singleR.mem_gb": "128",
+  "LinearChain_recluster_rerun_singleR.inputSamplesFile": "./example_inputs/SingleR_singleref_scatter_mouse.tsv",
+  "LinearChain_recluster_rerun_singleR.sub_rec_ren.organism": "mouse"
+}
+

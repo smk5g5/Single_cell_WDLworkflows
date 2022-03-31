@@ -1,0 +1,14 @@
+{
+  "seurat_counts_to_anndata.Get_seurat_counts.queue_name": "general",
+  "seurat_counts_to_anndata.Get_seurat_counts.mem_gb": "128",
+  "seurat_counts_to_anndata.Get_seurat_counts.Get_counts_script": "./scripts/get_counts_matrix.R",
+  "seurat_counts_to_anndata.make_anndata_object.mem_gb": "128",
+  "seurat_counts_to_anndata.make_anndata_object.docker_image": "smk5g5/maca_python:latest",
+  "seurat_counts_to_anndata.Get_seurat_counts.seurat_rds": "/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SEURAT/B150/Cycling.SCT.PCA.UMAP.TSNE.CLUST.211216.rds",
+  "seurat_counts_to_anndata.make_anndata_object.make_anndata_py": "./scripts/seurat_counts_to_anndata.py",
+  "seurat_counts_to_anndata.Get_seurat_counts.docker_image": "koetjen/rstudio:seurat",
+  "seurat_counts_to_anndata.make_anndata_object.Sample_name": "B150",
+  "seurat_counts_to_anndata.Get_seurat_counts.Sample_name": "B150",
+  "seurat_counts_to_anndata.make_anndata_object.queue_name": "general"
+}
+
