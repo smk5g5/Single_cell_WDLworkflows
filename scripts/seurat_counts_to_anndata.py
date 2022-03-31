@@ -3,6 +3,8 @@ import scanpy as sc
 import pandas as pd
 import seaborn as sns
 import numpy as np
+import os os.environ['MPLCONFIGDIR'] = os.getcwd() + "/configs/"
+#this will make the config directory to be the PWD instead of $HOME
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import mmread
@@ -10,6 +12,8 @@ import scipy.sparse as sp
 
 import os
 import argparse
+
+#for smk5g5/scvi-tools:latest call python3 not python
 
 if __name__ == "__main__":
 	parser=argparse.ArgumentParser(description="""
