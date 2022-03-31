@@ -1,5 +1,10 @@
 #How to validate the WDL file. This requires that you have the cromwell docker image loaded in an interactive session on compute1.
 
+#I am currently using the following image for cromwell which also happens to be the latest gms image
+```
+bsub -Is -q siteman-interactive -G compute-allegra.petti -g /khan.saad/R_seurat -M 128000000 -n 1 -R 'rusage[mem=128000]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /bin/bash
+```
+
 ```
 /usr/bin/java -jar /scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/womtool-53.1.jar validate ./tasks/single_sample_seurat.wdl
 ```
@@ -12,27 +17,11 @@
 /usr/bin/java -jar /scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/womtool-53.1.jar inputs ./tasks/clustering_n_pca_simple.wdl > test_run_clustering_n_pca_simple.json
 
 
-#Running a WDL workflow interactively
-```
-bsub -Is -G compute-bolton -g /bwileytest -q general-interactive -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(broadinstitute/cromwell:dev)' /bin/bash
-
-/opt/java/openjdk/bin/java \
-    -Dconfig.file=/storage1/fs1/bolton/Active/data/presets/cromwell.config \
-    -jar /app/cromwell.jar run \
-    -o /storage1/fs1/bolton/Active/projects/TwinStrand/PRJ00087.2021.05.24.deliverables/wdl/analysis-wdls/example_data/Brian/options/vardict_options.json \
-    -t wdl \
-    -i /storage1/fs1/bolton/Active/projects/TwinStrand/PRJ00087.2021.05.24.deliverables/wdl/analysis-wdls/example_data/tools/vardict_tool.json \
-    /storage1/fs1/bolton/Active/projects/TwinStrand/PRJ00087.2021.05.24.deliverables/wdl/analysis-wdls/definitions/subworkflows/vardict.wdl
-```
-
-#Running a WDL workflow non-interactively
+#Running a WDL workflow 
+# Here is an example of end to end multi-sample WDL workflow
+![Alt text](./workflow_images/end_to_end_multisample.png?raw=true "End to End multisample workflow")
+# This workflow 
 
 ```
-bsub -oo test_WDL_workflows_simpleclus.%J.out -G compute-allegra.petti -g /allegrapetti-gms/khan.saad -q general -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /usr/bin/java -Dconfig.file=/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/cromwell_compute1.config -jar /opt/cromwell.jar run -t wdl ./tasks/clustering_n_pca_simple.wdl -i ./test_run_clustering_n_pca_simple.json
-```
-/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/Seurat_single_sample/04b5857b-e769-4b63-95c9-734067908c6c/call-run_seurat_singlesample/execution/B148.MergedFilteredSeuratObject.20220112.rds
-
-
-```
-/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/test_run_clustering_n_pca_simple.json
+bsub -oo WDL_end_to_end_multisample_seurat_CT2A.%J.out -G compute-allegra.petti -g /allegrapetti-gms/khan.saad -q siteman -M 8G -R 'select[mem>8G] rusage[mem=8G]' -a 'docker(registry.gsc.wustl.edu/apipe-builder/genome_perl_environment:compute1-37)' /usr/bin/java -Dconfig.file=/scratch1/fs1/allegra.petti/khan.saad/WDL_workflow/Single_cell_WDLworkflows/cromwell_compute1_final.config -jar /opt/cromwell.jar run -t wdl ./pipelines/end_to_end_multisample.wdl -i ./end_to_end_seurat_multisample_CT2A.json
 ```
