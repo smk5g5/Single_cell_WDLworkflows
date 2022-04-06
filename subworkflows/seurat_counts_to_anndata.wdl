@@ -9,6 +9,7 @@ task Get_seurat_counts{
     File Get_counts_script
     File seurat_rds
     String Sample_name
+    String Organism
   }
 
    command <<<
@@ -39,7 +40,7 @@ task make_anndata_object{
 
    command <<<
     export NUMBA_CACHE_DIR="$PWD"
-    python3 ~{make_anndata_py} ~{counts_matrix_file} ~{Sample_name}
+    python3 ~{make_anndata_py} ~{counts_matrix_file} ~{Sample_name} ~{Organism}
     >>>
 
   runtime {
