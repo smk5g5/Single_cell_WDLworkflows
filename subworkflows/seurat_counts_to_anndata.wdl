@@ -54,14 +54,6 @@ task make_anndata_object{
   }
 }
 
-workflow w {
-  input {
-    Int i
-    String s
-  }
-}
-
-
 workflow seurat_counts_to_anndata{
 
   input {
