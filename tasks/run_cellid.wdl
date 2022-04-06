@@ -23,8 +23,8 @@ task run_cellid{
   }
 
   output {
-  cellid_predictions = glob("CellID_final_predictions.*.rds")
-  cellid_pval_matrix = glob("CellID_pval_matrix.*.rds")
+ File cellid_predictions = glob("CellID_final_predictions.*.rds")[0]
+ File cellid_pval_matrix = glob("CellID_pval_matrix.*.rds")[0]
   }
 }
 
