@@ -39,7 +39,7 @@ task make_anndata_object{
 
    command <<<
     export NUMBA_CACHE_DIR="$PWD"
-    python ~{make_anndata_py} ~{counts_matrix_file} ~{Sample_name}
+    python3 ~{make_anndata_py} ~{counts_matrix_file} ~{Sample_name}
     >>>
 
   runtime {

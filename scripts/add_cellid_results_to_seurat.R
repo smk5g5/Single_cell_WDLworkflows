@@ -40,4 +40,4 @@ seurat_object <- Add_cellid_scores_to_seuratassay(cellid_mat=cellid_mat,seurat_o
 seurat_object <- Add_cellid_preds_to_seuratmeta(cellid_pred=cellid_pred,seurat_object=seurat_object,refname=marker_file_reference_name)
 
 
-saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".Cellid_results.",date,".rds"))
+saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',"Cellid_results.",date,".rds"))
