@@ -9,7 +9,6 @@ task Get_seurat_counts{
     File Get_counts_script
     File seurat_rds
     String Sample_name
-    String Organism
   }
 
    command <<<
@@ -36,6 +35,7 @@ task make_anndata_object{
     File make_anndata_py
     File counts_matrix_file
     String Sample_name
+    String Organism
   }
 
    command <<<
