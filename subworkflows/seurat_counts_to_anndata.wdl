@@ -60,5 +60,8 @@ workflow seurat_counts_to_anndata{
   call make_anndata_object {
     input:
     counts_matrix_file=Get_seurat_counts.counts_matrix,
+    queue_name=Get_seurat_counts.queue_name,
+    mem_gb=Get_seurat_counts.mem_gb,
+    Sample_name=Get_seurat_counts.Sample_name,
   }
 }
