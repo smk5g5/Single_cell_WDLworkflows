@@ -23,22 +23,22 @@ cellid_pred <- readRDS(cellid_pred_file)
 cellid_mat <- readRDS(cellid_mat_file)
 
 
-Add_cellid_scores_to_seuratassay <- function(cellid_mat,seurat_obj,refname){
+Add_cellid_scores_to_seuratassay <- function(cellid_mat,seurat_object,refname){
 	cellid_assay <- CreateAssayObject(data = t(as.matrix(cellid_mat)))
-    seurat_obj[[sprintf("%s.CELLID", refname)]] <- cellid_assay
+    seurat_object[[sprintf("%s.CELLID", refname)]] <- cellid_assay
   }
-return(seurat_obj)
+return(seurat_object)
 }
 
-Add_cellid_preds_to_seuratmeta <- function(cellid_pred,seurat_obj,refname){
-  index <- match(Cells(seurat_obj),names(cellid_pred))
-  seurat_obj[[sprintf("CELLID_results_%s",refname)]] <- cellid_pred[index]
-  return(seurat_obj)  
+Add_cellid_preds_to_seuratmeta <- function(cellid_pred,seurat_object,refname){
+  index <- match(Cells(seurat_object),names(cellid_pred))
+  seurat_object[[sprintf("CELLID_results_%s",refname)]] <- cellid_pred[index]
+  return(seurat_object)  
 }
 
-seurat_object <- Add_cellid_scores_to_seuratassay(cellid_mat=cellid_mat,seurat_obj=seurat_object,refname=marker_file_reference_name)
+seurat_object <- Add_cellid_scores_to_seuratassay(cellid_mat=cellid_mat,seurat_object=seurat_object,refname=marker_file_reference_name)
 
-seurat_object <- Add_cellid_preds_to_seuratmeta(cellid_pred=cellid_pred,seurat_obj=seurat_object,refname=marker_file_reference_name)
+seurat_object <- Add_cellid_preds_to_seuratmeta(cellid_pred=cellid_pred,seurat_object=seurat_object,refname=marker_file_reference_name)
 
 
 saveRDS(seurat_object, file = paste0('Cycling.SCT.PCA.UMAP.TSNE.CLUST.',".Cellid_results.",date,".rds"))
