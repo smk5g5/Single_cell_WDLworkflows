@@ -54,14 +54,36 @@ task make_anndata_object{
   }
 }
 
+workflow w {
+  input {
+    Int i
+    String s
+  }
+}
+
 
 workflow seurat_counts_to_anndata{
-  call Get_seurat_counts
+
+  input {
+    String docker_image
+    String queue_name
+    Int mem_gb
+    String Sample_name
+  }
+
+  call Get_seurat_counts {
+    input:
+    docker_image=docker_image,
+    queue_name=queue_name,
+    mem_gb=mem_gb,
+    Sample_name=Sample_name
+  }
   call make_anndata_object {
     input:
+    docker_image=docker_image,
+    queue_name=queue_name,
+    mem_gb=mem_gb,
+    Sample_name=Sample_name,
     counts_matrix_file=Get_seurat_counts.counts_matrix,
-    queue_name=Get_seurat_counts.queue_name,
-    mem_gb=Get_seurat_counts.mem_gb,
-    Sample_name=Get_seurat_counts.Sample_name,
   }
 }
