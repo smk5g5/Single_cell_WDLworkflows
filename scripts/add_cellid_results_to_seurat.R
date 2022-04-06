@@ -24,8 +24,8 @@ cellid_mat <- readRDS(cellid_mat_file)
 
 
 Add_cellid_scores_to_seuratassay <- function(cellid_mat,seurat_obj,refname){
-	cellid_assay <- CreateAssayObject(data = t(as.matrix(cellid_mat))
-    seurat_obj[[sprintf("%s.CELLID.", refname)]] <- cellid_assay
+	cellid_assay <- CreateAssayObject(data = t(as.matrix(cellid_mat)))
+    seurat_obj[[sprintf("%s.CELLID", refname)]] <- cellid_assay
   }
 return(seurat_obj)
 }
