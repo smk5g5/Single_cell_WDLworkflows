@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("Counts", help="Count input file")
 	parser.add_argument("sample_name", help="sample name")
+	parser.add_argument("organism", help="organism name")
 
 	args = parser.parse_args()
 
