@@ -1,6 +1,12 @@
 library(CelliD)
 library(tidyverse)
 
+#cellid docker image we are using is Seurat_4.1.0
+#we are basically taking seurat 4.0.3 object and making cellid predictions using Seurat_4.1.0
+#then we will add the cellid results back to seurat 4.0.3 object
+# seurat_object <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/seurat_counts_to_anndata/0d1c2574-28a1-49e1-88ce-537ad2e57312/call-Get_seurat_counts/inputs/-1835829567/Cycling.SCT.PCA.UMAP.TSNE.CLUST.211216.rds')
+
+
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args) < 3) {
   args <- c("--help")
@@ -15,10 +21,6 @@ marker_list <- readRDS(marker_gene_list_rds)
 
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
-
-#cellid docker image we are using is Seurat_4.1.0
-#we are basically taking seurat 4.0.3 object and making cellid predictions using Seurat_4.1.0
-# seurat_object <- readRDS('/storage1/fs1/allegra.petti/Active/Users/khan.saad/WDL_pipelines/seurat_counts_to_anndata/0d1c2574-28a1-49e1-88ce-537ad2e57312/call-Get_seurat_counts/inputs/-1835829567/Cycling.SCT.PCA.UMAP.TSNE.CLUST.211216.rds')
 
 #only use protein coding genes
 seurat_object_prot <- seurat_object[rownames(seurat_object) %in% HgProteinCodingGenes,]
