@@ -65,7 +65,6 @@ workflow w {
 workflow seurat_counts_to_anndata{
 
   input {
-    String docker_image
     String queue_name
     Int mem_gb
     String Sample_name
@@ -73,14 +72,12 @@ workflow seurat_counts_to_anndata{
 
   call Get_seurat_counts {
     input:
-    docker_image=docker_image,
     queue_name=queue_name,
     mem_gb=mem_gb,
     Sample_name=Sample_name
   }
   call make_anndata_object {
     input:
-    docker_image=docker_image,
     queue_name=queue_name,
     mem_gb=mem_gb,
     Sample_name=Sample_name,
