@@ -50,9 +50,9 @@ if __name__ == "__main__":
 	sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
 	fig_out = '_'+Sample_name+'.pdf'  #append sample name at the end of plot name
 	sc.pl.violin(adata, ['n_genes_by_counts', 'total_counts', 'pct_counts_mt'],jitter=0.4, multi_panel=True,save=fig_out)
-	fig_out = '_'+Sample_name+'.pdf'
+	fig_out = '_total_counts_vs_pct_counts_mt_'+Sample_name+'.pdf'
 	sc.pl.scatter(adata, x='total_counts', y='pct_counts_mt',save=fig_out)
-	fig_out = '_'+Sample_name+'.pdf'
+	fig_out = '_total_counts_vs_n_genes_by_counts_'+Sample_name+'.pdf'
 	sc.pl.scatter(adata, x='total_counts', y='n_genes_by_counts',save=fig_out)
 	#log normalize the data
 	sc.pp.normalize_total(adata, target_sum=1e4)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 		cell_cycle_df = pd.read_csv("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt",sep="\t",header=0)
 		s_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G1/S'])
 		g2m_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G2/M'])
-		cell_cycle_genes = list(testdf['Gene.Symbol'])
+		cell_cycle_genes = list(cell_cycle_df['Gene.Symbol'])
 		cell_cycle_genes = [x for x in cell_cycle_genes if x in adata.var_names]
 		# cell_cycle_genes = [x.strip() for x in open('/data/regev_lab_cell_cycle_genes.txt')]
 	else:
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 	top10_genes = adata.var['total_expression'].nlargest(10)
 	top10_genes=list(top10_genes.index)
 	sc.tl.umap(adata)
-	fig_out = 'top10_genes_'+Sample_name+'.pdf'
+	fig_out = '_top10_genes_'+Sample_name+'.pdf'
 
 	sc.pl.umap(adata, color=top10_genes,save=fig_out)
 
