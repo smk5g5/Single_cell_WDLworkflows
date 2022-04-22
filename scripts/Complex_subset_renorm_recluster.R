@@ -12,9 +12,9 @@ library(GetoptLong)
 GetoptLong(
     "seurat_rds=s", "Number of items.",
     "metacol=s", "Name of metadata column to use as Ident.",
-    "idents_vec=s@", "vector of idents to remove or keep if inverse is false",
+    "vec_idents=s@", "vector of idents to remove or keep if inverse is false",
     "inverse=s", "Boolean TRUE or FALSE",
-    "output_suffix=s", "output suffix of rds filtering",
+    "append_word=s", "output suffix of rds filtering",
     "organism=s", "Organism name mouse/human.",
     "verbose",  "Print message."
 )
