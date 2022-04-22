@@ -19,23 +19,6 @@ GetoptLong(
     "verbose",  "Print message."
 )
 
-# spec = "
-# This is an example of using this R script for complex subsetting.
-
-# Usage: Rscript Complex_subset_renorm_recluster.R [options]
-
-# Options:
-#   <seurat_rds=s> Path of seurat RDS
-#   <metacol=n> Name of metadata column to use as Ident.
-#   <idents_vec=v> vector of idents to remove           
-#   <inverse=i> Boolean TRUE or FALSE.
-#   <output_suffix=s> output suffix of rds filtering.
-#   <organism=o> Organism name mouse/human.
-# "
-
-# GetoptLong(spec, template_control = list(opt_width = 21))
-
-
 print("seurat_rds")
 print(seurat_rds)
 print("metacol")
