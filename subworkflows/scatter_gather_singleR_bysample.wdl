@@ -9,7 +9,6 @@ workflow run_singleR_by_sample{
     String queue_name
     Int mem_gb
     File singleR_refsFile
-    File seurat_rds
   File inputSamplesFile
   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }
