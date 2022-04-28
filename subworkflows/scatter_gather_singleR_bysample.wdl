@@ -14,18 +14,17 @@ workflow run_singleR_by_sample{
     String reference_name
     String label_column_name
     File singleR_tsv_file
-    File inputSamplesFile
-   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
+   Array[File] inputSamplesFile
   }
 
-  scatter (sample in inputSamples) {
+  scatter (sample in inputSamplesFile) {
     call singleR_run.run_singleR_singleref as run_singleR {
       input:
       docker_image=docker_image,
       queue_name=queue_name,
       mem_gb=mem_gb,
       singleR_singleref_rscript=singleR_singleref_rscript,
-      seurat_rds=sample[0],
+      seurat_rds=sample,
       reference_name=reference_name,
       label_column_name=label_column_name,
       singleR_ref_rds=singleR_ref_rds
@@ -37,7 +36,7 @@ workflow run_singleR_by_sample{
         mem_gb=mem_gb,
         merge_SingleR_in_seurat_script=merge_SingleR_in_seurat_script,
         singleR_tsv_file=singleR_tsv_file,
-        seurat_rds=sample[0],
+        seurat_rds=sample,
         singleR_pred_rds=run_singleR.singleR_pred_rds
     }
 
