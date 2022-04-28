@@ -31,8 +31,7 @@ workflow scatter_gather_singleR{
     			seurat_rds=sample[1],
     			reference_name=reference_name,
 				label_column_name=label_column_name
-	}}
-
+	}
  call add_singleR_results_to_seurat {
       input: 
         docker_image=docker_image, 
@@ -48,6 +47,8 @@ workflow scatter_gather_singleR{
   File seurat_singleR_rds = add_singleR_results_to_seurat.seurat_singleR_rds
   }  
 }
+}
+
 
 
 task add_singleR_results_to_seurat{
