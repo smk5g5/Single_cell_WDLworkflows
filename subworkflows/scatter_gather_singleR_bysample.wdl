@@ -24,3 +24,4 @@ workflow run_singleR_by_sample{
       inputSamplesFile=singleR_refsFile
     }
   }
+}
