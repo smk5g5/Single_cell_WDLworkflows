@@ -15,9 +15,10 @@ workflow run_singleR_by_sample{
     String label_column_name
     File singleR_tsv_file
     File inputSamplesFile
-   Array[File] inputSamples = read_lines(inputSamplesFile)
   }
 
+   Array[File] inputSamples = read_lines(inputSamplesFile)
+   
   scatter (sample in inputSamples) {
     call singleR_run.run_singleR_singleref as run_singleR {
       input:
