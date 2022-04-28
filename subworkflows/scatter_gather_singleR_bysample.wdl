@@ -3,8 +3,7 @@ version 1.0
 import "../tasks/SingleR_singleref.wdl" as singleR_run
 
 workflow run_singleR_by_sample{
-File filtered_vcfs_list
-Array[File] input_vcfs = read_lines(filtered_vcfs_list)
+
   input {
   String docker_image
     String queue_name
