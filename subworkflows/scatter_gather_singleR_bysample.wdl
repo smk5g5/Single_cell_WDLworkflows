@@ -3,7 +3,8 @@ version 1.0
 import "../tasks/SingleR_singleref.wdl" as singleR_run
 
 workflow run_singleR_by_sample{
-
+File filtered_vcfs_list
+Array[File] input_vcfs = read_lines(filtered_vcfs_list)
   input {
   String docker_image
     String queue_name
@@ -14,10 +15,11 @@ workflow run_singleR_by_sample{
     String reference_name
     String label_column_name
     File singleR_tsv_file
-   Array[File] inputSamplesFile
+    File inputSamplesFile
+   Array[File] inputSamples = read_lines(inputSamplesFile)
   }
 
-  scatter (sample in inputSamplesFile) {
+  scatter (sample in inputSamples) {
     call singleR_run.run_singleR_singleref as run_singleR {
       input:
       docker_image=docker_image,
