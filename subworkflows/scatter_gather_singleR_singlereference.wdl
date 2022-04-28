@@ -23,7 +23,7 @@ workflow scatter_gather_singleR_singleref{
           docker_image=docker_image,
           queue_name=queue_name,
           mem_gb=mem_gb,
-          seurat_rds=sample[1],
+          seurat_rds=sample[0],
           singleR_singleref_rscript=singleR_singleref_rscript,
           reference_name=reference_name,
           label_column_name=label_column_name,
@@ -36,7 +36,7 @@ workflow scatter_gather_singleR_singleref{
           mem_gb=mem_gb,
           merge_SingleR_in_seurat_script=merge_SingleR_in_seurat_script,
           singleR_tsv_file=singleR_tsv_file,
-          seurat_rds=sample[1],
+          seurat_rds=sample[0],
           singleR_pred_rds=run_singleR.singleR_pred_rds,
     }
   output {
