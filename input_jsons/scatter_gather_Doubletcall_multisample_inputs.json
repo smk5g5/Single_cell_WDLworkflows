@@ -1,0 +1,12 @@
+{
+  "scatter_doublet.doublet_calling_script": "File",
+  "scatter_doublet.multisample_seurat_rds": "File",
+  "scatter_doublet.queue_name": "String",
+  "scatter_doublet.inputSamples": "Array[Array[File]]? (optional)",
+  "scatter_doublet.inputSamplesFile": "File",
+  "scatter_doublet.merge_doublet_calls_in_seurat_script": "File",
+  "scatter_doublet.split_by": "String",
+  "scatter_doublet.mem_gb": "Int",
+  "scatter_doublet.docker_image": "String"
+}
+

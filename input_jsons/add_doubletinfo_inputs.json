@@ -1,0 +1,9 @@
+{
+  "Add_doublet_info.add_doublets_metadata.mem_gb": "Int",
+  "Add_doublet_info.add_doublets_metadata.docker_image": "String",
+  "Add_doublet_info.add_doublets_metadata.input_rds_file": "String",
+  "Add_doublet_info.add_doublets_metadata.doublet_file": "String",
+  "Add_doublet_info.add_doublets_metadata.queue_name": "String",
+  "Add_doublet_info.add_doublets_metadata.add_meta_script": "File"
+}
+

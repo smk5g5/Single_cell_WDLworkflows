@@ -1,0 +1,11 @@
+{
+  "Featureplot_genes.make_gene_featureplots.gene_feature_plots_script": "File",
+  "Featureplot_genes.make_gene_featureplots.gene_list_file": "File",
+  "Featureplot_genes.make_gene_featureplots.type_column": "String",
+  "Featureplot_genes.make_gene_featureplots.queue_name": "String",
+  "Featureplot_genes.make_gene_featureplots.docker_image": "String",
+  "Featureplot_genes.make_gene_featureplots.gene_column": "String",
+  "Featureplot_genes.make_gene_featureplots.seurat_rds": "File",
+  "Featureplot_genes.make_gene_featureplots.mem_gb": "Int"
+}
+

@@ -1,0 +1,12 @@
+{
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.singleR_yaml": "String",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.nPC": "Int",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.Sample_name": "String",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.queue_name": "String",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.mem_gb": "Int",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.singleR_immune_nonimmune_rscript": "File",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.rds_file_path": "String",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.clustering_res": "Float",
+  "singleR_immune_nonimmune.run_singleR_immune_nonimmune.docker_image": "String"
+}
+

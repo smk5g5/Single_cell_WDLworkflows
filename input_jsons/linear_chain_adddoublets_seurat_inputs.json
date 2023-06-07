@@ -1,0 +1,16 @@
+{
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.nPC": "Int",
+  "linear_chain_single_sample_seurat_doubletsadd.add_doub_to_srt.add_meta_script": "File",
+  "linear_chain_single_sample_seurat_doubletsadd.mem_gb": "Int",
+  "linear_chain_single_sample_seurat_doubletsadd.run_doublet.doublet_calling_script": "File",
+  "linear_chain_single_sample_seurat_doubletsadd.Sample_name": "String",
+  "linear_chain_single_sample_seurat_doubletsadd.docker_image": "String",
+  "linear_chain_single_sample_seurat_doubletsadd.organism": "String",
+  "linear_chain_single_sample_seurat_doubletsadd.run_single_srt.seurat_singlesample_rscript": "File",
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.clustering_res": "Float",
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.clustering_script": "File",
+  "linear_chain_single_sample_seurat_doubletsadd.run_srt_clust_simp.tirosh_file_path": "String",
+  "linear_chain_single_sample_seurat_doubletsadd.cellranger_outs_directory": "String",
+  "linear_chain_single_sample_seurat_doubletsadd.queue_name": "String"
+}
+

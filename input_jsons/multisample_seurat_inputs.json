@@ -1,0 +1,11 @@
+{
+  "Seurat_multisample.run_seurat_multisample.docker_image": "String",
+  "Seurat_multisample.run_seurat_multisample.project_name": "String",
+  "Seurat_multisample.run_seurat_multisample.organism": "String",
+  "Seurat_multisample.run_seurat_multisample.seurat_multisample_rscript": "File",
+  "Seurat_multisample.run_seurat_multisample.mem_gb": "Int",
+  "Seurat_multisample.run_seurat_multisample.queue_name": "String",
+  "Seurat_multisample.run_seurat_multisample.multisample_seurat_10x_inp": "File",
+  "Seurat_multisample.run_seurat_multisample.gene_lists": "File"
+}
+

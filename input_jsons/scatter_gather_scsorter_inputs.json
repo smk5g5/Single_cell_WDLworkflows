@@ -1,0 +1,13 @@
+{
+  "scatter_gather_scsorter.mem_gb": "Int",
+  "scatter_gather_scsorter.docker_image": "String",
+  "scatter_gather_scsorter.inputSamplesFile": "File",
+  "scatter_gather_scsorter.inputSamples": "Array[Array[File]]? (optional)",
+  "scatter_gather_scsorter.rds_file_path": "String",
+  "scatter_gather_scsorter.Sample_name": "String",
+  "scatter_gather_scsorter.merge_scsorter_results.type": "String",
+  "scatter_gather_scsorter.merge_scsorter_results.merge_scsorter_script": "File",
+  "scatter_gather_scsorter.scsorter_script": "File",
+  "scatter_gather_scsorter.queue_name": "String"
+}
+

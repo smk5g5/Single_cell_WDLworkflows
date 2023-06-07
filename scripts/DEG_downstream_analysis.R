@@ -29,7 +29,7 @@ clust.means.norm <- readRDS(aggregate_exp_rds)
 
 DEGs <- read.table(DEG_file,header=T)
 
-date = gsub("2021-","21",Sys.Date(),perl=TRUE);
+date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 make_heatmap_compdo <- function(seurat_object,clust.means.norm,clustering,sel_genes,anno_genes,date,prefix){

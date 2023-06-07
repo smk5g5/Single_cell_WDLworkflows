@@ -1,0 +1,12 @@
+{
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.Sample_name": "String",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.clustering_script": "File",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.docker_image": "String",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.mem_gb": "Int",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.clustering_res": "Float",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.queue_name": "String",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.tirosh_file_path": "String",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.rds_file_path": "String",
+  "Seurat_clustering_simple.run_clustering_n_pca_simple.nPC": "Int"
+}
+

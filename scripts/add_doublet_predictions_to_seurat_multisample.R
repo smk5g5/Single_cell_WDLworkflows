@@ -90,7 +90,7 @@ doublet_sample_list[[input_df$Sample[i]]] <- doublet_files[grep(input_df$Sample[
 
 seurat_object <- readRDS(Seurat_file)
 
-seurat_object_list <- SplitObject(seurat_object, split.by = split_by)
+# seurat_object_list <- SplitObject(seurat_object, split.by = split_by)
 
 doublet_prediction_df <- list()
 doublet_scores_df <- list()

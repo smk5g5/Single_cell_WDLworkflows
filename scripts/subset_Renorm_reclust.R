@@ -13,11 +13,11 @@ if(length(args) < 6) {
 }
 
 seurat_loc <- as.character(args[1])
-sub_col <- as.character(args[2])
-ident_names <- as.character(args[3])
-inverse <- as.character(args[4])
-output_suffix <- as.character(args[5])
-organism <- as.character(args[6])
+# sub_col <- as.character(args[2])
+# ident_names <- as.character(args[3])
+# inverse <- as.character(args[4])
+# output_suffix <- as.character(args[5])
+organism <- as.character(args[2])
 # output.stats <- as.character(args[4])
 # output_meta <- as.character(args[5])
 
@@ -28,15 +28,15 @@ print(names(seurat_obj@meta.data))
 date = gsub("2022-","22",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
-
 get_significant_pcs <- function(scrna_GEX) {
   control='Cycling'
-  if(length(unique(scrna_GEX$orig.ident))==1){
-   nPC=20 
-  }else{
-    nPC=50
-  }
+  # if(length(unique(scrna_GEX$orig.ident))==1){
+  #   nPC=30 
+  # }else{
+  #   nPC=100
+  # }
   # print('Does the error happen inside get_significant_pcs?')
+  nPC=100
   scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
@@ -46,13 +46,15 @@ get_significant_pcs <- function(scrna_GEX) {
   dev.off();
   pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
   print(pc.pval);
-  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
+  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.01]) 
   # print('No the error does not happen inside get_significant_pcs!')
   #redefine nPCs based on number of significant prinicipal components in jackstraw plot
   return(nPC)
 }
 
-subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {
+
+subset_renormalize_recluster <- function(seurat_obj,date) {
+                                         # sub_col,ident_names,inverse,date) {
   DefaultAssay(seurat_obj) <- "RNA"
   # print('Does the error happen inside subset_renormalize_recluster?')
   Idents(seurat_obj) <- sub_col
@@ -250,6 +252,8 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
 seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse,date=date)
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
+
+output_file = paste0(dirname(seurat_loc),'/',basename(output_file))
 
 saveRDS(seurat_obj, file = output_file)
 

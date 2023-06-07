@@ -1,0 +1,13 @@
+{
+  "run_singleR_by_sample.singleR_singleref_rscript": "File",
+  "run_singleR_by_sample.label_column_name": "String",
+  "run_singleR_by_sample.mem_gb": "Int",
+  "run_singleR_by_sample.inputSamplesFile": "File",
+  "run_singleR_by_sample.queue_name": "String",
+  "run_singleR_by_sample.singleR_ref_rds": "File",
+  "run_singleR_by_sample.singleR_tsv_file": "File",
+  "run_singleR_by_sample.merge_SingleR_in_seurat_script": "File",
+  "run_singleR_by_sample.reference_name": "String",
+  "run_singleR_by_sample.docker_image": "String"
+}
+

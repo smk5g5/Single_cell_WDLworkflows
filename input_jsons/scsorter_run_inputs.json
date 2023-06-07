@@ -1,0 +1,11 @@
+{
+  "scsorter_markerprediction.run_scsorter.docker_image": "String",
+  "scsorter_markerprediction.run_scsorter.scsorter_script": "File",
+  "scsorter_markerprediction.run_scsorter.Sample_name": "String",
+  "scsorter_markerprediction.run_scsorter.rds_file_path": "String",
+  "scsorter_markerprediction.run_scsorter.queue_name": "String",
+  "scsorter_markerprediction.run_scsorter.marker_list_name": "String",
+  "scsorter_markerprediction.run_scsorter.marker_list_rds": "String",
+  "scsorter_markerprediction.run_scsorter.mem_gb": "Int"
+}
+

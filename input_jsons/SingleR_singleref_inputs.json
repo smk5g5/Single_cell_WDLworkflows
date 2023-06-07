@@ -1,0 +1,11 @@
+{
+  "singleR_singleref.run_singleR_singleref.docker_image": "String",
+  "singleR_singleref.run_singleR_singleref.singleR_singleref_rscript": "File",
+  "singleR_singleref.run_singleR_singleref.seurat_rds": "File",
+  "singleR_singleref.run_singleR_singleref.label_column_name": "String",
+  "singleR_singleref.run_singleR_singleref.singleR_ref_rds": "File",
+  "singleR_singleref.run_singleR_singleref.mem_gb": "Int",
+  "singleR_singleref.run_singleR_singleref.queue_name": "String",
+  "singleR_singleref.run_singleR_singleref.reference_name": "String"
+}
+

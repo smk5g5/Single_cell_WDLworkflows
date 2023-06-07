@@ -1,6 +1,5 @@
 #!/usr/local/bin/Rscript
 
-.libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(Seurat)
 library(ggplot2)
 library(cowplot)
@@ -113,20 +112,11 @@ genome <- "GRCh38";
 } else{
   genome <- "GRCm38";
 }
-date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 input_df <- read.table(input_tsv_file,sep="\t",header=FALSE)
 colnames(input_df) <- c('Sample','cellranger_10x_directory')
-
-# #input_tsv_file looks like this for example
-# KO1 /storage1/fs1/allegra.petti/Active/GBM/Stegh/SAMPLES/KO1/filtered_feature_bc_matrix
-# KO2 /storage1/fs1/allegra.petti/Active/GBM/Stegh/SAMPLES/KO2/filtered_feature_bc_matrix
-
-cluster.res=0.7; #default cluster resolution
-nPC=50; #default number of principal components
-#final number of prinicipal component will be determined by the out
-#put of jackstraw analysis.
 
 matrix.dirs = list();
 
@@ -145,7 +135,7 @@ scrna_GEX.list = list();
 
 for (i in 1:length(matrix.dirs)) {
  print(i);
- data.10x[[i]] <- Read10X(data.dir = matrix.dirs[i]);
+ data.10x[[i]] <- Read10X_h5(data.dir = matrix.dirs[i], use.names = TRUE, unique.features = TRUE)
  scrna_GEX.list[[i]] = CreateSeuratObject(counts = data.10x[[i]], min.cells=10, min.features=100, project=project_name);
  scrna_GEX.list[[i]][["Sample"]] = sample_names[i];
 }
@@ -251,11 +241,11 @@ dev.off()
 
 
 if(organism=='human'){
-cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
+cell.cycle.tirosh <- read.table("/n/scratch3/users/s/sak4832/meningioma_project/For_cellbender/CellCycleTirosh.txt", sep='\t', header=TRUE);
 s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
 g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
 } else{
-cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
+cell.cycle.tirosh <- read.table("/n/scratch3/users/s/sak4832/meningioma_project/For_cellbender/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
 s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
 g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
 }
@@ -285,13 +275,38 @@ if (control == "Cycling") { # This removes all signal associated with the cell c
 
 saveRDS(scrna_GEX, file = sprintf("VST.%s.rds", date))
 
-scrna_GEX <- RunPCA(object = scrna_GEX, npcs = 50, verbose = FALSE);
+get_significant_pcs <- function(scrna_GEX) {
+  control='Cycling'
+  if(length(unique(scrna_GEX$orig.ident))==1){
+    nPC=20 
+  }else{
+    nPC=50
+  }
+  # print('Does the error happen inside get_significant_pcs?')
+  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
+  scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
+  scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
+  jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
+  js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
+  print(js);
+  dev.off();
+  pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values
+  print(pc.pval);
+  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) 
+  # print('No the error does not happen inside get_significant_pcs!')
+  #redefine nPCs based on number of significant prinicipal components in jackstraw plot
+  return(nPC)
+}
+
+nPC = get_significant_pcs(scrna_GEX)
+
+scrna_GEX <- RunPCA(object = scrna_GEX, npcs = nPC, verbose = FALSE);
 elbow <- ElbowPlot(object = scrna_GEX)
 jpeg(sprintf("PCA%d.elbow.%s.%s.jpg", nPC, control, date), width = 6, height = 8, units="in", res=300);
 print(elbow);
 dev.off();
-scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = "pca", dims = 1:50)
-scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:50)
+scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
+scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = "pca", dims = 1:nPC)
 
 scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
 scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
@@ -353,8 +368,28 @@ dev.off();
 saveRDS(scrna_GEX, file = sprintf("%s.SCT.PCA.UMAP.TSNE.%s.rds",control, date))
 
 scrna_GEX <- FindNeighbors(object=scrna_GEX, dims=1:nPC);
-scrna_GEX <- FindClusters(object=scrna_GEX, resolution=cluster.res);
-scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC", cluster.res, nPC)]] <- Idents(object = scrna_GEX)
+
+scrna_GEX <- FindNeighbors(scrna_GEX, reduction = "pca", dims = 1:nPC)
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.5)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",0.5, nPC)]] <- Idents(scrna_GEX)
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.7)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",0.7, nPC)]] <- Idents(scrna_GEX)
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.9)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",0.9, nPC)]] <- Idents(scrna_GEX)
+
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 1.2)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",1.2, nPC)]] <- Idents(scrna_GEX)
+
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 1.5)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",1.5, nPC)]] <- Idents(scrna_GEX)
+
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 2)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",2, nPC)]] <- Idents(scrna_GEX)
+
+scrna_GEX <- FindClusters(scrna_GEX, resolution = 2.5)
+scrna_GEX[[sprintf("ClusterNames_%.1f_%dPC",2.5, nPC)]] <- Idents(scrna_GEX)
+
+cluster.res = 2.5
 
 DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
 write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.%s.%s.xls", nPC, control, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes

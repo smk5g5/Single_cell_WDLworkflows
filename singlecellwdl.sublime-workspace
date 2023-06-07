@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"fig",
+				"fig_out"
+			],
+			[
 				"le",
 				"levels"
 			],
@@ -55,13 +59,107 @@
 			}
 		},
 		{
-			"contents": "Searching 2 files for \"rsync\" (regex, case sensitive)\n\n/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/scp -r  khan.saad@compute1-client-4.ris.wustl.edu::\n   83  ./tasks/plot_qc.wdl\n   84  \n   85: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis .\n   86  \n   87  \n   88: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/tannerjohanns/Active/khan.saad/Mouse_TILs_analysis/Check_old_results .\n   89  \n   90   scp -r khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_subcluster_scRNA_nosuspcells_nomyelination/DEGs.Wilcox.schwann_subcluster_scRNA_nosuspcells_nomyelination.integrated_snn_res.0.5_onlypos.20220215.txt .\n   ..\n  107  scp -r  khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_noriboclus_cnmf.k_selection.png .\n  108  \n  109: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.csv\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n  110  \n  111  \n  112: rsync -ave ssh --include=\"*/\" --exclude=\"*.npz\" --exclude=\"*.rda\" --exclude=\"*.RDS\" --exclude=\"*.rds\" --exclude=\"*.RData\"  --exclude=\"*.txt\" --exclude=\"*.npz\" --exclude=\"*Old_analysis_snRNAndscRNA*/\" --exclude=\"*_shelve.out\"  --exclude=\"*.h5ad\" --exclude=\"*.tsv\" --exclude=\"*.txt\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis .\n  113  \n  114  /storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/scwhann_scrna_noriboclus_cnmf_out.h5ad\n  ...\n  132  scwhann_scrna_noriboclus_cnmf_out_rawnorm.h5ad\n  133  \n  134: rsync -ave ssh --include=\"*.ipynb\" --exclude=\"*.*\" khan.saad@compute1-client-4.ris.wustl.edu:/storage1/fs1/allegra.petti/Active/Users/a.douglas/DOUGLAS_ROTATION/ .\n  135  \n  136  usage = pd.read_csv('/storage1/fs1/alberthkim/Active/users/khan.saad/NMF_analysis_iteration2/cNMF_analysis/schwann_scrna_noriboclus_cnmf/schwann_scrna_cnmf.usages.k_10.dt_0_05.consensus.txt',sep='\\t', index_col=0)\n\n5 matches in 1 file\n",
+			"contents": "import anndata2ri\nfrom rpy2.robjects import r\nanndata2ri.activate()\nimport scib\nimport pandas as pd\nimport scanpy as sc\nfrom datetime import date\nimport anndata\nimport random\n\ntoday = date.today()\n\nsc.set_figure_params(dpi=600)\nsc.settings.verbosity = 1\nsc.set_figure_params(figsize=(10, 10))\nsc.logging.print_header()\n\n# from matplotlib import pyplot as plt\n\n# with plt.rc_context():  # Use this to set figure params like size and dpi\n#     sc.pl.plotting_function(..., show=False)\n#     plt.savefig(\"path/to/file.extension\", bbox_inches=\"tight\")\n\n# with rc_context({'figure.figsize': (4, 4)}):\n#     sc.pl.umap(pbmc, color='CD79A')\n\ndef phase_without_regressing_by_cellcycle(anndata,phase_pal=phase_pal,s_genes=s_genes,g2m_genes=g2m_genes):\n\t#without regressing out cell cycle\n\tsc.pp.normalize_total(anndata, target_sum=1e6)\n\tsc.pp.log1p(anndata)\n\tsc.pp.scale(anndata)\n\tsc.tl.score_genes_cell_cycle(anndata, s_genes=s_genes, g2m_genes=g2m_genes)\n\t#calculate pca on anndata\n\tsc.tl.pca(anndata)\n\tfig_out = 'Before_cellcycle_regression_removecellswithzerocounts'+'.png'\n\tsc.pl.pca_scatter(anndata, color='phase',palette=phase_pal,save=fig_out)\n\nanndata  = scib.preprocessing.read_seurat('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Redo_PCA_clustering/GBM_cellstate_selgenes.220516.rds')\n\nanndata.raw = anndata  # at the point during preprocessing at which you wish store a copy for visualization and differential testing\nsc.pp.filter_cells(anndata, min_counts=1)\n\nOrganism='human'\n\nif(str(Organism))=='human':\n\tcell_cycle_df = pd.read_csv(\"/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt\",sep=\"\\t\",header=0)\n\ts_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G1/S'])\n\tg2m_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G2/M'])\n\tcell_cycle_genes = list(cell_cycle_df['Gene.Symbol'])\n\tcell_cycle_genes = [x for x in cell_cycle_genes if x in anndata.var_names]\n\t# cell_cycle_genes = [x.strip() for x in open('/data/regev_lab_cell_cycle_genes.txt')]\nelse:\n\tcell_cycle_df = pd.read_csv(\"/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt\",sep=\"\\t\",header=None)\n\tcell_cycle_df =['List', 'Gene.Symbol']\n\ts_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G1/S'])\n\tg2m_genes = list(cell_cycle_df['Gene.Symbol'][cell_cycle_df['List']=='G2/M'])\n\nphase_pal = {\n\t'G1':\"#4477AA\",\n\t'G2M':\"#DDCC77\",\n\t'S' : \"#CC6677\"\n}\n\nphase_without_regressing_by_cellcycle(anndata)\n\nanndata  = scib.preprocessing.read_seurat('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Redo_PCA_clustering/GBM_cellstate_selgenes.220516.rds')\nsc.pp.filter_cells(anndata, min_counts=1)\n\nphase_without_regressing_by_cellcycle(anndata)\n#with regressing cell cycle\nanndata  = scib.preprocessing.read_seurat('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Redo_PCA_clustering/GBM_cellstate_selgenes.220516.rds')\nanndata.raw = anndata  # at the point during preprocessing at which you wish store a copy for visualization and differential testing\nsc.pp.filter_cells(anndata, min_counts=1)\n\nsc.tl.score_genes_cell_cycle(anndata, s_genes=s_genes, g2m_genes=g2m_genes)\n# Regress out effects of cellcycle\nsc.tl.pca(anndata)\n\nanndata.var['mt'] = anndata.var_names.str.startswith('MT-')  # annotate the group of mitochondrial genes as 'mt'\nsc.pp.calculate_qc_metrics(anndata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)\n\n\nfig_out = '_multipanel_QC'+'.png'\n\nsc.pl.violin(anndata, ['n_genes_by_counts', 'total_counts', 'pct_counts_mt'],\n             jitter=0.4, multi_panel=True,save=fig_out)\n\nfig_out = '_topgenes'+'.png'\n#top 20 genes\nsc.pl.highest_expr_genes(anndata, n_top=20,save=fig_out)\n\nfig_out = '_total_counts_vs_pct_counts_mt'+'.png'\n\nsc.pl.scatter(anndata, x='total_counts', y='pct_counts_mt',save=fig_out)\n\nfig_out = '_total_counts_vs_n_genes_by_counts'+'.png'\n\nsc.pl.scatter(anndata, x='total_counts', y='n_genes_by_counts',save=fig_out)\n\nsc.pp.normalize_total(anndata, target_sum=1e6)\nsc.pp.log1p(anndata)\nsc.pp.highly_variable_genes(anndata, min_mean=0.0125, max_mean=3, min_disp=0.5)\n\nfig_out = '_HVGs'+'.png'\nsc.pl.highly_variable_genes(anndata,save=fig_out)\n\nsc.pp.regress_out(anndata, ['S_score', 'G2M_score'],n_jobs=10)\nsc.pp.scale(anndata)\nfig_out = '_after_cellcycle_regression'+'.png'\nsc.pl.pca_scatter(anndata, color='phase',palette=phase_pal,save=fig_out)\n\nsc.tl.pca(anndata, svd_solver='arpack')\n\nfig_out = '_after_cellcycle_regression_Principal_component_variance'+'.png'\n\nsc.pl.pca_variance_ratio(anndata, log=True,save=fig_out)\n\nsc.pp.neighbors(anndata, n_neighbors=10, n_pcs=50)\nsc.tl.leiden(anndata)\n\nsc.tl.paga(anndata)\nsc.pl.paga(anndata, plot=False)  # remove `plot=False` if you want to see the coarse-grained graph\nsc.tl.umap(anndata, init_pos='paga')\n\nsc.tl.umap(anndata)\n\nfig_out = '_after_cellcycle_regression_selgenes_UMAP'+'.png'\n\nsc.pl.umap(anndata, color=['PTPRC', 'NKG7', 'TREM2'],save=fig_out)\n\n# As we set the .raw attribute of adata, the previous plots \n# showed the “raw” (normalized, logarithmized, but uncorrected)\n#  gene expression. You can also plot the scaled and corrected \n#  gene expression by explicitly stating that you don’t want to use .raw.\n\nfig_out = '_after_cellcycle_regression_selgenes_noraw'+'.png'\n\n\nsc.pl.umap(anndata, color=['PTPRC', 'NKG7', 'TREM2'], use_raw=False,save=fig_out)\n\n\nfig_out = '_after_cellcycle_regression_selgenes_clus'+'.png'\n\n\nsc.pl.umap(anndata, color=['leiden','PTPRC', 'NKG7', 'TREM2'],save=fig_out)\n\nfig_out = '_QC_umapplots'+'.png'\n\nsc.pl.umap(anndata, color=['n_genes_by_counts','total_counts', 'pct_counts_mt'],save=fig_out)\n\n\n# phase_pal = {\n# \t'G1':\"#4477AA\",\n# \t'G2M':\"#DDCC77\",\n# \t'S' : \"#CC6677\"\n# }\n\nfig_out = '_cellcycle_umapplots'+'.png'\n\nsc.pl.umap(anndata,color='phase',palette=phase_pal,save=fig_out)\n\n\nsample_palette = {\n\t'B150':\"#88CCEE\",\n\t'B152':\"#CC6677\",\n\t'B178' : \"#DDCC77\",\n\t'B183' : \"#117733\",\n\t'B185' : \"#332288\",\n\t'B186' : \"#AA4499\",\n\t'ST073021' : \"#44AA99\" ,\n\t'WU1225_core' : \"#999933\",\n\t'WU1225_edge' : \"#882255\",\n\t'WU1226_core_CD45neg' : \"#661100\",\n\t'WU1226_edge_CD45neg' : \"#888888\",\n}\n\nfig_out = '_sample_umapplots'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata,color='orig.ident',palette=sample_palette,save=fig_out,s=50)\n\nfig_out = '_SingleR_scsorter_umapplots'+'.png'\n\nsc.pl.umap(anndata,color='Cell_Types_SingleR_scsorter_v2',save=fig_out)\n\n# df.colName.value_counts()\n\n        # B150                B152                B178                B183\n        #   \"#88CCEE\"           \"#CC6677\"           \"#DDCC77\"           \"#117733\"\n        #        B185                B186            ST073021         WU1225_core\n        #   \"#332288\"           \"#AA4499\"           \"#44AA99\"           \"#999933\"\n        # WU1225_edge WU1226_core_CD45neg WU1226_edge_CD45neg\n        #   \"#882255\"           \"#661100\"           \"#888888\"\n\nresults_file = 'Scanpy_end2end_analysis/GBM.CellState.' + today.strftime(\"%m%d%y\") + '.h5ad'  # the file that will store the analysis results\n\n\nanndata.write(results_file)\n\n\nanndata = anndata.read_h5ad('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Scanpy_end2end_analysis/GBM.CellState.051722.h5ad')\n\nanndata.obs['Cell_Types_SingleR_scsorter_v2'].value_counts()\n\n\ncelltype_colorpalette = {\n\t'nef.Malignant.NPC1':\"#fb298a\",\n\t'nef.Malignant.MES1':\"#2b9b00\",\n\t'nef.Malignant.AC' : \"#f846ba\",\n\t'nef.Malignant.OPC' : \"#01ca75\",\n\t'br_imm_atl.Mg-TAM' : \"#ff84f5\",\n\t'br_imm_atl.Mo-TAM' : \"#006a16\",\n\t'nef.Malignant.MES2' : \"#fc3557\",\n\t'nef.Malignant.NPC2' : \"#00cb90\",\n\t'br_imm_atl.T cells' : \"#ff5a76\",\n\t'br_imm_atl.prol. TAM' : \"#00c7d9\",\n\t'stb.NPC' : \"#f1552b\",\n\t'br_imm_atl.Monocytes' : \"#008db1\",\n\t'No.Prediction' : \"#e0e0e0\",\n\t'nef.Malignant.Unknown' : \"#c0aaff\",\n\t'br_imm_atl.DC' : \"#d6c94a\",\n\t'br_imm_atl.NK cells' : \"#324f97\",\n\t'stb.InN1b' : \"#793882\",\n\t'stb.ExN1_4' : \"#9dd48d\",\n\t'stb.Micro' : \"#a31925\",\n\t'stb.Astro1' : \"#018b6a\",\n\t'stb.Perc' : \"#ff8670\",\n\t'br_imm_atl.B cells' : \"#185f2a\",\n\t'stb.OPC1' : \"#8b3358\",\n\t'stb.Astro4' : \"#5c6100\",\n\t'stb.Endo' : \"#ffaa5d\",\n\t'stb.Olig3' : \"#8f360e\",\n\t'stb.InN5' : \"#ffb377\",\n}\n\nfig_out = '_SingleR_scsorter_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\n\n# s=50, frameon=False, ncols=4,\n# ,palette=sample_palette,save=fig_out\n\nsc.set_figure_params(dpi=300)\nsc.settings.verbosity = 1\nsc.set_figure_params(figsize=(20, 20))\nsc.set_figure_params(scanpy=True, fontsize=14)\n\n\n\nsc.pl.umap(anndata,color='Cell_Types_SingleR_scsorter_v2',palette=celltype_colorpalette,s=50,save=fig_out)\n\n\n\nsc.pl.umap(anndata,color='orig.ident',palette=sample_palette,save=fig_out,s=50)\n\n\nfig_out = '_SingleR_scsorter_umapplots_grouped'+today.strftime(\"%m%d%y\")+'.png'\n\n\ndef cluster_small_multiples(adata, clust_key,figout,palette,size=50, frameon=False, legend_loc=None,**kwargs):\n\ttmp = adata.copy()\n\tfor i,clust in enumerate(adata.obs[clust_key].cat.categories):\n\t\ttmp.obs[clust] = adata.obs[clust_key].isin([clust]).astype('category')\n\t\ttmp.uns[clust+'_colors'] = ['#d3d3d3', adata.uns[clust_key+'_colors'][i]]\n\t\tncol_arg = min(len(adata.obs[clust_key].cat.categories.tolist()),3)\n\tsc.pl.umap(tmp, groups=tmp.obs[clust].cat.categories[1:].values,color=adata.obs[clust_key].cat.categories.tolist(),ncols=ncol_arg,save=fig_out,size=size, frameon=frameon, legend_loc=legend_loc, **kwargs)\n\n# sc.pl.umap(anndata,color='Cell_Types_SingleR_scsorter_v2',palette=celltype_colorpalette,s=50,save=fig_out,frameon=False, ncols=4,groups=list(celltype_colorpalette.keys()))\n\nfig_out = '_sample_umapplots_grouped'+today.strftime(\"%m%d%y\")+'.png'\n\n# sc.pl.umap(anndata, groups=[[c] for c in anndata.obs['Cell_Types_SingleR_scsorter_v2'].cat.categories],save=fig_out,color='Cell_Types_SingleR_scsorter_v2',palette=celltype_colorpalette, ncols=4)#, simply passing a list of lists to groups (without copying a whole anndata object). Will that be sufficient?\n\n\n\nsc.set_figure_params(figsize=(20, 20))\n\ncluster_small_multiples(adata=anndata,clust_key='orig.ident',figout=fig_out,palette=sample_palette,size=20)\n# sc.pl.umap(tmp, groups=tmp.obs[clust].cat.categories[1:].values, color=adata.obs[clust_key].cat.categories.tolist(), size=size, frameon=frameon, legend_loc=legend_loc, **kwargs)\n\n# sc.pl.umap(anndata,color='orig.ident',palette=sample_palette,save=fig_out,s=50,frameon=False, ncols=4,groups=anndata.obs['orig.ident'].cat.categories.tolist())\nfig_out = '_celltypes_umapplots_grouped'+today.strftime(\"%m%d%y\")+'.png'\n\ncluster_small_multiples(adata=anndata,clust_key='Cell_Types_SingleR_scsorter_v2',figout=fig_out,palette=sample_palette,size=20)\n\nsc.tl.leiden(anndata, key_added = \"leiden_1.0\") # default resolution in 1.0\nsc.tl.leiden(anndata, resolution = 0.5, key_added = \"leiden_0.5\")\nsc.tl.leiden(anndata, resolution = 0.7, key_added = \"leiden_0.7\")\nsc.tl.leiden(anndata, resolution = 1.2, key_added = \"leiden_1.2\")\nsc.tl.leiden(anndata, resolution = 1.5, key_added = \"leiden_1.5\")\n\nresults_file = 'GBM.CellState.' + today.strftime(\"%m%d%y\") + 'clustered.h5ad'  # the file that will store the analysis results\nanndata.write(results_file)\n\n\ndef make_custom_palette(category_list):\n\t#rainbow palettes from R in a python list length 50\n\trainbow_palette = [\"#FF0000\",\"#FF1F00\",\"#FF3D00\",\"#FF5C00\",\"#FF7A00\",\"#FF9900\",\"#FFB800\",\"#FFD600\",\"#FFF500\",\"#EBFF00\",\"#CCFF00\",\"#ADFF00\",\"#8FFF00\",\"#70FF00\",\"#52FF00\",\"#33FF00\",\"#14FF00\",\"#00FF0A\",\"#00FF29\",\"#00FF47\",\"#00FF66\",\"#00FF85\",\"#00FFA3\",\"#00FFC2\",\"#00FFE0\",\"#00FFFF\",\"#00E0FF\",\"#00C2FF\",\"#00A3FF\",\"#0085FF\",\"#0066FF\",\"#0047FF\",\"#0029FF\",\"#000AFF\",\"#1400FF\",\"#3300FF\",\"#5200FF\",\"#7000FF\",\"#8F00FF\",\"#AD00FF\",\"#CC00FF\",\"#EB00FF\",\"#FF00F5\",\"#FF00D6\",\"#FF00B8\",\"#FF0099\",\"#FF007A\",\"#FF005C\",\"#FF003D\",\"#FF001F\"]\n\tthirty_color_pal = [\"#fb298a\",\"#2b9b00\",\"#f846ba\",\"#01ca75\",\"#ff84f5\",\"#006a16\",\"#fc3557\",\"#00cb90\",\"#ff5a76\",\"#00c7d9\",\"#f1552b\",\"#008db1\",\"#a33300\",\"#c0aaff\",\"#d6c94a\",\"#324f97\",\"#bc6400\",\"#793882\",\"#9dd48d\",\"#a31925\",\"#018b6a\",\"#ff8670\",\"#185f2a\",\"#8b3358\",\"#5c6100\",\"#ffaa5d\",\"#8f360e\",\"#ffb377\",\"#735800\",\"#9e734d\"]\n\tif(len(category_list) > len(thirty_color_pal)):\n\t\tlen_sel = len(category_list) - len(thirty_color_pal)\n\t\tsel_rainbow = random.sample(rainbow_palette, len_sel)\n\t\tsel_pal = thirty_color_pal+sel_rainbow\n\telse:\n\t\tsel_pal = thirty_color_pal\n\tpal_dict  = {}\n\tcounter = 0\n\tfor i in category_list:\n\t\tpal_dict[i] = sel_pal[counter]\n\t\tcounter = counter+1\n\treturn(pal_dict)\n\n\nsc.set_figure_params(figsize=(10, 10))\n# anndata.obs['Cell_Types_SingleR_scsorter_v2'].cat.categories.tolist()\n\ndef plot_clusters_annot(adata,key_word,fig_out,pal,sup_pal):\n\ttmp = adata.copy()\n\tleg_title = 'clustering of cells '+str(key_word)\n\tif(pal==True):\n\t\tsc.pl.umap(adata, color=key_word, add_outline=True,legend_loc='on data',\n\t\tlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\n\t\ttitle=leg_title, palette=sup_pal,save=fig_out)\n\telse:\n\t\tsup_pal = make_custom_palette(category_list=adata.obs[key_word].cat.categories.tolist())\n\t\tsc.pl.umap(adata, color=key_word, add_outline=True,legend_loc='on data',\n\t\tlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\n\t\ttitle=leg_title,palette=sup_pal,save=fig_out)\n\nfor i in [\"leiden_0.5\",\"leiden_0.7\",\"leiden_1.0\",\"leiden_1.2\",\"leiden_1.5\"]:\n\tfig_out = '_Clusters_'+str(i)+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\tplot_clusters_annot(adata=anndata,key_word=i,fig_out=fig_out,pal=False,sup_pal='na')\n\n\n\nfig_out = str('_Cell_Types_SingleR_scsorter_v2')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['Cell_Types_SingleR_scsorter_v2'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Cell_Types_SingleR_scsorter_v2', palette=celltype_colorpalette,save=fig_out)\n\n\nfig_out = str('_orig.ident')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['orig.ident'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='orig.ident', palette=sample_palette,save=fig_out)\n\n###Add batch variable to observations\n\nanndata.obs['Batch'] = '5_prime'\n\nold_3prime_batch = list(anndata.obs.index[anndata.obs['orig.ident']=='B152'])+list(anndata.obs.index[anndata.obs['orig.ident']=='B150'])\n\nanndata.obs.loc[old_3prime_batch, 'Batch'] = '3_prime'\n\nbatch_palette = {\n\t'5_prime':\"#D95F02\",\n\t'3_prime':\"#7570B3\"}\n\nfig_out = str('_Batch')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch', palette=batch_palette,save=fig_out)\n\nfig_out = str('_Batch_5prime')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch',groups=['5_prime'],save=fig_out)\n\n\nfig_out = str('_Batch_3prime')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch',groups=['3_prime'],save=fig_out)\n\n\n\nanndata = anndata.read_h5ad('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Scanpy_end2end_analysis/GBM.CellState.051722clustered.h5ad')\n\nsc.set_figure_params(scanpy=True, fontsize=20,figsize=(20, 20))\n\nfig_out = str('_n_counts')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(anndata, color=['n_counts'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=10,legend_fontweight='bold',frameon=False,\ntitle='nCount',save=fig_out)\n\nsc.set_figure_params(scanpy=True, fontsize=20,figsize=(30, 30))\n\nfor i in [\"leiden_0.5\",\"leiden_0.7\",\"leiden_1.0\",\"leiden_1.2\",\"leiden_1.5\"]:\n\t# fig_out = '_Clusters_'+str(i)+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\tfig_out = str('_n_counts_')+i+'_violinplots.'+today.strftime(\"%m%d%y\")+'.png'\n\tsc.pl.violin(anndata, ['n_counts'], groupby=i,save=fig_out)\n# \tsc.pl.umap(anndata, color=['n_counts'], add_outline=True,legend_loc='right margin',\n# legend_fontsize=12, legend_fontoutline=2,size=10,legend_fontweight='bold',frameon=False,\n# title='nCount',save=fig_out)\n\nsc.set_figure_params(scanpy=True, fontsize=14,figsize=(25, 25))\n\nfor i in [\"orig.ident\",\"Batch\"]:\n\t# fig_out = '_Clusters_'+str(i)+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\tfig_out = str('_n_counts_')+i+'_violinplots.'+today.strftime(\"%m%d%y\")+'.png'\n\tsc.pl.violin(anndata, ['n_counts'], groupby=i,save=fig_out)\n\nsc.set_figure_params(scanpy=True, fontsize=14,figsize=(20, 20))\n\nfor i in anndata.obs['Cell_Types_SingleR_scsorter_v2'].cat.categories.tolist():\n\tfig_out = str('Cell_Types_SingleR_scsorter_v2_')+i+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\n\tsc.pl.umap(anndata, color=['Cell_Types_SingleR_scsorter_v2'], add_outline=True,legend_loc='right margin',\n\tlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\n\ttitle=str('Cell type prediction ')+str(i),groups=[i],save=fig_out)\n\nsc.set_figure_params(scanpy=True, fontsize=20,figsize=(20, 20))\n\n#to return to raw anndata\n#anndata.raw.to_adata()\n\nfor i in anndata.obs['orig.ident'].cat.categories.tolist():\n\tfig_out = str('orig.ident_')+i+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\n\tsc.pl.umap(anndata, color=['orig.ident'], add_outline=True,legend_loc='right margin',\n\tlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\n\ttitle=str('orig.ident ')+str(i),groups=[i],save=fig_out)\n\n#####Batch correction approaches#######################\n\n#Trying batch correction methods in scib\n\nout = anndata.copy() #always make copy of anndata object.\n\n# out.raw.to_adata()\n\nsce.pp.harmony_integrate(out, 'Batch')\n\nresults_file = 'GBM.CellState.' + today.strftime(\"%m%d%y\") + '.clustered.batch_corrected.harmony.h5ad'  # the file that will store the analysis results\nout.write(results_file)\n\n# sc.pl.embedding(out, basis='X_pca_harmony', color=['Batch'],save=fig_out)\n\n\nadata = out.copy() #always make copy of anndata object.\n\nadata.obsm['X_pca'] = adata.obsm['X_pca_harmony']\n\nsc.pl.umap(adata, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch',save=fig_out)\n\n##### Combat batch correction ######################\nann_combat = anndata.read_h5ad('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Scanpy_end2end_analysis/GBM.CellState.batchcorr_combat051922.h5ad')\n\n# out = scib.integration.runScvi(out, 'Batch')\n\n# scvi.data.setup_anndata(out, layer=\"counts\", batch_key = 'Batch')\n\n# seurat_ann  = scib.preprocessing.read_seurat('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Redo_PCA_clustering/GBM_cellstate_selgenes.220516.rds')\n\n\nsc.pp.highly_variable_genes(ann_combat)\nprint(\"Highly variable genes: %d\"%sum(ann_combat.var.highly_variable))\nsc.pl.highly_variable_genes(ann_combat)\nsc.pp.pca(ann_combat, n_comps=50, use_highly_variable=True, svd_solver='arpack')\nsc.pp.neighbors(ann_combat, n_pcs =50)\nsc.tl.umap(ann_combat)\n\nfig_out = str('_Batch_combat_corrected')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(ann_combat, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch (Combat batch correction)',save=fig_out)\n\nsc.tl.leiden(ann_combat,resolution = 1.2, key_added = \"leiden_1.2_combat\")\n\nfig_out = '_Clusters_'+str('leiden_1.2_combat')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\nplot_clusters_annot(adata=ann_combat,key_word='leiden_1.2_combat',fig_out=fig_out,pal=False,sup_pal='na')\n\n\n##########################\n\n########## Harmony batch correction ################\n\nadata_harmony = anndata.read_h5ad('/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Scanpy_end2end_analysis/GBM.CellState.051922.clustered.batch_corrected.harmony.h5ad')\nsc.pp.neighbors(adata_harmony, n_pcs =50, use_rep = \"X_pca_harmony\")\nsc.tl.umap(adata_harmony)\n\nfig_out = str('_Batch_harmonycorrected')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\n# sc.pp.neighbors(out,use_rep='X_pca_harmony',n_neighbors=10, n_pcs=50)\nsc.tl.leiden(adata_harmony,resolution = 1.2, key_added = \"leiden_1.2_harmony\")\n\nfig_out = '_Clusters_'+str('leiden_1.2_harmony')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\nplot_clusters_annot(adata=adata_harmony,key_word='leiden_1.2_harmony',fig_out=fig_out,pal=False,sup_pal='na')\n\nfig_out = str('_Batch_harmonycorrected')+'_umapplots_annot'+today.strftime(\"%m%d%y\")+'.png'\n\nsc.pl.umap(adata_harmony, color=['Batch'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle='Batch (harmony batch correction)',save=fig_out)\n\nfig_out = str('orig.ident_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['orig.ident'], add_outline=True,legend_loc='right margin',\nlegend_fontsize=12, legend_fontoutline=2,size=30,legend_fontweight='bold',frameon=False,\ntitle=str('orig.ident (harmony batch correction)'),save=fig_out)\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib import colors\n\n#Define a nice colour map for gene expression\ncolors2 = plt.cm.Reds(np.linspace(0, 1, 128))\ncolors3 = plt.cm.Greys_r(np.linspace(0.7,0.8,20))\ncolorsComb = np.vstack([colors3, colors2])\nmymap = colors.LinearSegmentedColormap.from_list('my_colormap', colorsComb)\n\nfig_out = str('CD45_expression_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['PTPRC'], use_raw=False, color_map=mymap, size = 30,\n\ttitle=str('CD45 expression'),save=fig_out)\n\nfig_out = str('Tcellmarkers_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['CD8A','CD8B', 'CD4'], use_raw=False, color_map=mymap, size = 30,\n\ttitle=str('T cell markers'),save=fig_out)\n\nfig_out = str('NK_Tmarkers_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['NKG7','CD160', 'GNLY','GZMA'], use_raw=False, color_map=mymap,\n\ttitle=str('NK-T/NK markers'),save=fig_out)\n\nfig_out = str('macs_monomarkers_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['FCGR3A','CD14','TREM2'], use_raw=False, color_map=mymap,\n\ttitle=str('Monocytes/Macs/Micro-glia'),save=fig_out)\n\nfig_out = str('DC_monocytic_markers_harmony_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['CD1C', 'CST3', 'FCER1A'], use_raw=False, color_map=mymap,\n\ttitle=str('Monocyte-derived Dendritic cells'),save=fig_out)\n\nfig_out = str('plasmocytoidDC_markers_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['GZMB', 'IL3RA'], use_raw=False, color_map=mymap,\ntitle=str('Plasmacytoid dendritic cells'),save=fig_out)\n\nfig_out = str('Bcell_markers_')+'_umapplots.'+today.strftime(\"%m%d%y\")+'.png'\nsc.pl.umap(adata_harmony, color=['MS4A1','VPREB3'], use_raw=False, color_map=mymap,\ntitle=str('B cells'),save=fig_out)\n\n# results_file = 'GBM.CellState.' + today.strftime(\"%m%d%y\") + 'clustered.h5ad'  # the file that will store the analysis results\n# adata_harmony.write(results_file)\n\nresults_file = 'GBM.CellState.' + today.strftime(\"%m%d%y\") + '.clustered.batch_corrected.harmony.h5ad'  # the file that will store the analysis results\nadata_harmony.write(results_file)\n\n##########################\n# out = scib.ig.runCombat(out, 'Batch')\n\nConvert(\"/storage1/fs1/allegra.petti/Active/GBM/CellState/GBM.9/Scanpy_end2end_analysis/GBM.CellState.051922.clustered.batch_corrected.harmony.h5ad\", dest = \"h5seurat\", overwrite = TRUE)\n",
+			"file": "scripts/scanpy_end2end.py",
+			"file_size": 23312,
+			"file_write_time": 132974425408046142,
 			"settings":
 			{
-				"buffer_size": 3005,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
+				"buffer_size": 23845,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": ".libPaths( c(\"/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3\",.libPaths()) )\nlibrary(Seurat)\nlibrary(ggplot2)\nlibrary(cowplot)\nlibrary(dplyr)\nlibrary(Matrix)\nlibrary(RColorBrewer)\nlibrary(ggthemes)\n\nargs <- commandArgs(trailingOnly = TRUE)\nif(length(args) < 6) {\n  args <- c(\"--help\")\n}\n\nseurat_loc <- as.character(args[1])\nsub_col <- as.character(args[2])\nident_names <- as.character(args[3])\ninverse <- as.character(args[4])\noutput_suffix <- as.character(args[5])\norganism <- as.character(args[6])\n# output.stats <- as.character(args[4])\n# output_meta <- as.character(args[5])\n\nseurat_obj <- readRDS(seurat_loc)\n\nprint(names(seurat_obj@meta.data))\n\ndate = gsub(\"2022-\",\"22\",Sys.Date(),perl=TRUE);\ndate = gsub(\"-\",\"\",date);\n\n\nget_significant_pcs <- function(scrna_GEX) {\n  control='Cycling'\n  if(length(unique(scrna_GEX$orig.ident))==1){\n   nPC=20 \n  }else{\n    nPC=50\n  }\n  # print('Does the error happen inside get_significant_pcs?')\n  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)\n  scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)\n  scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)\n  jpeg(sprintf(\"PCA.jackstraw.%s.%s.jpg\", control, date), width = 10, height = 6, units=\"in\", res=300);\n  js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)\n  print(js);\n  dev.off();\n  pc.pval <- scrna_GEX@reductions$pca@jackstraw@overall.p.values\n  print(pc.pval);\n  nPC=length( pc.pval[,'Score'][pc.pval[,'Score'] <= 0.05]) \n  # print('No the error does not happen inside get_significant_pcs!')\n  #redefine nPCs based on number of significant prinicipal components in jackstraw plot\n  return(nPC)\n}\n\nsubset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {\n  DefaultAssay(seurat_obj) <- \"RNA\"\n  # print('Does the error happen inside subset_renormalize_recluster?')\n  Idents(seurat_obj) <- sub_col\n  if(inverse=='TRUE'){\n    scrna_GEX <- subset(seurat_obj,idents=ident_names,invert = TRUE)\n  }else{\n    scrna_GEX <- subset(seurat_obj,idents=ident_names)\n  }\n\n  # ##################################################################################\n  # # This bit is only for testing purposes for the rscript within wdl would be disabled\n  # # in the main workflow\n  # set.seed(100)\n  # random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.1)\n  # #select 10% of all cells randomly for testing the script.\n  # scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)\n  # ##################################################################################\n\n  if(organism=='human'){\n  cell.cycle.tirosh <- read.table(\"/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt\", sep='\\t', header=TRUE);\n  s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == \"G1/S\")];\n  g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == \"G2/M\")];\n  } else{\n  cell.cycle.tirosh <- read.table(\"/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt\", sep='\\t', header=FALSE);\n  s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == \"G1/S\")];\n  g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == \"G2/M\")];\n  }\n\n  scrna_GEX <- CellCycleScoring(object=scrna_GEX, s.features=s.genes, g2m.features=g2m.genes, set.ident=FALSE)\n\n  scrna_GEX <- NormalizeData(object = scrna_GEX, normalization.method = \"LogNormalize\", scale.factor = 1e6); # 1e6 is new as of 1/8/20\n\n  scrna_GEX <- FindVariableFeatures(object = scrna_GEX, selection.method = 'vst', mean.cutoff = c(0.1,8), dispersion.cutoff = c(1, Inf))\n\n  control='Cycling'\n\n  if (control == \"Cycling\") { # This removes all signal associated with the cell cycle\n   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c(\"S.Score\",\"G2M.Score\"), display.progress=FALSE);\n  } else if (control == \"CyclingRB\") {\n   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c(\"S.Score\",\"G2M.Score\",\"percent.ribo\"), display.progress=FALSE);\n  } else if (control == \"CyclingDiff\") {\n   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), vars.to.regress = c(\"CC.Difference\"), display.progress=FALSE);\n  } else {\n   scrna_GEX <- ScaleData(object = scrna_GEX, features = rownames(x = scrna_GEX), display.progress=FALSE);\n  }\n\n  nPC <- get_significant_pcs(scrna_GEX)\n  scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)\n\n  scrna_GEX <- RunUMAP(object = scrna_GEX, reduction = \"pca\", dims = 1:nPC)\n  scrna_GEX <- RunTSNE(object = scrna_GEX, reduction = \"pca\", dims = 1:nPC)\n\n  scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)\n  scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)\n  jpeg(sprintf(\"PCA.jackstraw.%s.%s.jpg\",control, date), width = 10, height = 6, units=\"in\", res=300);\n  js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)\n  print(js);\n  dev.off();\n\n  jpeg(sprintf(\"UMAP.%s.%s.jpg\",control, date), width = 10, height = 8, units=\"in\", res=300);\n  p2 <- DimPlot(object = scrna_GEX, reduction = \"umap\", group.by = \"Sample\", pt.size=0.1)\n  print(p2);\n  dev.off();\n\n  print (\"VizDimLoadings Running...\");\n  jpeg(sprintf(\"VizDimLoadings.%s.%s.jpg\",control, date), width = 8, height = 30, units=\"in\", res=300);\n  vdl <- VizDimLoadings(object = scrna_GEX, dims = 1:3)\n  print(vdl);\n  dev.off();\n\n  print (\"ProjectDim Running...\");\n  scrna_GEX <- ProjectDim(object = scrna_GEX)\n\n  # saveRDS(scrna_GEX, file = sprintf(\"%s.SCT.PCA.UMAP.TSNE.%s.rds\",control, date))\n\n  print (\"DimHeatmap Running...\");\n  jpeg(sprintf(\"PCA.heatmap.top.%s.%s.jpg\",control, date), width = 8.5, height = 11, units=\"in\", res=300);\n  hm <- DimHeatmap(object = scrna_GEX, dims = 1, cells = 500, balanced = TRUE);\n  print(hm);\n  dev.off();\n\n  jpeg(sprintf(\"PCA.heatmap.multi.%s.%s.jpg\",control, date), width = 8.5, height = 24, units=\"in\", res=300);\n  hm.multi <- DimHeatmap(object = scrna_GEX, dims = 1:10, cells = 500, balanced = TRUE);\n  print(hm.multi);\n  dev.off();\n\n  scrna_GEX <- FindNeighbors(scrna_GEX, reduction = \"pca\", dims = 1:nPC)\n  scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.5)\n  scrna_GEX[[sprintf(\"ClusterNames_%.1f_%dPC\",0.5, nPC)]] <- Idents(scrna_GEX)\n  scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.7)\n  scrna_GEX[[sprintf(\"ClusterNames_%.1f_%dPC\",0.7, nPC)]] <- Idents(scrna_GEX)\n  scrna_GEX <- FindClusters(scrna_GEX, resolution = 0.9)\n  scrna_GEX[[sprintf(\"ClusterNames_%.1f_%dPC\",0.9, nPC)]] <- Idents(scrna_GEX)\n\n  scrna_GEX <- FindClusters(scrna_GEX, resolution = 1.2)\n  scrna_GEX[[sprintf(\"ClusterNames_%.1f_%dPC\",1.2, nPC)]] <- Idents(scrna_GEX)\n\n  #for now 0.7 is used as a default cluster resolution but something \n  #better needs to be replace this. Perhaps will use multiK \n  #https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8375188/\n  #https://github.com/siyao-liu/MultiK\n  #in the next version \n\n  Idents(scrna_GEX) <- sprintf(\"ClusterNames_%.1f_%dPC\",0.7, nPC)\n  DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!\n  write.table(DEGs, file=sprintf(\"DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls\", nPC, 0.7, date), quote=FALSE, sep=\"\\t\", row.names=FALSE) # must save cluster-specific marker genes\n\t\n  n.graph = length(unique(Idents(scrna_GEX)))\n  print(n.graph)\n  rainbow.colors = rainbow(n.graph, s=0.6, v=0.9);\n  names(rainbow.colors) <- sort(unique(Idents(scrna_GEX)))\n  print(rainbow.colors)\n  print(length(rainbow.colors))\n\n  jpeg(sprintf(\"UMAP.clusters.%d.%.1f.%s.jpg\", nPC, 0.7, date), width = 10, height = 8, units=\"in\", res=300);\n  p2 <- DimPlot(object = scrna_GEX, reduction = \"umap\", group.by = sprintf(\"ClusterNames_%.1f_%dPC\",0.7, nPC), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(p2);\n  dev.off();\n  \n  jpeg(sprintf(\"UMAP.clusters.labeled.%d.%.1f.%s.jpg\",nPC, 0.7, date), width = 10, height = 8, units=\"in\", res=300);\n  p2 <- DimPlot(object = scrna_GEX, reduction = \"umap\", group.by = sprintf(\"ClusterNames_%.1f_%dPC\",0.7, nPC), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(p2);\n  dev.off();\n\n  feature.pal = rev(colorRampPalette(brewer.pal(11,\"Spectral\"))(50));\n  \n  mito.genes <- grep(pattern = \"^MT-\", x = rownames(x = scrna_GEX), value = TRUE,ignore.case = TRUE);\n  percent.mito <- Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts')[mito.genes, ]) / Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts'));\n  scrna_GEX[['percent.mito']] <- percent.mito;\n\n  # ribosomal genes\n  ribo.genes <- grep(pattern = \"^RP[SL][[:digit:]]\", x = rownames(x = scrna_GEX), value = TRUE,ignore.case = TRUE);\n  percent.ribo <- Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts')[ribo.genes, ]) / Matrix::colSums(x = GetAssayData(object = scrna_GEX, slot = 'counts'));\n  scrna_GEX[['percent.ribo']] <- percent.ribo;\n\n  scrna_GEX[['percent.ribo']] <- percent.ribo;\n\n\n  print(\"Making additional UMAP plots\");\n  # color UMAP plots by parameters of interest:\n  print (\"color by UMI\");\n  jpeg(sprintf(\"umap.%d.%.1f.colorby.UMI.%s.%s.jpg\", nPC, 0.7, control, date), width = 10, height = 8,  units=\"in\", res=300);\n  fp2 <- FeaturePlot(object = scrna_GEX, features = c(\"nCount_RNA\"), cols = feature.pal, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(fp2);\n  dev.off();\n\n  print (\"color by % mito\");\n  jpeg(sprintf(\"umap.%d.%.1f.colorby.MC.%s.%s.jpg\", nPC, 0.7, control, date), width = 10, height = 8, units=\"in\", res=300);\n  fp2 <- FeaturePlot(object = scrna_GEX, features = c(\"percent.mito\"), cols = feature.pal, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(fp2);\n  dev.off();\n\n  print (\"color by % RB\");\n  jpeg(sprintf(\"umap.%d.%.1f.colorby.RB.%s.%s.jpg\", nPC, 0.7, control, date), width = 10, height = 8, units=\"in\", res=300);\n  fp2 <- FeaturePlot(object = scrna_GEX, features = c(\"percent.ribo\"), cols = feature.pal, pt.size=0.1, reduction = \"umap\") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(fp2);\n  dev.off();\n\n  print (\"color by nGene\");\n  jpeg(sprintf(\"umap.%d.%.1f.colorby.nGene.%s.%s.jpg\", nPC, 0.7, control, date), width = 10, height = 8, units=\"in\", res=300);\n  fp2 <- FeaturePlot(object = scrna_GEX, features = c(\"nFeature_RNA\"), cols = feature.pal, pt.size=0.1, reduction = \"umap\") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(fp2);\n  dev.off();\n\n  print (\"color by Phase\");\n  jpeg(sprintf(\"umap.%d.%.1f.colorby.Phase.%s.%s.jpg\", nPC, 0.7, control, date), width = 10, height = 8, units=\"in\", res=300);\n  phase.colors = ptol_pal()(3)\n  umapplot <- DimPlot(object = scrna_GEX, cols=phase.colors, group.by=\"Phase\", pt.size=0.1, reduction = \"umap\") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())\n  print(umapplot);\n  dev.off();\n\n  \n  print (\"color UMAP by Principal Components\");\n  jpeg(sprintf(\"UMAP.%d.%.1f.colorby.PCs.%s.jpg\", nPC, 0.7, date), width = 12, height = 6, units=\"in\", res=100);\n  redblue=c(\"blue\",\"gray\",\"red\");\n  fp1 <- FeaturePlot(object = scrna_GEX, features = 'PC_1', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp2 <- FeaturePlot(object = scrna_GEX, features = 'PC_2', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp3 <- FeaturePlot(object = scrna_GEX, features = 'PC_3', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp4 <- FeaturePlot(object = scrna_GEX, features = 'PC_4', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp5 <- FeaturePlot(object = scrna_GEX, features = 'PC_5', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp6 <- FeaturePlot(object = scrna_GEX, features = 'PC_6', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp7 <- FeaturePlot(object = scrna_GEX, features = 'PC_7', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp8 <- FeaturePlot(object = scrna_GEX, features = 'PC_8', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp9 <- FeaturePlot(object = scrna_GEX, features = 'PC_9', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  fp10 <- FeaturePlot(object = scrna_GEX, features = 'PC_10', cols=redblue, pt.size=0.1, reduction = \"umap\")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());\n  print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9, fp10));\n  # print(plot_grid(fp1, fp2, fp3, fp4, fp5, fp6, fp7, fp8, fp9));\n  dev.off();\n  # print('No the error does not happen inside subset_renormalize_recluster!')\n\n  # output_name <- paste0(output.stats,'/',output_meta,'.RDS')\n  return(scrna_GEX)\n}\n\nseurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col,ident_names=ident_names,inverse=inverse,date=date)\n\n# seurat_obj = subset_renormalize_recluster(seurat_obj = seurat_obj,sub_col='majority_doublet_predictions',ident_names='yes',inverse=T,date=date)\n\noutput_file <- paste0(gsub('\\\\.[0-9]*.rds$','',basename(seurat_loc)),\".\",output_suffix,\".\",date,\".rds\")\n\n# output_file = paste0(dirname(seurat_loc),'/',basename(output_file))\n\nsaveRDS(seurat_obj, file = output_file)\n\n\n",
+			"file": "scripts/subset_Renorm_reclust.R",
+			"file_size": 15526,
+			"file_write_time": 133080685996091826,
+			"settings":
+			{
+				"buffer_size": 15675,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/Get_cNMF_counts.R",
+			"settings":
+			{
+				"buffer_size": 3021,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "example_inputs/subset_renormalize_recluster.json",
+			"settings":
+			{
+				"buffer_size": 991,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "example_inputs/single_sample_seurat_clust_doub.json",
+			"settings":
+			{
+				"buffer_size": 1693,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/add_doublet_predictions_to_seurat_multisample.R",
+			"settings":
+			{
+				"buffer_size": 7490,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/merge_recluster_renormalize.R",
+			"settings":
+			{
+				"buffer_size": 15857,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/Add_doublet_tometadata_singlesample.R",
+			"settings":
+			{
+				"buffer_size": 5627,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/run_sctype.R",
+			"settings":
+			{
+				"buffer_size": 3097,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/add_singleR_multiref_toseurat.R",
+			"settings":
+			{
+				"buffer_size": 6317,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/aggregate_expression_seurat4.0.3.R",
+			"settings":
+			{
+				"buffer_size": 2111,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/Make_gene_featureplots.R",
+			"settings":
+			{
+				"buffer_size": 2121,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -77,16 +175,8 @@
 			"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/tanner_paper_figures_plots.R",
 			"settings":
 			{
-				"buffer_size": 97897,
+				"buffer_size": 167828,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/reclustering_redoingPCA_tcrnegcd8negrem.R",
-			"settings":
-			{
-				"buffer_size": 16950,
 				"line_ending": "Unix"
 			}
 		}
@@ -131,10 +221,12 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/khan.saad/tanner_paper_figures/Paper_figure_code"
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows",
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts"
 	],
 	"file_history":
 	[
+		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/example_inputs/subset_renormalize_recluster.json",
 		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/cNMF_analysis_prepare.py",
 		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/scripts/prepare_cNMF.R",
 		"/Users/khan.saad/WDL_workflows/Single_cell_WDLworkflows/tasks/htmap_degs.wdl",
@@ -219,6 +311,42 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"zeroexpgenesrem",
+			"majority_doublet_predictions",
+			"merge",
+			"genome analysis-project",
+			"label.size",
+			"palette",
+			"make_color",
+			"makecolor",
+			"palette",
+			"highlight",
+			"carto",
+			"color",
+			"make",
+			"dir",
+			"inp_dir",
+			"inpdir",
+			"inputdir",
+			"create",
+			"get_avg_scaledexp",
+			"marrangeGrob",
+			"grid",
+			"cellmixs",
+			"plot_clusters_annot",
+			"pp.neighbors",
+			"write",
+			"cat.categories",
+			".cat",
+			"anndata.",
+			"sc.set",
+			"docker_build",
+			"groups",
+			"outline_width",
+			"ncol",
+			"pl.scatter",
+			"scanpy.pl.scatter",
+			"ptol",
 			"Dotplot",
 			"dotplot",
 			"ggtitle",
@@ -298,7 +426,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -327,67 +455,234 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3790.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "scripts/scanpy_end2end.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3005,
+						"buffer_size": 23845,
 						"regions":
 						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										213,
-										218
-									],
-									[
-										589,
-										594
-									],
-									[
-										1513,
-										1518
-									],
-									[
-										1965,
-										1970
-									],
-									[
-										2591,
-										2596
-									]
-								],
-								"scope": ""
-							}
 						},
 						"selection":
 						[
 							[
-								328,
-								328
+								2531,
+								2641
 							]
 						],
 						"settings":
 						{
-							"detect_indentation": false,
 							"incomplete_sync": null,
-							"line_numbers": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ \t].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "scripts/subset_Renorm_reclust.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15312,
+								15455
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "scripts/Get_cNMF_counts.R",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3021,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1053,
+								1193
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "example_inputs/subset_renormalize_recluster.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 991,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								508,
+								508
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "example_inputs/single_sample_seurat_clust_doub.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1693,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2,
+								2
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scripts/add_doublet_predictions_to_seurat_multisample.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1655,
+								1660
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scripts/merge_recluster_renormalize.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15738,
+								15857
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -397,7 +692,173 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 8,
+					"file": "scripts/Add_doublet_tometadata_singlesample.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5627,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3503,
+								3518
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "scripts/run_sctype.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3097,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								276,
+								350
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "scripts/add_singleR_multiref_toseurat.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6317,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								708,
+								634
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 557.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "scripts/aggregate_expression_seurat4.0.3.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2111,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1109,
+								1109
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "scripts/Make_gene_featureplots.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2121,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								703,
+								777
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
 					"semi_transient": false,
 					"settings":
 					{
@@ -416,55 +877,24 @@
 						{
 							"auto_name": "/storage1/fs1/allegra.petti/Active/Users/khan.saad",
 							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 14,
 					"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/tanner_paper_figures_plots.R",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 97897,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7951,
-								7951
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/R/R.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1613.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/khan.saad/tanner_paper_figures/Paper_figure_code/reclustering_redoingPCA_tcrnegcd8negrem.R",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 16950,
+						"buffer_size": 167828,
 						"regions":
 						{
 						},
@@ -480,13 +910,15 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/R/R.sublime-syntax"
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
@@ -585,7 +1017,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 272.0,
+	"side_bar_width": 361.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

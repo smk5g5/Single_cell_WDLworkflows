@@ -1,0 +1,11 @@
+{
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.marker_file_reference_name": "String",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.mem_gb": "Int",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.queue_name": "String",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.cellid_predictions": "File",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.docker_image": "String",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.cellid_pval_matrix": "File",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.add_cellid_script": "File",
+  "Add_cellid_to_srt.add_cellid_results_to_seurat.seurat_rds": "File"
+}
+

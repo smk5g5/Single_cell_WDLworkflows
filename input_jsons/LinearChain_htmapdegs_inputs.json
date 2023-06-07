@@ -1,0 +1,15 @@
+{
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.queue_name": "String",
+  "DEGs_downstream.make_heatmap_DEGs.queue_name": "String",
+  "DEGs_downstream.make_heatmap_DEGs.docker_image": "String",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.docker_image": "String",
+  "DEGs_downstream.DEG_file": "String",
+  "DEGs_downstream.make_heatmap_DEGs.htmap_rscript": "File",
+  "DEGs_downstream.Seurat_rds": "String",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.aggregate_script": "File",
+  "DEGs_downstream.aggregate_expression_seurat4_0_3.mem_gb": "Int",
+  "DEGs_downstream.output_prefix": "String",
+  "DEGs_downstream.clustering": "String",
+  "DEGs_downstream.make_heatmap_DEGs.mem_gb": "Int"
+}
+

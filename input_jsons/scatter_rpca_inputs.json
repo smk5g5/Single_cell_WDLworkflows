@@ -1,0 +1,10 @@
+{
+  "scatter_rpca.queue_name": "String",
+  "scatter_rpca.run_rpca.ident_DEGs": "String",
+  "scatter_rpca.mem_gb": "Int",
+  "scatter_rpca.inputSamples": "Array[Array[File]]? (optional)",
+  "scatter_rpca.docker_image": "String",
+  "scatter_rpca.inputSamplesFile": "File",
+  "scatter_rpca.seurat_rpca_rscript": "File"
+}
+

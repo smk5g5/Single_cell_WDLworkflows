@@ -1,4 +1,3 @@
-.libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(SingleR)
 library(SingleCellExperiment)
 library(scuttle)
@@ -10,11 +9,11 @@ library(BiocParallel)
 library(yaml)
 library(Ckmeans.1d.dp)
 library(stringr)
-library(scSorter)
+# library(scSorter)
 library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 4) {
+if(length(args) < 5) {
   args <- c("--help")
 }
 
@@ -22,13 +21,14 @@ Seurat_rds <- as.character(args[1])
 singleR_reference <- as.character(args[2])
 reference_name =  as.character(args[3])
 label_column_name =  as.character(args[4])
+sample_name=  as.character(args[5])
 
 seurat_obj <- readRDS(Seurat_rds)
 singleR_obj <- readRDS(singleR_reference)
 
 singleR_preds <- SingleR(test = as.SingleCellExperiment(seurat_obj),
-                             ref = singleR_obj,
+                             ref = as.SingleCellExperiment(singleR_obj),
                              labels = singleR_obj[[label_column_name]],
                              BPPARAM=MulticoreParam())
 
-saveRDS(object=singleR_preds,file=sprintf("%s_singleR_preds.rds", reference_name))
+saveRDS(object=singleR_preds,file=sprintf("%s_singleR_preds_%s.rds", reference_name,sample_name))

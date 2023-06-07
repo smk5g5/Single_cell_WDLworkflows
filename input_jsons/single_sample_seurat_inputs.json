@@ -1,0 +1,9 @@
+{
+  "Seurat_single_sample.run_seurat_singlesample.docker_image": "String",
+  "Seurat_single_sample.run_seurat_singlesample.mem_gb": "Int",
+  "Seurat_single_sample.run_seurat_singlesample.Sample_name": "String",
+  "Seurat_single_sample.run_seurat_singlesample.seurat_singlesample_rscript": "File",
+  "Seurat_single_sample.run_seurat_singlesample.queue_name": "String",
+  "Seurat_single_sample.run_seurat_singlesample.cellranger_outs_directory": "String"
+}
+

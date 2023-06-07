@@ -1,0 +1,12 @@
+{
+  "Seurat_rPCA_integration.run_rpca_integration.ident_DEGs": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column_selection": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.seurat_rpca_rscript": "File",
+  "Seurat_rPCA_integration.run_rpca_integration.mem_gb": "Int",
+  "Seurat_rPCA_integration.run_rpca_integration.queue_name": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.output_prefix": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.Seurat_rds": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.docker_image": "String",
+  "Seurat_rPCA_integration.run_rpca_integration.subset_column": "String"
+}
+

@@ -1,4 +1,4 @@
-.libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
+# .libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(Seurat)
 library(ggplot2)
 library(cowplot)
@@ -7,7 +7,6 @@ library(Matrix)
 library("sctransform");
 library("dplyr");
 library("RColorBrewer");
-library("ggthemes");
 library("ggplot2");
 library("cowplot");
 library(tidyverse)
@@ -21,35 +20,39 @@ args <- commandArgs(trailingOnly = TRUE)
 
 project_name <- as.character(args[1])
 organism <- as.character(args[2])
-seurat_files <- args[3:length(args)]
+seurat_files <- args[3]
 
 if(organism=='human'){
 genome <- "GRCh38";
 } else{
   genome <- "GRCm38";
 }
-date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
+# 
+# recale_plot_agg <- function(myplot_obj,plot_name,mywid,myht,mydpi) {
+#   ggsave(plot_name, plot = myplot_obj, device = ragg::agg_png, width = mywid, height = myht, units = "in",dpi = mydpi) # units = "in"
+#   ggs <- image_read(plot_name)
+#   print(ggs)
+# }
 
-recale_plot_agg <- function(myplot_obj,plot_name,mywid,myht,mydpi) {
-  ggsave(plot_name, plot = myplot_obj, device = ragg::agg_png, width = mywid, height = myht, units = "in",dpi = mydpi) # units = "in"
-  ggs <- image_read(plot_name)
-  print(ggs)
-}
+
+options(future.globals.maxSize = 5000 * 1024^2)
+plan("multiprocess", workers = 4)
 
 
 get_significant_pcs <- function(scrna_GEX) {
   control='Cycling'
-  if(length(unique(scrna_GEX$orig.ident))==1){
-   nPC=20 
-  }else{
-    nPC=50
-  }
+  # if(length(unique(scrna_GEX$orig.ident))==1){
+  #  nPC=20 
+  # }else{
+    nPC=100
+  # }
   # print('Does the error happen inside get_significant_pcs?')
   scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
-  jpeg(sprintf("PCA.jackstraw.%s.%s.jpg", control, date), width = 10, height = 6, units="in", res=300);
+  jpeg(sprintf("PCA.jackstraw.%s.%s.%s.jpg", control,project_name,date), width = 10, height = 6, units="in", res=300);
   js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
   print(js);
   dev.off();
@@ -80,11 +83,11 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   # ##################################################################################
 
   if(organism=='human'){
-  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
+  cell.cycle.tirosh <- read.table("/n/scratch3/users/s/sak4832/meningioma_project/For_cellbender/CellCycleTirosh.txt", sep='\t', header=TRUE);
   s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
   g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
   } else{
-  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
+  cell.cycle.tirosh <- read.table("/n/scratch3/users/s/sak4832/meningioma_project/For_cellbender/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
   s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
   g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
   }
@@ -116,18 +119,18 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
 
   scrna_GEX <- JackStraw(object = scrna_GEX, num.replicate = 100, dims=nPC)
   scrna_GEX <- ScoreJackStraw(object = scrna_GEX, dims = 1:nPC)
-  jpeg(sprintf("PCA.jackstraw.%s.%s.jpg",control, date), width = 10, height = 6, units="in", res=300);
+  jpeg(sprintf("PCA.jackstraw.%s.%s.%s.jpg",control,project_name,date), width = 10, height = 6, units="in", res=300);
   js <- JackStrawPlot(object = scrna_GEX, dims = 1:nPC)
   print(js);
   dev.off();
 
-  jpeg(sprintf("UMAP.%s.%s.jpg",control, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("UMAP.%s.%s.%s.jpg",control,project_name, date), width = 10, height = 8, units="in", res=300);
   p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = "Sample", pt.size=0.1)
   print(p2);
   dev.off();
 
   print ("VizDimLoadings Running...");
-  jpeg(sprintf("VizDimLoadings.%s.%s.jpg",control, date), width = 8, height = 30, units="in", res=300);
+  jpeg(sprintf("VizDimLoadings.%s.%s.%s.jpg",control,project_name,date), width = 8, height = 30, units="in", res=300);
   vdl <- VizDimLoadings(object = scrna_GEX, dims = 1:3)
   print(vdl);
   dev.off();
@@ -138,12 +141,12 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   # saveRDS(scrna_GEX, file = sprintf("%s.SCT.PCA.UMAP.TSNE.%s.rds",control, date))
 
   print ("DimHeatmap Running...");
-  jpeg(sprintf("PCA.heatmap.top.%s.%s.jpg",control, date), width = 8.5, height = 11, units="in", res=300);
+  jpeg(sprintf("PCA.heatmap.top.%s.%s.%s.jpg",control,project_name,date), width = 8.5, height = 11, units="in", res=300);
   hm <- DimHeatmap(object = scrna_GEX, dims = 1, cells = 500, balanced = TRUE);
   print(hm);
   dev.off();
 
-  jpeg(sprintf("PCA.heatmap.multi.%s.%s.jpg",control, date), width = 8.5, height = 24, units="in", res=300);
+  jpeg(sprintf("PCA.heatmap.multi.%s.%s.%s.jpg",control,project_name,date), width = 8.5, height = 24, units="in", res=300);
   hm.multi <- DimHeatmap(object = scrna_GEX, dims = 1:10, cells = 500, balanced = TRUE);
   print(hm.multi);
   dev.off();
@@ -165,10 +168,10 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   #https://github.com/siyao-liu/MultiK
   #in the next version 
 
-  Idents(scrna_GEX) <- sprintf("ClusterNames_%.1f_%dPC",0.7, nPC)
-  DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
-  write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls", nPC, 0.7, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
-	
+  # Idents(scrna_GEX) <- sprintf("ClusterNames_%.1f_%dPC",1.2, nPC)
+  # DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
+  # write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls", nPC, 1.2, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
+  # 
   n.graph = length(unique(Idents(scrna_GEX)))
   print(n.graph)
   rainbow.colors = rainbow(n.graph, s=0.6, v=0.9);
@@ -176,12 +179,12 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   print(rainbow.colors)
   print(length(rainbow.colors))
 
-  jpeg(sprintf("UMAP.clusters.%d.%.1f.%s.jpg", nPC, 0.7, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("UMAP.clusters.%d.%.1f.%s.%s.jpg", nPC, 1.2,project_name,date), width = 10, height = 8, units="in", res=300);
   p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, nPC), cols = rainbow.colors, pt.size=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
   
-  jpeg(sprintf("UMAP.clusters.labeled.%d.%.1f.%s.jpg",nPC, 0.7, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("UMAP.clusters.labeled.%d.%.1f.%s.%s.jpg",nPC, 0.7,project_name,date), width = 10, height = 8, units="in", res=300);
   p2 <- DimPlot(object = scrna_GEX, reduction = "umap", group.by = sprintf("ClusterNames_%.1f_%dPC",0.7, nPC), cols = rainbow.colors, pt.size=0.1, label=TRUE,label.size = 5) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(p2);
   dev.off();
@@ -203,31 +206,31 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
   print("Making additional UMAP plots");
   # color UMAP plots by parameters of interest:
   print ("color by UMI");
-  jpeg(sprintf("umap.%d.%.1f.colorby.UMI.%s.%s.jpg", nPC, 0.7, control, date), width = 10, height = 8,  units="in", res=300);
+  jpeg(sprintf("umap.%d.%.1f.colorby.UMI.%s.%s.%s.jpg", nPC, 0.7, control,project_name,date), width = 10, height = 8,  units="in", res=300);
   fp2 <- FeaturePlot(object = scrna_GEX, features = c("nCount_RNA"), cols = feature.pal, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(fp2);
   dev.off();
 
   print ("color by % mito");
-  jpeg(sprintf("umap.%d.%.1f.colorby.MC.%s.%s.jpg", nPC, 0.7, control, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("umap.%d.%.1f.colorby.MC.%s.%s.%s.jpg", nPC, 0.7, control,project_name,date), width = 10, height = 8, units="in", res=300);
   fp2 <- FeaturePlot(object = scrna_GEX, features = c("percent.mito"), cols = feature.pal, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(fp2);
   dev.off();
 
   print ("color by % RB");
-  jpeg(sprintf("umap.%d.%.1f.colorby.RB.%s.%s.jpg", nPC, 0.7, control, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("umap.%d.%.1f.colorby.RB.%s.%s.%s.jpg", nPC, 0.7, control,project_name,date), width = 10, height = 8, units="in", res=300);
   fp2 <- FeaturePlot(object = scrna_GEX, features = c("percent.ribo"), cols = feature.pal, pt.size=0.1, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(fp2);
   dev.off();
 
   print ("color by nGene");
-  jpeg(sprintf("umap.%d.%.1f.colorby.nGene.%s.%s.jpg", nPC, 0.7, control, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("umap.%d.%.1f.colorby.nGene.%s.%s.%s.jpg", nPC, 0.7, control,project_name,date), width = 10, height = 8, units="in", res=300);
   fp2 <- FeaturePlot(object = scrna_GEX, features = c("nFeature_RNA"), cols = feature.pal, pt.size=0.1, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   print(fp2);
   dev.off();
 
   print ("color by Phase");
-  jpeg(sprintf("umap.%d.%.1f.colorby.Phase.%s.%s.jpg", nPC, 0.7, control, date), width = 10, height = 8, units="in", res=300);
+  jpeg(sprintf("umap.%d.%.1f.colorby.Phase.%s.%s.%s.jpg", nPC, 0.7, control,project_name,date,), width = 10, height = 8, units="in", res=300);
   phase.colors = ptol_pal()(3)
   umapplot <- DimPlot(object = scrna_GEX, cols=phase.colors, group.by="Phase", pt.size=0.1, reduction = "umap") + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())
   print(umapplot);
@@ -235,7 +238,7 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
 
   
   print ("color UMAP by Principal Components");
-  jpeg(sprintf("UMAP.%d.%.1f.colorby.PCs.%s.jpg", nPC, 0.7, date), width = 12, height = 6, units="in", res=100);
+  jpeg(sprintf("UMAP.%d.%.1f.colorby.PCs.%s.%s.jpg", nPC, 0.7,project_name,date), width = 12, height = 6, units="in", res=100);
   redblue=c("blue","gray","red");
   fp1 <- FeaturePlot(object = scrna_GEX, features = 'PC_1', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
   fp2 <- FeaturePlot(object = scrna_GEX, features = 'PC_2', cols=redblue, pt.size=0.1, reduction = "umap")+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
@@ -257,15 +260,21 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
 seurat_obj_list <- list()
 sample_names <- c()
 
-for(i in 1:length(seurat_files)){
-obj_name <- seurat_files[i]
-test_obj <- readRDS(obj_name)
-sample_names[i] <-  as.character(unique(test_obj$Sample))
-# sample_names[i] <- unlist(str_split(string=basename(obj_name),pattern='\\.'))[1]
-seurat_obj_list[[i]] <- readRDS(obj_name)
+mysrt_files = read.table(seurat_files,header = F)
+
+for(i in 1:nrow(mysrt_files)){
+  obj_name <- mysrt_files$V1[i]
+  test_obj <- readRDS(obj_name)
+  sample_names[i] <-  as.character(unique(test_obj$Sample))
+  seurat_obj_list[[i]] <- readRDS(obj_name)
 }
 
-seurat_obj <- merge(x=seurat_obj_list[[1]],y=seurat_obj_list[2:length(sample_names)],add.cell.ids = sample_names,project=project_name)
+
+
+scrna_GEX <- merge(x=seurat_obj_list[[1]],y=seurat_obj_list[2:length(sample_names)],add.cell.ids = sample_names,project=project_name)
+
+new_cellnames = paste0(project_name,'_',Cells(scrna_GEX))
+seurat_obj <- RenameCells(object = scrna_GEX, new.names = new_cellnames)
 
 seurat_obj <- renormalize_recluster(scrna_GEX=seurat_obj,date=date,organism=organism)
 

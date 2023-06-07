@@ -1,0 +1,17 @@
+{
+  "LinearChain_recluster_rerun_singleR.subset_column_name": "String",
+  "LinearChain_recluster_rerun_singleR.inverse": "String",
+  "LinearChain_recluster_rerun_singleR.singleR_singleref_rscript": "File",
+  "LinearChain_recluster_rerun_singleR.ident_name": "String",
+  "LinearChain_recluster_rerun_singleR.seurat_rds": "File",
+  "LinearChain_recluster_rerun_singleR.recluster_renormalize_script": "File",
+  "LinearChain_recluster_rerun_singleR.queue_name": "String",
+  "LinearChain_recluster_rerun_singleR.organism": "String",
+  "LinearChain_recluster_rerun_singleR.merge_SingleR_in_seurat_script": "File",
+  "LinearChain_recluster_rerun_singleR.inputSamples": "Array[Array[File]]? (optional)",
+  "LinearChain_recluster_rerun_singleR.docker_image": "String",
+  "LinearChain_recluster_rerun_singleR.mem_gb": "Int",
+  "LinearChain_recluster_rerun_singleR.output_suffix": "String",
+  "LinearChain_recluster_rerun_singleR.inputSamplesFile": "File"
+}
+

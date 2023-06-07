@@ -1,0 +1,10 @@
+{
+  "CELLID_run.run_cellid.mem_gb": "Int",
+  "CELLID_run.run_cellid.seurat_rds": "File",
+  "CELLID_run.run_cellid.marker_file_reference_name": "String",
+  "CELLID_run.run_cellid.docker_image": "String",
+  "CELLID_run.run_cellid.marker_gene_list_rds": "File",
+  "CELLID_run.run_cellid.queue_name": "String",
+  "CELLID_run.run_cellid.cellid_run_rscript": "File"
+}
+

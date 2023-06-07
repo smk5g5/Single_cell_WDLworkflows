@@ -1,0 +1,11 @@
+{
+  "scatter_gather_singleR.singleR_singleref_rscript": "File",
+  "scatter_gather_singleR.queue_name": "String",
+  "scatter_gather_singleR.seurat_rds": "File",
+  "scatter_gather_singleR.inputSamples": "Array[Array[File]]? (optional)",
+  "scatter_gather_singleR.mem_gb": "Int",
+  "scatter_gather_singleR.docker_image": "String",
+  "scatter_gather_singleR.inputSamplesFile": "File",
+  "scatter_gather_singleR.merge_SingleR_in_seurat_script": "File"
+}
+

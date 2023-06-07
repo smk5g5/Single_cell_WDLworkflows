@@ -1,0 +1,13 @@
+{
+  "recluster_renormalize.subset_recluster_renormalize.ident_name": "String",
+  "recluster_renormalize.subset_recluster_renormalize.organism": "String",
+  "recluster_renormalize.subset_recluster_renormalize.seurat_rds": "File",
+  "recluster_renormalize.subset_recluster_renormalize.recluster_renormalize_script": "File",
+  "recluster_renormalize.subset_recluster_renormalize.inverse": "String",
+  "recluster_renormalize.subset_recluster_renormalize.mem_gb": "Int",
+  "recluster_renormalize.subset_recluster_renormalize.docker_image": "String",
+  "recluster_renormalize.subset_recluster_renormalize.subset_column_name": "String",
+  "recluster_renormalize.subset_recluster_renormalize.output_suffix": "String",
+  "recluster_renormalize.subset_recluster_renormalize.queue_name": "String"
+}
+
