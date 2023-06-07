@@ -3,278 +3,278 @@ workflows:
  - name: scsorter_run
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/scsorter_run.wdl
+   primaryDescriptorPath: /tasks/scsorter_run.wdl
    testParameterFiles:
-    - ./input_jsons/scsorter_run_inputs.json
+    - /input_jsons/scsorter_run_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: multisample_seurat
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/multisample_seurat.wdl
+   primaryDescriptorPath: /tasks/multisample_seurat.wdl
    testParameterFiles:
-    - ./input_jsons/multisample_seurat_inputs.json
+    - /input_jsons/multisample_seurat_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: linear_chain_adddoublets_seurat
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/linear_chain_adddoublets_seurat.wdl
+   primaryDescriptorPath: /tasks/linear_chain_adddoublets_seurat.wdl
    testParameterFiles: 
-    - ./input_jsons/linear_chain_adddoublets_seurat_inputs.json
+    - /input_jsons/linear_chain_adddoublets_seurat_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: singleR_immune_nonimmune_pipeline
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/singleR_immune_nonimmune_pipeline.wdl
+   primaryDescriptorPath: /tasks/singleR_immune_nonimmune_pipeline.wdl
    testParameterFiles: 
-    - ./input_jsons/singleR_immune_nonimmune_pipeline_inputs.json
+    - /input_jsons/singleR_immune_nonimmune_pipeline_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: plot_qc
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/plot_qc.wdl
+   primaryDescriptorPath: /tasks/plot_qc.wdl
    testParameterFiles: 
-    - ./input_jsons/plot_qc_inputs.json
+    - /input_jsons/plot_qc_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: SingleR_singleref
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/SingleR_singleref.wdl
+   primaryDescriptorPath: /tasks/SingleR_singleref.wdl
    testParameterFiles: 
-    - ./input_jsons/SingleR_singleref_inputs.json
+    - /input_jsons/SingleR_singleref_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: add_doubletinfo
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/add_doubletinfo.wdl
+   primaryDescriptorPath: /tasks/add_doubletinfo.wdl
    testParameterFiles: 
-    - ./input_jsons/add_doubletinfo_inputs.json
+    - /input_jsons/add_doubletinfo_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: clustering_n_pca_simple
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/clustering_n_pca_simple.wdl
+   primaryDescriptorPath: /tasks/clustering_n_pca_simple.wdl
    testParameterFiles: 
-    - ./input_jsons/clustering_n_pca_simple_inputs.json
+    - /input_jsons/clustering_n_pca_simple_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: rpca_integration
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/rpca_integration.wdl
+   primaryDescriptorPath: /tasks/rpca_integration.wdl
    testParameterFiles: 
-    - ./input_jsons/rpca_integration_inputs.json
+    - /input_jsons/rpca_integration_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: htmap_degs
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/htmap_degs.wdl
+   primaryDescriptorPath: /tasks/htmap_degs.wdl
    testParameterFiles: 
-    - ./input_jsons/htmap_degs_inputs.json
+    - /input_jsons/htmap_degs_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: add_cellid_results_to_seurat
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/add_cellid_results_to_seurat.wdl
+   primaryDescriptorPath: /tasks/add_cellid_results_to_seurat.wdl
    testParameterFiles: 
-    - ./input_jsons/add_cellid_results_to_seurat_inputs.json
+    - /input_jsons/add_cellid_results_to_seurat_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: Doublet_calling
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/Doublet_calling.wdl
+   primaryDescriptorPath: /tasks/Doublet_calling.wdl
    testParameterFiles: 
-    - ./input_jsons/Doublet_calling_inputs.json
+    - /input_jsons/Doublet_calling_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: make_gene_featplots
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/make_gene_featplots.wdl
+   primaryDescriptorPath: /tasks/make_gene_featplots.wdl
    testParameterFiles: 
-    - ./input_jsons/make_gene_featplots_inputs.json
+    - /input_jsons/make_gene_featplots_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: LinearChain_htmapdegs
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/LinearChain_htmapdegs.wdl
+   primaryDescriptorPath: /tasks/LinearChain_htmapdegs.wdl
    testParameterFiles: 
-    - ./input_jsons/LinearChain_htmapdegs_inputs.json
+    - /input_jsons/LinearChain_htmapdegs_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: single_sample_seurat
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/single_sample_seurat.wdl
+   primaryDescriptorPath: /tasks/single_sample_seurat.wdl
    testParameterFiles: 
-    - ./input_jsons/single_sample_seurat_inputs.json
+    - /input_jsons/single_sample_seurat_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: subset_renormalize_recluster
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./tasks/subset_renormalize_recluster.wdl
+   primaryDescriptorPath: /tasks/subset_renormalize_recluster.wdl
    testParameterFiles:
-    -  ./input_jsons/subset_renormalize_recluster_inputs.json
+    -  /input_jsons/subset_renormalize_recluster_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: recluster_renorm_rerun_singleR
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/recluster_renorm_rerun_singleR.wdl
+   primaryDescriptorPath: /subworkflows/recluster_renorm_rerun_singleR.wdl
    testParameterFiles: 
-    - ./input_jsons/recluster_renorm_rerun_singleR_inputs.json
+    - /input_jsons/recluster_renorm_rerun_singleR_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_gather_singleR
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_gather_singleR.wdl
+   primaryDescriptorPath: /subworkflows/scatter_gather_singleR.wdl
    testParameterFiles: 
-    -  ./input_jsons/scatter_gather_singleR_inputs.json
+    -  /input_jsons/scatter_gather_singleR_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: single_sample_filtering_nd_doublets
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/single_sample_filtering_nd_doublets.wdl
+   primaryDescriptorPath: /subworkflows/single_sample_filtering_nd_doublets.wdl
    testParameterFiles:
-    - ./input_jsons/single_sample_filtering_nd_doublets_inputs.json
+    - /input_jsons/single_sample_filtering_nd_doublets_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_deg
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_deg.wdl
+   primaryDescriptorPath: /subworkflows/scatter_deg.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_deg_inputs.json
+    - /input_jsons/scatter_deg_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_gather_Doubletcall_multisample
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_gather_Doubletcall_multisample.wdl
+   primaryDescriptorPath: /subworkflows/scatter_gather_Doubletcall_multisample.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_gather_Doubletcall_multisample_inputs.json
+    - /input_jsons/scatter_gather_Doubletcall_multisample_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: seurat_counts_to_anndata
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/seurat_counts_to_anndata.wdl
+   primaryDescriptorPath: /subworkflows/seurat_counts_to_anndata.wdl
    testParameterFiles: 
-    - ./input_jsons/seurat_counts_to_anndata_inputs.json
+    - /input_jsons/seurat_counts_to_anndata_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_gather_scsorter
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_gather_scsorter.wdl
+   primaryDescriptorPath: /subworkflows/scatter_gather_scsorter.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_gather_scsorter_inputs.json
+    - /input_jsons/scatter_gather_scsorter_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: single_sample_filtering_n_clustering
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/single_sample_filtering_n_clustering.wdl
+   primaryDescriptorPath: /subworkflows/single_sample_filtering_n_clustering.wdl
    testParameterFiles: 
-    - ./input_jsons/single_sample_filtering_n_clustering_inputs.json
+    - /input_jsons/single_sample_filtering_n_clustering_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_gather_doublet_singlesample
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_gather_doublet_singlesample.wdl
+   primaryDescriptorPath: /subworkflows/scatter_gather_doublet_singlesample.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_gather_doublet_singlesample_inputs.json
+    - /input_jsons/scatter_gather_doublet_singlesample_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_gather_singleR_bysample
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_gather_singleR_bysample.wdl
+   primaryDescriptorPath: /subworkflows/scatter_gather_singleR_bysample.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_gather_singleR_bysample_inputs.json
+    - /input_jsons/scatter_gather_singleR_bysample_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: scatter_rpca
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./subworkflows/scatter_rpca.wdl
+   primaryDescriptorPath: /subworkflows/scatter_rpca.wdl
    testParameterFiles: 
-    - ./input_jsons/scatter_rpca_inputs.json
+    - /input_jsons/scatter_rpca_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: multisample_seurat_doublet_singler
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./pipelines/multisample_seurat_doublet_singler.wdl
+   primaryDescriptorPath: /pipelines/multisample_seurat_doublet_singler.wdl
    testParameterFiles: 
-    - ./input_jsons/multisample_seurat_doublet_singler_inputs.json
+    - /input_jsons/multisample_seurat_doublet_singler_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: end_to_end_seurat_singlesample
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./pipelines/end_to_end_seurat_singlesample.wdl
+   primaryDescriptorPath: /pipelines/end_to_end_seurat_singlesample.wdl
    testParameterFiles: 
-    - ./input_jsons/end_to_end_seurat_singlesample_inputs.json
+    - /input_jsons/end_to_end_seurat_singlesample_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: end_to_end_multisample
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./pipelines/end_to_end_multisample.wdl
+   primaryDescriptorPath: /pipelines/end_to_end_multisample.wdl
    testParameterFiles:
-    - ./input_jsons/end_to_end_multisample_inputs.json
+    - /input_jsons/end_to_end_multisample_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
 
  - name: seurat_single_sample_nomerging
    subclass: WDL
    publish: true
-   primaryDescriptorPath: ./pipelines/seurat_single_sample_nomerging.wdl
+   primaryDescriptorPath: /pipelines/seurat_single_sample_nomerging.wdl
    testParameterFiles: 
-    - ./input_jsons/seurat_single_sample_nomerging_inputs.json
+    - /input_jsons/seurat_single_sample_nomerging_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
