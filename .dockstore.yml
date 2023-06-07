@@ -1,6 +1,6 @@
 version: 1.2
 workflows:
- - name: scsorter_run
+ - name: scsorter_markerprediction
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/scsorter_run.wdl
@@ -9,7 +9,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: multisample_seurat
+ - name: Seurat_multisample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/multisample_seurat.wdl
@@ -18,7 +18,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: linear_chain_adddoublets_seurat
+ - name: linear_chain_single_sample_seurat_doubletsadd
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/linear_chain_adddoublets_seurat.wdl
@@ -27,7 +27,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: singleR_immune_nonimmune_pipeline
+ - name: singleR_immune_nonimmune
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/singleR_immune_nonimmune_pipeline.wdl
@@ -36,7 +36,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: plot_qc
+ - name: QC_plots
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/plot_qc.wdl
@@ -45,7 +45,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: SingleR_singleref
+ - name: singleR_singleref
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/SingleR_singleref.wdl
@@ -54,7 +54,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: add_doubletinfo
+ - name: Add_doublet_info
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/add_doubletinfo.wdl
@@ -63,7 +63,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: clustering_n_pca_simple
+ - name: Seurat_clustering_simple
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/clustering_n_pca_simple.wdl
@@ -72,7 +72,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: rpca_integration
+ - name: Seurat_rPCA_integration
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/rpca_integration.wdl
@@ -81,7 +81,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: htmap_degs
+ - name: DEGs_downstream
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/htmap_degs.wdl
@@ -90,7 +90,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: add_cellid_results_to_seurat
+ - name: Add_cellid_to_srt
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/add_cellid_results_to_seurat.wdl
@@ -99,7 +99,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: Doublet_calling
+ - name: Doublet_colletion
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/Doublet_calling.wdl
@@ -108,7 +108,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: make_gene_featplots
+ - name: Featureplot_genes
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/make_gene_featplots.wdl
@@ -117,16 +117,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: LinearChain_htmapdegs
-   subclass: WDL
-   publish: true
-   primaryDescriptorPath: /tasks/LinearChain_htmapdegs.wdl
-   testParameterFiles: 
-    - /input_jsons/LinearChain_htmapdegs_inputs.json
-   authors: 
-    - orcid: 0000-0002-1385-2056 
-
- - name: single_sample_seurat
+- name: Seurat_single_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/single_sample_seurat.wdl
@@ -144,7 +135,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: recluster_renorm_rerun_singleR
+ - name: recluster_renormalize
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/recluster_renorm_rerun_singleR.wdl
@@ -162,7 +153,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: single_sample_filtering_nd_doublets
+ - name: filter_n_doublets
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/single_sample_filtering_nd_doublets.wdl
@@ -171,7 +162,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: scatter_deg
+ - name: scatter_htmap
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/scatter_deg.wdl
@@ -180,7 +171,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: scatter_gather_Doubletcall_multisample
+ - name: scatter_doublet
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/scatter_gather_Doubletcall_multisample.wdl
@@ -207,7 +198,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: single_sample_filtering_n_clustering
+ - name: filter_n_cluster
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/single_sample_filtering_n_clustering.wdl
@@ -216,7 +207,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: scatter_gather_doublet_singlesample
+ - name: scatter_doublet
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/scatter_gather_doublet_singlesample.wdl
@@ -225,7 +216,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: scatter_gather_singleR_bysample
+ - name: run_singleR_by_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/scatter_gather_singleR_bysample.wdl
@@ -252,7 +243,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: end_to_end_seurat_singlesample
+ - name: end_to_end_seurat_single_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /pipelines/end_to_end_seurat_singlesample.wdl
@@ -261,7 +252,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: end_to_end_multisample
+ - name: end_to_end_seurat_multi_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /pipelines/end_to_end_multisample.wdl
@@ -270,7 +261,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: seurat_single_sample_nomerging
+ - name: end_to_end_seurat_single_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /pipelines/seurat_single_sample_nomerging.wdl
