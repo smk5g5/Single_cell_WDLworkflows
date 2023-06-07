@@ -3,7 +3,7 @@ workflows:
  - name: scsorter_run
    subclass: WDL
    publish: true
-   primaryDescriptorPath: /tasks/scsorter_run.wdl
+   primaryDescriptorPath: /task/scsorter_run.wdl
    testParameterFiles:
     - /input_jsons/scsorter_run_inputs.json
    authors: 
