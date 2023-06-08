@@ -107,16 +107,7 @@ workflows:
     - /input_jsons/make_gene_featplots_inputs.json
    authors: 
     - orcid: 0000-0002-1385-2056 
-
- - name: Seurat_single_sample
-   subclass: WDL
-   publish: true
-   primaryDescriptorPath: /tasks/single_sample_seurat.wdl
-   testParameterFiles: 
-    - /input_jsons/single_sample_seurat_inputs.json
-   authors: 
-    - orcid: 0000-0002-1385-2056 
-
+ 
  - name: subset_renormalize_recluster
    subclass: WDL
    publish: true
@@ -259,4 +250,13 @@ workflows:
    testParameterFiles: 
     - /input_jsons/seurat_single_sample_nomerging_inputs.json
    authors: 
+    - orcid: 0000-0002-1385-2056
+
+ - name : Seurat_single_sample
+   subclass: WDL
+   publish: true
+   primaryDescriptorPath: /tasks/single_sample_seurat.wdl
+   testParameterFiles:
+    - /input_jsons/single_sample_seurat_inputs.json
+   authors:
     - orcid: 0000-0002-1385-2056 
