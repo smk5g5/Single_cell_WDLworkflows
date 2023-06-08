@@ -81,15 +81,6 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: DEGs_downstream
-   subclass: WDL
-   publish: true
-   primaryDescriptorPath: /tasks/htmap_degs.wdl
-   testParameterFiles: 
-    - /input_jsons/htmap_degs_inputs.json
-   authors: 
-    - orcid: 0000-0002-1385-2056 
-
  - name: Add_cellid_to_srt
    subclass: WDL
    publish: true
