@@ -153,7 +153,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: scatter_doublet
+ - name: scatter_doublet_multi
    subclass: WDL
    publish: true
    primaryDescriptorPath: /subworkflows/scatter_gather_Doubletcall_multisample.wdl
