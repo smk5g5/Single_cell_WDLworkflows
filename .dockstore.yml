@@ -243,7 +243,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
- - name: end_to_end_seurat_single_sample
+ - name: end_to_end_seurat_single_sample_nomerging
    subclass: WDL
    publish: true
    primaryDescriptorPath: /pipelines/seurat_single_sample_nomerging.wdl
