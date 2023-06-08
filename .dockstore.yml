@@ -108,7 +108,7 @@ workflows:
    authors: 
     - orcid: 0000-0002-1385-2056 
 
-- name: Seurat_single_sample
+ - name: Seurat_single_sample
    subclass: WDL
    publish: true
    primaryDescriptorPath: /tasks/single_sample_seurat.wdl
