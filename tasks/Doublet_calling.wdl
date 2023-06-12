@@ -19,7 +19,7 @@ task run_doublet_collection{
     cp ~{barcodes} ~{Sample_name}/filtered_feature_bc_matrix/
     cp ~{features} ~{Sample_name}/filtered_feature_bc_matrix/
     cp ~{matrix} ~{Sample_name}/filtered_feature_bc_matrix/
-    Rscript ~{doublet_calling_script} ~{cellranger_outs_directory} ~{Sample_name}
+    Rscript ~{doublet_calling_script} ~{Sample_name}/filtered_feature_bc_matrix/ ~{Sample_name}
     >>>
 
   runtime {
