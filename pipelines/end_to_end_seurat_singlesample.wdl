@@ -30,7 +30,7 @@ workflow end_to_end_seurat_single_sample{
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        cellranger_outs_directory=sample[1],
+        Directory cellranger_outs_directory=sample[1],
         Sample_name=sample[0]
         }
         call single_sample_filtering.run_seurat_singlesample as run_single_srt {
@@ -38,7 +38,7 @@ workflow end_to_end_seurat_single_sample{
         docker_image=docker_image,
         queue_name=queue_name,
         mem_gb=mem_gb,
-        cellranger_outs_directory=sample[1],
+        Directory cellranger_outs_directory=sample[1],
         Sample_name=sample[0]
         }
         call single_sample_clustering.run_clustering_n_pca_simple as run_srt_clust_simp {
