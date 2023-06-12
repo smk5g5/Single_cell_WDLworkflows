@@ -7,10 +7,10 @@ task run_doublet_collection{
     String queue_name
     Int mem_gb
     File doublet_calling_script
+    String cellranger_outs_directory
     File barcodes = "~{cellranger_outs_directory + '/'}barcodes.tsv.gz"
     File features = "~{cellranger_outs_directory + '/'}features.tsv.gz"
     File matrix = "~{cellranger_outs_directory + '/'}matrix.mtx.gz"
-    String cellranger_outs_directory
     String Sample_name
   }
 
