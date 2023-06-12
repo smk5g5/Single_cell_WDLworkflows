@@ -15,6 +15,7 @@ task run_seurat_singlesample{
   }
 
     command <<<
+      mkdir ~{Sample_name}
       mkdir ~{Sample_name}/filtered_feature_bc_matrix
       cp ~{barcodes} ~{Sample_name}/filtered_feature_bc_matrix/
       cp ~{features} ~{Sample_name}/filtered_feature_bc_matrix/
