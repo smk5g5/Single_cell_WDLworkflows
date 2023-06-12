@@ -108,10 +108,10 @@ scrna_GEX$Sample = sample_name
 # ##################################################################################
 # # This bit is only for testing purposes for the rscript within wdl would be disabled
 # # in the main workflow
-# set.seed(100)
-# random_sample_of_cells = sample(Cells(scrna_GEX),2500)
-#select 10% of all cells randomly for testing the script.
-# scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
+set.seed(100)
+random_sample_of_cells = sample(Cells(scrna_GEX),2500)
+#  randomly select 2500 cells for testing the pipeline.
+scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
 ###################################################################################
 
 
