@@ -16,10 +16,10 @@ task run_seurat_singlesample{
 
    command <<<
     mkdir {Sample_name}/filtered_feature_bc_matrix
-    cp ~{barcodes} {Sample_name}/filtered_feature_bc_matrix/
-    cp ~{features} {Sample_name}/filtered_feature_bc_matrix/
-    cp ~{matrix} {Sample_name}/filtered_feature_bc_matrix/
-    Rscript ~{seurat_singlesample_rscript} {Sample_name}/filtered_feature_bc_matrix/ ~{Sample_name}
+    cp ~{barcodes} ~{Sample_name}/filtered_feature_bc_matrix/
+    cp ~{features} ~{Sample_name}/filtered_feature_bc_matrix/
+    cp ~{matrix} ~{Sample_name}/filtered_feature_bc_matrix/
+    Rscript ~{seurat_singlesample_rscript} ~{Sample_name}/filtered_feature_bc_matrix/ ~{Sample_name}
     >>>
 
   runtime {
