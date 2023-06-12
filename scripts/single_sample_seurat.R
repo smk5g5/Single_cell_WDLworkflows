@@ -203,6 +203,17 @@ get_significant_pcs <- function(scrna_GEX) {
   return(nPC)
 }
 
+scrna_GEX <- NormalizeData(object = scrna_GEX, normalization.method = "LogNormalize", scale.factor = 1e6); # 1e6 is new as of 1/8/20
+
+scrna_GEX <- FindVariableFeatures(object = scrna_GEX, selection.method = 'vst', mean.cutoff = c(0.1,8), dispersion.cutoff = c(1, Inf))
+print(paste("Number of Variable Features: ",length(x = VariableFeatures(object = scrna_GEX))));
+#
+VG.file = sprintf("%s.variableGenes.%s.pdf",control, date);
+pdf(VG.file, useDingbats=FALSE)
+vg <- VariableFeaturePlot(scrna_GEX)
+print(vg);
+dev.off()
+
 nPC <- get_significant_pcs(scrna_GEX)
 scrna_GEX <- RunPCA(scrna_GEX, npcs = nPC, verbose = FALSE)
 
