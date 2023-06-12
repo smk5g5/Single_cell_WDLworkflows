@@ -101,7 +101,7 @@ date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 # data.10x = Read10X_h5(Seurat_h5file, use.names = TRUE, unique.features = TRUE)
-data.10x  <- Read10X_h5(data.dir = Seurat_10x_directory);
+data.10x  <- Read10X(data.dir = Seurat_10x_directory);
 scrna_GEX = CreateSeuratObject(counts = data.10x, min.cells=10, min.features=100, project=sample_name);
 scrna_GEX$Sample = sample_name
 
