@@ -7,7 +7,7 @@ task run_clustering_n_pca_simple{
     String queue_name
     Int mem_gb
     File clustering_script
-    String rds_file_path
+    File rds_file_path
     String Sample_name
     Float clustering_res
     Int nPC
