@@ -7,7 +7,7 @@ task run_rpca_integration{
     String queue_name
     Int mem_gb
     File seurat_rpca_rscript
-    String Seurat_rds
+    File Seurat_rds
     String output_prefix
     String subset_column
     String subset_column_selection
