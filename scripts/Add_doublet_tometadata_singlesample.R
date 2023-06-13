@@ -39,7 +39,7 @@ doublet_object <- readRDS(doublet_file)
 
 add_doublet_predictions_to_seurat_singlesample <- function(seurat_object,doublet_object){
   # doublet_object[['doublet_results']] <- FindDoublets(score.list=doublet_object$doublet_scores,rate=0.08)
-  for(i in c("cxds","bcds","hybrid","scDblFinder","Scrublet","DoubletFinder")){
+  for(i in c("cxds","bcds","hybrid","scDblFinder","DoubletFinder")){
     sel_index <- doublet_object[['doublet_results']][[i]]
     doublet_cells <- doublet_object$cellnames[sel_index]
     non_doublet_cells <- setdiff(doublet_object$cellnames,doublet_cells)
