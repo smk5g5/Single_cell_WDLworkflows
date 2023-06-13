@@ -7,8 +7,8 @@ task add_doublets_metadata{
     String queue_name
     Int mem_gb
     File add_meta_script
-    String doublet_file
-    String input_rds_file
+    File doublet_file
+    File input_rds_file
   }
 
    command <<<
