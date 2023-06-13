@@ -129,7 +129,7 @@ names(doublet_cols) <- c("yes","no")
 gplotlist = list()
 for(i in c(colnames(All_doublet_preds),'majority_doublet_predictions')){
   Idents(seurat_object) <- i
-  mydmplt <-DimPlot(seurat_object,cols= doublet_cols,pt.size = 0.8,sacc) + ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
+  mydmplt <-DimPlot(seurat_object,cols= doublet_cols,pt.size = 0.8) + ggtitle(i) + theme(plot.title = element_text(hjust = 0.5))
   mydmplt <- mydmplt + theme(text = element_text(size = 22)) + theme(legend.title=element_text(color="black",size=20))+ theme(legend.text=element_text(size=20))+guides(fill = guide_legend(override.aes = list(size=15)))
   mydmplt <- mydmplt +theme(axis.text.y = element_text(color="black",size=22))+theme(axis.text.x = element_text(color="black",size=22))+theme(axis.title.x = element_text(color="black",size=22))+theme(axis.title.y = element_text(color="black",size=22))
   gplotlist[[i]] = mydmplt
