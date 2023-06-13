@@ -10,7 +10,7 @@ workflow scatter_gather_scsorter{
     Int mem_gb
     File scsorter_script
     String Sample_name
-    String rds_file_path
+    File rds_file_path
   File inputSamplesFile
   Array[Array[File]] inputSamples = read_tsv(inputSamplesFile)
   }
@@ -52,7 +52,7 @@ task merge_scsorter_results {
     Int mem_gb
     File merge_scsorter_script
     String Sample_name
-    String seurat_rds_path
+    File seurat_rds_path
     String type
     Array[String] scsorter_runs
   }
