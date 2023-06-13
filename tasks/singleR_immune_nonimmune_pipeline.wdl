@@ -7,7 +7,7 @@ task run_singleR_immune_nonimmune {
     String queue_name
     Int mem_gb
     File singleR_immune_nonimmune_rscript
-    String rds_file_path
+    File rds_file_path
     String Sample_name
     Float clustering_res
     Int nPC

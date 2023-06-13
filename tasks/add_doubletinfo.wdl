@@ -8,7 +8,7 @@ task add_doublets_metadata{
     Int mem_gb
     File add_meta_script
     String doublet_file
-    String input_rds_file
+    File input_rds_file
   }
 
    command <<<
