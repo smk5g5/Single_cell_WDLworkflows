@@ -41,7 +41,10 @@ print(Seurat_10x_directory)
 # k = vI[[i]]):
 #/storage1/fs1/allegra.petti/Active/spatial_snRNAseq_gbm/scrnaseq/SAMPLES/B186/outs/filtered_feature_bc_matrix
 # /raw_feature_bc_matrix/barcodes.tsv.gz
-data.10x <- Read10X(data.dir = Seurat_10x_directory);
+#data.10x <- Read10X(data.dir = Seurat_10x_directory);
+
+data.10x <- gcs_get_object(object_name = Seurat_10x_directory, parseFunction = Read10X())
+
 
 methods <- c('doubletCells','cxds','bcds','hybrid','scDblFinder','DoubletFinder')
 score.list <- FindScores(data.10x, methods)
