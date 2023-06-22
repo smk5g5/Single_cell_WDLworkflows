@@ -23,9 +23,9 @@ args <- commandArgs(trailingOnly = TRUE)
 # }
 
 Seurat_file <- as.character(args[1])
-Reference_name <- as.character(args[2])
+singleR_tsv <- as.character(args[2])
 #sample_name <- as.character(args[3])
-singleR_file <- as.character(args[3:length(args)])
+singleR_files <- as.character(args[3:length(args)])
 
 date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
@@ -111,7 +111,7 @@ plot_singleRhca <- function(seurat_obj,meta_celltype_name,ref_name,date) {
 
 seurat_object <- readRDS(Seurat_file)
 
-input_df <- read.table(singleR_file,sep="\t",header=FALSE)
+input_df <- read.table(singleR_tsv,sep="\t",header=FALSE)
 colnames(input_df) <- c('Reference_name','label_column_name','reference_rds')
 
 
