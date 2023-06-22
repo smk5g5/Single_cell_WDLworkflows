@@ -8,16 +8,17 @@ library(RColorBrewer)
 library(ggthemes)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 6) {
+if(length(args) < 7) {
   args <- c("--help")
 }
 
 seurat_loc <- as.character(args[1])
-# sub_col <- as.character(args[2])
-# ident_names <- as.character(args[3])
-# inverse <- as.character(args[4])
-# output_suffix <- as.character(args[5])
-organism <- as.character(args[2])
+sub_col <- as.character(args[2])
+ident_names <- as.character(args[3])
+inverse <- as.character(args[4])
+output_suffix <- as.character(args[5])
+organism <- as.character(args[6])
+tirosh_file <- as.character(args[7])
 # output.stats <- as.character(args[4])
 # output_meta <- as.character(args[5])
 
@@ -25,7 +26,7 @@ seurat_obj <- readRDS(seurat_loc)
 
 print(names(seurat_obj@meta.data))
 
-date = gsub("2022-","22",Sys.Date(),perl=TRUE);
+date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
 
 get_significant_pcs <- function(scrna_GEX) {
@@ -53,8 +54,8 @@ get_significant_pcs <- function(scrna_GEX) {
 }
 
 
-subset_renormalize_recluster <- function(seurat_obj,date) {
-                                         # sub_col,ident_names,inverse,date) {
+subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,date) {
+                                         # sub_col,ident_names,inverse) {
   DefaultAssay(seurat_obj) <- "RNA"
   # print('Does the error happen inside subset_renormalize_recluster?')
   Idents(seurat_obj) <- sub_col
@@ -67,18 +68,18 @@ subset_renormalize_recluster <- function(seurat_obj,date) {
   # ##################################################################################
   # # This bit is only for testing purposes for the rscript within wdl would be disabled
   # # in the main workflow
-  # set.seed(100)
-  # random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.1)
-  # #select 10% of all cells randomly for testing the script.
-  # scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
+  set.seed(100)
+  random_sample_of_cells = sample(Cells(scrna_GEX),length(Cells(scrna_GEX)) * 0.3)
+  #select 30% of all cells randomly for testing the script.
+  scrna_GEX <- subset(scrna_GEX,cells=random_sample_of_cells)
   # ##################################################################################
 
   if(organism=='human'){
-  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh.txt", sep='\t', header=TRUE);
+  cell.cycle.tirosh <- read.table(tirosh_file, sep='\t', header=TRUE);
   s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
   g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
   } else{
-  cell.cycle.tirosh <- read.table("/storage1/fs1/allegra.petti/Active/10xGenomics/key.gene.lists/CellCycleTirosh_mouse.txt", sep='\t', header=FALSE);
+  cell.cycle.tirosh <- read.table(tirosh_file, sep='\t', header=FALSE);
   s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
   g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
   }
@@ -157,10 +158,11 @@ subset_renormalize_recluster <- function(seurat_obj,date) {
   #https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8375188/
   #https://github.com/siyao-liu/MultiK
   #in the next version 
-
-  Idents(scrna_GEX) <- sprintf("ClusterNames_%.1f_%dPC",0.7, nPC)
-  DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
-  write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls", nPC, 0.7, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
+#
+#Need to move the DEG to another wdl/Rscript combination and use it with future library
+#   Idents(scrna_GEX) <- sprintf("ClusterNames_%.1f_%dPC",0.7, nPC)
+#   DEGs <- FindAllMarkers(object=scrna_GEX); # output is a matrix!
+#   write.table(DEGs, file=sprintf("DEGs.Wilcox.PCA.%d.cluster.%.1f.%s.xls", nPC, 0.7, date), quote=FALSE, sep="\t", row.names=FALSE) # must save cluster-specific marker genes
 	
   n.graph = length(unique(Idents(scrna_GEX)))
   print(n.graph)
@@ -253,7 +255,7 @@ seurat_obj <- subset_renormalize_recluster(seurat_obj=seurat_obj,sub_col=sub_col
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(seurat_loc)),".",output_suffix,".",date,".rds")
 
-output_file = paste0(dirname(seurat_loc),'/',basename(output_file))
+# output_file = paste0(dirname(seurat_loc),'/',basename(output_file)) #this was only meant for file servers not cloud terra workflows
 
 saveRDS(seurat_obj, file = output_file)
 
