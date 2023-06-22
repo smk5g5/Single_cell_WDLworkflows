@@ -13,6 +13,7 @@ task subset_recluster_renormalize{
     String inverse
     String output_suffix
     String organism
+    File tirosh_file
   }
 
    command <<<
