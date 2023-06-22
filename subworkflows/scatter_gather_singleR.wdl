@@ -69,6 +69,6 @@ task add_singleR_results_to_seurat{
   }
 
   output {
-  File seurat_singleR_rds = glob("*.single_R_preds.*.rds")[0] 
+  File seurat_singleR_rds = glob("*.single_R_preds*.rds")[0] 
   }
 }
