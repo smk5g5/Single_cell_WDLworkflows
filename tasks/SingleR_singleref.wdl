@@ -11,10 +11,11 @@ task run_singleR_singleref {
     File singleR_ref_rds
     String reference_name
     String label_column_name
+    String Sample_name
   }
 
    command <<<
-    Rscript ~{singleR_singleref_rscript} ~{seurat_rds} ~{singleR_ref_rds} ~{reference_name} ~{label_column_name}
+    Rscript ~{singleR_singleref_rscript} ~{seurat_rds} ~{singleR_ref_rds} ~{reference_name} ~{label_column_name} ~{Sample_name}
     >>>
 
   runtime {
