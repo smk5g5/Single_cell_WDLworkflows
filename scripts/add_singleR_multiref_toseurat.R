@@ -123,7 +123,7 @@ for(i in 1:nrow(input_df)){
 single_R_preds <-  readRDS(singleR_files[grep(input_df$Reference_name[i],singleR_files)])
 seurat_object <- Add_singleR_scores_to_seuratassay_singleref(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=input_df$Reference_name[i])
 seurat_object <- Add_singleR_preds_to_seuratmeta(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=input_df$Reference_name[i])
-plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",Reference_name),ref_name=input_df$Reference_name[i],date=date)
+plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",input_df$Reference_name[i]),ref_name=input_df$Reference_name[i],date=date)
  }
 
 # for(i in names(single_R_preds)){
