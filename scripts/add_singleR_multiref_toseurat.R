@@ -121,15 +121,17 @@ for(i in 1:nrow(input_df)){
  print(input_df$Reference_name[i])
  print(singleR_files[grep(input_df$Reference_name[i],singleR_files)])
 single_R_preds <-  readRDS(singleR_files[grep(input_df$Reference_name[i],singleR_files)])
+seurat_object <- Add_singleR_scores_to_seuratassay_singleref(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=input_df$Reference_name[i])
+seurat_object <- Add_singleR_preds_to_seuratmeta(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=input_df$Reference_name[i])
+plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",Reference_name),ref_name=input_df$Reference_name[i],date=date)
  }
 
-for(i in names(single_R_preds)){
-seurat_object <- Add_singleR_scores_to_seuratassay_singleref(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
-seurat_object <- Add_singleR_preds_to_seuratmeta(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
-plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",Reference_name),ref_name=Reference_name,date=date)
-}
+# for(i in names(single_R_preds)){
+# seurat_object <- Add_singleR_scores_to_seuratassay_singleref(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
+# seurat_object <- Add_singleR_preds_to_seuratmeta(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
+# plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",Reference_name),ref_name=Reference_name,date=date)
+# }
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(Seurat_file)),".single_R_preds.",date,".rds")
 
 saveRDS(seurat_object, file = output_file)
-
