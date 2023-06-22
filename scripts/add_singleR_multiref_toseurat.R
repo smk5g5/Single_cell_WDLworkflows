@@ -1,4 +1,4 @@
-library(DoubletFinder)
+/library(DoubletFinder)
 library(scds)
 library(scDblFinder)
 library(scran)
@@ -111,7 +111,7 @@ plot_singleRhca <- function(seurat_obj,meta_celltype_name,ref_name,date) {
 
 seurat_object <- readRDS(Seurat_file)
 
-input_df <- read.table(singleR_tsv_file,sep="\t",header=FALSE)
+input_df <- read.table(singleR_file,sep="\t",header=FALSE)
 colnames(input_df) <- c('Reference_name','label_column_name','reference_rds')
 
 
