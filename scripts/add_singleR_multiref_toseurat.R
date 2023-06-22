@@ -87,12 +87,12 @@ plot_singleRhca <- function(seurat_obj,meta_celltype_name,ref_name,date) {
   # }
   # jpeg(sprintf("%s/%s_singleR_celltype_%s.jpg",output.dir,outfile,ref_name), width = 20, height = 14, units="in", res=300);
   p2 <- DimPlot(object = seurat_obj, reduction = "umap", group.by = meta_celltype_name, cols = cell.colors, pt.size=2)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
-  ggsave(sprintf("Dimplot_SingleR_%s_%s_%s.png",ref_name,sample_name,date),plot = p2, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
+  ggsave(sprintf("Dimplot_SingleR_%s_%s.png",ref_name,date),plot = p2, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
   # print(p2);
   # dev.off();
   # jpeg(sprintf("%s/%s_celltype_%s_labeled.jpg",output.dir,outfile,ref_name), width = 20, height = 14, units="in", res=300);
   p2 <- DimPlot(object = seurat_obj, reduction = "umap", group.by = meta_celltype_name, cols = cell.colors, pt.size=2,label=T,label.size = 5)+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank());
-  ggsave(sprintf("Dimplot_SingleR_lab_%s_%s_%s.png",ref_name,sample_name,date),plot = p2, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
+  ggsave(sprintf("Dimplot_SingleR_lab_%s_%s.png",ref_name,date),plot = p2, width = 30, height = 30, units = "in",dpi = 300,device = "png",scale = 1)
   # print(p2);
   # dev.off()
   plots=list();
@@ -102,7 +102,7 @@ plot_singleRhca <- function(seurat_obj,meta_celltype_name,ref_name,date) {
     subcolors <- cell.colors[samp];
     plots[[i]] <- DimPlot(object = seurat_obj, reduction = "umap", group.by = meta_celltype_name, cells.highlight=subcells, cols.highlight=subcolors,sizes.highlight=0.1) + theme(axis.title.x=element_blank(),axis.title.y=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())+ggtitle(samp)+theme(plot.title = element_text(hjust = 0.5))
   }
-  outfile <- sprintf("Dimplots_by_celltype_%s.%s.pdf",ref_name,sample_name,date);
+  outfile <- sprintf("Dimplots_by_celltype_%s.%s.pdf",ref_name,date);
   ml <- marrangeGrob(plots, nrow=2, ncol=2)
   ggsave(outfile,ml,width=10, height=10)
   return(cell.colors)
