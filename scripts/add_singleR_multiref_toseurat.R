@@ -1,4 +1,3 @@
-# .libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(DoubletFinder)
 library(scds)
 library(scDblFinder)
@@ -18,15 +17,15 @@ library(RColorBrewer)
 library(gridExtra)
 
 
-args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 3) {
-  args <- c("--help")
-}
+# args <- commandArgs(trailingOnly = TRUE)
+# if(length(args) < 3) {
+#   args <- c("--help")
+# }
 
 Seurat_file <- as.character(args[1])
 Reference_name <- as.character(args[2])
-sample_name <- as.character(args[3])
-# singleR_file <- as.character(args[4:length(args)])
+#sample_name <- as.character(args[3])
+singleR_file <- as.character(args[3:length(args)])
 
 date = gsub("2023-","23",Sys.Date(),perl=TRUE);
 date = gsub("-","",date);
@@ -112,23 +111,22 @@ plot_singleRhca <- function(seurat_obj,meta_celltype_name,ref_name,date) {
 
 seurat_object <- readRDS(Seurat_file)
 
-# input_df <- read.table(singleR_tsv_file,sep="\t",header=FALSE)
-# colnames(input_df) <- c('Reference_name','label_column_name','reference_rds')
+input_df <- read.table(singleR_tsv_file,sep="\t",header=FALSE)
+colnames(input_df) <- c('Reference_name','label_column_name','reference_rds')
 
 
-# single_R_preds <- list()
+single_R_preds <- list()
 
-# for(i in 1:nrow(input_df)){
-# [[input_df$Reference_name[i]]] 
-# [grep(input_df$Reference_name[i],singleR_files)]
-single_R_preds <-  readRDS(singleR_files)
-# }
+for(i in 1:nrow(input_df)){
+ # [[input_df$Reference_name[i]]] 
+single_R_preds <-  readRDS([grep(input_df$Reference_name[i],singleR_files)])
+ }
 
-# for(i in names(single_R_preds)){
+for(i in names(single_R_preds)){
 seurat_object <- Add_singleR_scores_to_seuratassay_singleref(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
 seurat_object <- Add_singleR_preds_to_seuratmeta(singleR_obj=single_R_preds,seurat_obj=seurat_object,reference_name=Reference_name)
 plot_singleRhca(seurat_obj=seurat_object,meta_celltype_name=sprintf("singleR_results_%s",Reference_name),ref_name=Reference_name,date=date)
-# }
+}
 
 output_file <- paste0(gsub('\\.[0-9]*.rds$','',basename(Seurat_file)),".single_R_preds.",date,".rds")
 
