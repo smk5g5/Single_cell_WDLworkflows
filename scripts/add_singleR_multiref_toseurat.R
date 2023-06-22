@@ -1,4 +1,4 @@
-/library(DoubletFinder)
+library(DoubletFinder)
 library(scds)
 library(scDblFinder)
 library(scran)
