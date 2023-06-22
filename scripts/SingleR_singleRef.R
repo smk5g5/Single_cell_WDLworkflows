@@ -13,7 +13,7 @@ library(stringr)
 library(RColorBrewer)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 5) {
+if(length(args) < 4) {
   args <- c("--help")
 }
 
