@@ -17,7 +17,7 @@ library(RColorBrewer)
 library(gridExtra)
 
 
-# args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 # if(length(args) < 3) {
 #   args <- c("--help")
 # }
