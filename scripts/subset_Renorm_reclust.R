@@ -75,11 +75,11 @@ subset_renormalize_recluster <- function(seurat_obj,sub_col,ident_names,inverse,
   # ##################################################################################
 
   if(organism=='human'){
-  cell.cycle.tirosh <- read.table(tirosh_file, sep='\t', header=TRUE);
+  cell.cycle.tirosh <- read.table(/key.gene.lists/CellCycleTirosh.txt, sep='\t', header=TRUE);
   s.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G1/S")];
   g2m.genes = cell.cycle.tirosh$`Gene.Symbol`[which(cell.cycle.tirosh$List == "G2/M")];
   } else{
-  cell.cycle.tirosh <- read.table(tirosh_file, sep='\t', header=FALSE);
+  cell.cycle.tirosh <- read.table(/key.gene.lists/CellCycleTirosh_mouse.txt, sep='\t', header=FALSE);
   s.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G1/S")];
   g2m.genes = cell.cycle.tirosh$V2[which(cell.cycle.tirosh$V1 == "G2/M")];
   }
