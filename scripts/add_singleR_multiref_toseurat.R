@@ -118,8 +118,9 @@ colnames(input_df) <- c('Reference_name','label_column_name','reference_rds')
 single_R_preds <- list()
 
 for(i in 1:nrow(input_df)){
- # [[input_df$Reference_name[i]]] 
-single_R_preds <-  readRDS([grep(input_df$Reference_name[i],singleR_files)])
+ print(input_df$Reference_name[i])
+ print(singleR_files[grep(input_df$Reference_name[i],singleR_files)])
+single_R_preds <-  readRDS(singleR_files[grep(input_df$Reference_name[i],singleR_files)])
  }
 
 for(i in names(single_R_preds)){
