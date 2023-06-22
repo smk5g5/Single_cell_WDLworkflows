@@ -21,7 +21,6 @@ Seurat_rds <- as.character(args[1])
 singleR_reference <- as.character(args[2])
 reference_name =  as.character(args[3])
 label_column_name =  as.character(args[4])
-sample_name=  as.character(args[5])
 
 seurat_obj <- readRDS(Seurat_rds)
 singleR_obj <- readRDS(singleR_reference)
@@ -31,4 +30,4 @@ singleR_preds <- SingleR(test = as.SingleCellExperiment(seurat_obj),
                              labels = singleR_obj[[label_column_name]],
                              BPPARAM=MulticoreParam())
 
-saveRDS(object=singleR_preds,file=sprintf("%s_singleR_preds_%s.rds", reference_name,sample_name))
+saveRDS(object=singleR_preds,file=sprintf("%s_singleR_preds.rds", reference_name))
