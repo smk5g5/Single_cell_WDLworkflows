@@ -8,7 +8,7 @@ library(RColorBrewer)
 library(ggthemes)
 
 args <- commandArgs(trailingOnly = TRUE)
-if(length(args) < 7) {
+if(length(args) < 6) {
   args <- c("--help")
 }
 
@@ -18,7 +18,6 @@ ident_names <- as.character(args[3])
 inverse <- as.character(args[4])
 output_suffix <- as.character(args[5])
 organism <- as.character(args[6])
-tirosh_file <- as.character(args[7])
 # output.stats <- as.character(args[4])
 # output_meta <- as.character(args[5])
 
