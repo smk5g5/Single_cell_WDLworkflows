@@ -55,7 +55,7 @@ task add_singleR_results_to_seurat{
     File merge_SingleR_in_seurat_script
     File inputSamplesFile
     File seurat_rds
-    Array[String] singleR_pred_rds
+    Array[File] singleR_pred_rds
   }
 
    command <<<
