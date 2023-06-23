@@ -99,7 +99,7 @@ task merge_singlesample_seurat_to_multisample{
     File merge_singlesample_seurat_script
     String organism
     String project_name
-    Array[ seurat_files
+    Array[File] seurat_files
   }
 
    command <<<
