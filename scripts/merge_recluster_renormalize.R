@@ -1,4 +1,3 @@
-# .libPaths( c("/storage1/fs1/allegra.petti/Active/R_libs_scratch/RLibs_4.0.3",.libPaths()) )
 library(Seurat)
 library(ggplot2)
 library(cowplot)
@@ -20,7 +19,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 project_name <- as.character(args[1])
 organism <- as.character(args[2])
-seurat_files <- args[3]
+seurat_files <- as.character(args[3:length(args)])
 
 if(organism=='human'){
 genome <- "GRCh38";
@@ -260,10 +259,10 @@ renormalize_recluster <- function(scrna_GEX,date,organism) {
 seurat_obj_list <- list()
 sample_names <- c()
 
-mysrt_files = read.table(seurat_files,header = F)
+# mysrt_files = read.table(seurat_files,header = F)
 
-for(i in 1:nrow(mysrt_files)){
-  obj_name <- mysrt_files$V1[i]
+for(i in seurat_files){
+  obj_name <- i
   test_obj <- readRDS(obj_name)
   sample_names[i] <-  as.character(unique(test_obj$Sample))
   seurat_obj_list[[i]] <- readRDS(obj_name)
