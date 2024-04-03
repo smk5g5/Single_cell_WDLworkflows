@@ -30,7 +30,7 @@ task run_doublet_collection{
   }
 
   output {
-  File doublet_results = glob("*_Doublet_collection_results.rds")
+  File doublet_results = glob("*_Doublet_collection_results.rds")[0]
   }
 }
 
